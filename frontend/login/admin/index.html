@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html class="scroll-smooth" lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>Admin Login | Arkan Arabia Logistics</title>
+  <meta name="description" content="Secure admin login for Arkan Arabia dashboard."/>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            background: '#fcf9f8',
+            primary: '#00337d',
+            'primary-container': '#1b4a9f',
+            'on-primary': '#ffffff',
+            'surface-container': '#f0edec',
+            'on-surface': '#1c1b1b',
+            'on-surface-variant': '#434652',
+            error: '#ba1a1a'
+          },
+          fontFamily: {
+            h: ['Manrope'],
+            body: ['Inter']
+          }
+        }
+      }
+    };
+  </script>
+  <style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 450, 'GRAD' 0, 'opsz' 24;
+    }
+    .login-card {
+      border: 1px solid rgba(195, 198, 212, 0.5);
+      background: linear-gradient(180deg, #ffffff 0%, #f8f6f5 100%);
+      box-shadow: 0 14px 40px rgba(10, 22, 40, 0.08);
+    }
+  </style>
+  <link rel="stylesheet" href="../../assets/css/styles.css"/>
+</head>
+<body class="bg-background text-on-surface font-body overflow-x-hidden">
+  <div id="mob-header"></div>
+  <div id="site-header" class="hidden md:block"></div>
+
+  <main class="pt-[64px] md:pt-28 min-h-screen">
+    <section class="relative overflow-hidden bg-gradient-to-br from-primary to-primary-container text-on-primary">
+      <div class="absolute inset-0 opacity-10" style="background-image:radial-gradient(circle at 20% 10%, #ffffff 1px, transparent 1px); background-size: 18px 18px;"></div>
+      <div class="relative z-10 max-w-6xl mx-auto px-4 md:px-12 py-12 md:py-16">
+        <p class="text-xs md:text-sm font-semibold tracking-[0.22em] uppercase text-white/80">Secure Access</p>
+        <h1 class="font-h text-3xl md:text-5xl font-extrabold leading-tight mt-2">Admin Login</h1>
+        <p class="max-w-2xl mt-3 text-white/85 text-sm md:text-base">Login required before entering the admin dashboard.</p>
+      </div>
+    </section>
+
+    <section class="max-w-6xl mx-auto px-4 md:px-12 -mt-8 relative z-20 pb-20">
+      <div class="login-card rounded-2xl p-5 md:p-7 max-w-xl mx-auto">
+        <div class="flex items-center gap-3 mb-5">
+          <div class="w-11 h-11 rounded-xl bg-primary text-white flex items-center justify-center">
+            <span class="material-symbols-outlined">admin_panel_settings</span>
+          </div>
+          <div>
+            <h2 class="font-h text-xl font-bold">Authentication</h2>
+            <p class="text-sm text-on-surface-variant">Use your admin credentials to continue.</p>
+          </div>
+        </div>
+
+        <form id="admin-login-form" class="space-y-3">
+          <div>
+            <label for="admin-username" class="block text-sm font-semibold text-on-surface-variant mb-1">Admin Username</label>
+            <input id="admin-username" type="text" class="w-full h-12 rounded-xl border border-[#c3c6d4] bg-white px-4" placeholder="Enter username"/>
+          </div>
+          <div>
+            <label for="admin-password" class="block text-sm font-semibold text-on-surface-variant mb-1">Admin Password</label>
+            <input id="admin-password" type="password" class="w-full h-12 rounded-xl border border-[#c3c6d4] bg-white px-4" placeholder="Enter password" required/>
+          </div>
+          <button type="submit" class="w-full h-12 rounded-xl bg-primary text-on-primary font-semibold hover:bg-primary-container transition-colors">Login to Dashboard</button>
+        </form>
+
+        <p id="login-error" class="hidden text-sm text-error mt-3">Invalid credentials. Please try again.</p>
+      </div>
+    </section>
+  </main>
+
+  <div id="site-footer" class="hidden md:block"></div>
+  <div id="mob-footer"></div>
+  <div id="mob-nav"></div>
+
+  <script src="../../assets/js/script.js"></script>
+  <script>
+    const API_BASE_URL = `${window.location.protocol}//${window.location.hostname}:4000`;
+    const API_ADMIN_LOGIN = `${API_BASE_URL}/api/admin/login`;
+    const ADMIN_TOKEN_KEY = 'arkan_admin_token';
+
+    if (sessionStorage.getItem(ADMIN_TOKEN_KEY)) {
+      window.location.replace('/pages/admin.html');
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const form = document.getElementById('admin-login-form');
+      const userEl = document.getElementById('admin-username');
+      const passEl = document.getElementById('admin-password');
+      const errEl = document.getElementById('login-error');
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        errEl.classList.add('hidden');
+
+        const username = userEl.value.trim();
+        const password = passEl.value;
+
+        try {
+          const res = await fetch(API_ADMIN_LOGIN, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ username, password })
+          });
+
+          if (!res.ok) {
+            errEl.classList.remove('hidden');
+            return;
+          }
+
+          const data = await res.json();
+          if (!data.token) {
+            errEl.classList.remove('hidden');
+            return;
+          }
+
+          sessionStorage.setItem(ADMIN_TOKEN_KEY, data.token);
+          window.location.replace('/pages/admin.html');
+        } catch (e) {
+          errEl.textContent = 'Backend is unreachable. Please start backend server.';
+          errEl.classList.remove('hidden');
+        }
+      });
+    });
+  </script>
+</body>
+</html>

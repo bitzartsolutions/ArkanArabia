@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html class="scroll-smooth" lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>About Us | Arkan Arabia Logistics</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "background": "#fcf9f8",
+            "surface-variant": "#e5e2e1",
+            "primary-fixed-dim": "#b0c6ff",
+            "on-surface": "#1c1b1b",
+            "tertiary": "#31383f",
+            "error-container": "#ffdad6",
+            "on-error-container": "#93000a",
+            "surface-bright": "#fcf9f8",
+            "on-secondary-container": "#26348a",
+            "secondary": "#4957ad",
+            "secondary-fixed": "#dee0ff",
+            "tertiary-fixed": "#dce3eb",
+            "surface-container-lowest": "#ffffff",
+            "primary": "#00337d",
+            "on-secondary": "#ffffff",
+            "surface-container-low": "#f6f3f2",
+            "secondary-container": "#94a2fe",
+            "primary-container": "#1b4a9f",
+            "on-tertiary-fixed-variant": "#40484e",
+            "inverse-primary": "#b0c6ff",
+            "on-secondary-fixed": "#000e5e",
+            "error": "#ba1a1a",
+            "surface-container-high": "#eae7e7",
+            "surface": "#fcf9f8",
+            "surface-container-highest": "#e5e2e1",
+            "on-primary": "#ffffff",
+            "surface-dim": "#dcd9d9",
+            "outline": "#747783",
+            "on-background": "#1c1b1b",
+            "tertiary-container": "#484f56",
+            "on-secondary-fixed-variant": "#303e94",
+            "on-primary-fixed": "#001945",
+            "inverse-surface": "#313030",
+            "surface-tint": "#315bb0",
+            "on-tertiary-container": "#bac1c8",
+            "on-error": "#ffffff",
+            "secondary-fixed-dim": "#bbc3ff",
+            "on-tertiary": "#ffffff",
+            "on-primary-fixed-variant": "#0d4297",
+            "surface-container": "#f0edec",
+            "inverse-on-surface": "#f3f0ef",
+            "on-surface-variant": "#434652",
+            "on-tertiary-fixed": "#151c22",
+            "outline-variant": "#c3c6d4",
+            "tertiary-fixed-dim": "#c0c7cf",
+            "on-primary-container": "#a6bfff",
+            "primary-fixed": "#d9e2ff"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "2xl": "20px",
+            "full": "9999px"
+          },
+          "spacing": {
+            "md": "24px",
+            "lg": "48px",
+            "sm": "12px",
+            "xs": "4px",
+            "gutter": "24px",
+            "container-max": "1440px",
+            "xl": "80px",
+            "base": "8px"
+          },
+          "fontFamily": {
+            "h2": ["Manrope"],
+            "label-sm": ["Inter"],
+            "body-md": ["Inter"],
+            "h1": ["Manrope"],
+            "display-xl": ["Manrope"],
+            "body-lg": ["Inter"],
+            "h3": ["Manrope"]
+          },
+          "fontSize": {
+            "h2": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+            "label-sm": ["14px", {"lineHeight": "20px", "letterSpacing": "0.02em", "fontWeight": "600"}],
+            "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+            "h1": ["56px", {"lineHeight": "64px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+            "display-xl": ["72px", {"lineHeight": "84px", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+            "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+            "h3": ["24px", {"lineHeight": "32px", "fontWeight": "600"}]
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+    .glass-card {
+      background: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+    /* Desktop styles */
+    .text-gradient {
+      background: linear-gradient(135deg, #00337d 0%, #1b4a9f 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .timeline-line::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #b0c6ff 20%, #b0c6ff 80%, transparent);
+      transform: translateY(-50%);
+      z-index: 0;
+    }
+    .hide-scrollbar::-webkit-scrollbar { display: none; }
+    .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    /* Mobile styles */
+    .hero-gradient-mobile {
+      background: linear-gradient(180deg, rgba(0, 51, 125, 0.4) 0%, rgba(0, 51, 125, 0.8) 100%);
+    }
+    .text-shadow-sm { text-shadow: 0 2px 4px rgba(0,0,0,0.2); }
+    /* Scroll reveal */
+    .abt-reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .abt-reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/css/styles.css"/>
+</head>
+<body class="bg-background text-on-background font-body-md selection:bg-primary-container selection:text-on-primary-container overflow-x-hidden">
+
+  <!-- ══ MOBILE HEADER + DRAWER (injected, md:hidden) ══ -->
+  <div id="mob-header"></div>
+
+  <!-- Desktop shared header (hidden on mobile) -->
+  <div id="site-header" class="hidden md:block"></div>
+
+  <!-- ════════════════════════════════════════════
+       MOBILE LAYOUT  (visible < md)
+  ════════════════════════════════════════════ -->
+  <main class="md:hidden pt-[64px] pb-16">
+
+    <!-- Mobile Hero -->
+    <section class="relative h-[85vh] flex flex-col justify-end p-md overflow-hidden">
+      <div class="absolute inset-0 z-0">
+        <div class="w-full h-full bg-cover bg-center"
+             style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDhO278XA7kzySQHverKisNAxH4xNF8nKsYKYOXn7v53ReY86RKHJWg_uWIeru10QXZiEYcFtewtwSMRYpy9BzmBzzo-LRBmQDl6Jdr7X2QFajVouteCNDTBujAL3d40dk229w-3jqoHWd4wdbJkrKNRaGsRdWB0XUA_NoC8b6gQIEjqS1j1WVj6C8tROh18yk6dBvjk79_Cntgn0cKb2PKff-KVmglyH5g9acS_mv9-BJSxUFsX0B6TYyfsTOKs9vI03UsiSquaw6v')">
+        </div>
+        <div class="absolute inset-0 hero-gradient-mobile"></div>
+      </div>
+      <div class="relative z-10 space-y-md mb-lg">
+        <div class="space-y-sm">
+          <span class="inline-block px-sm py-1 bg-primary text-on-primary font-label-sm text-label-sm rounded-full tracking-widest">ABOUT US</span>
+          <h1 class="font-h1 text-[40px] leading-tight text-white text-shadow-sm">Architects of Global Motion</h1>
+          <p class="font-body-lg text-body-lg text-primary-fixed max-w-md">Bridging continents through precision engineering and unparalleled logistics expertise.</p>
+        </div>
+        <div class="grid grid-cols-2 gap-sm">
+          <div class="glass-card p-md rounded-xl">
+            <div class="text-primary font-h2 text-h2 mb-xs">15+</div>
+            <div class="text-on-surface-variant font-label-sm text-label-sm">YEARS EXP</div>
+          </div>
+          <div class="glass-card p-md rounded-xl">
+            <div class="text-primary font-h2 text-h2 mb-xs">400k</div>
+            <div class="text-on-surface-variant font-label-sm text-label-sm">TEU ANNUALLY</div>
+          </div>
+          <div class="glass-card p-md rounded-xl">
+            <div class="text-primary font-h2 text-h2 mb-xs">120+</div>
+            <div class="text-on-surface-variant font-label-sm text-label-sm">COUNTRIES</div>
+          </div>
+          <div class="glass-card p-md rounded-xl">
+            <div class="text-primary font-h2 text-h2 mb-xs">2.4m</div>
+            <div class="text-on-surface-variant font-label-sm text-label-sm">SQFT WH</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Mobile: Who We Are -->
+    <section class="px-md py-xl space-y-lg">
+      <div class="rounded-xl overflow-hidden shadow-sm">
+        <img class="w-full aspect-[4/5] object-cover" alt="Modern automated warehouse"
+             src="https://lh3.googleusercontent.com/aida-public/AB6AXuBH8MK6y6M04aYDcNsceZ3r6Xt4m81ksWmAhhKnfwUIWV6ptZm2lwaXup0I4k5gWy8YePO_KVDyUUHA5gLVoTkasSPiU3BIbKR5tvtEIgfvRyR-sr_Go2N7QItZ8wxu8s_m_dXq0iyQpwHjtiClDx7KPozM1Czegwm3uwwMkxnQYb1JGy9d2y0wSUXH9dPsfNjkAV33EJeLm4gXBhLmGDYlhZBJQKsJx9xbdloi_iI5SpInQukoQgk2DvoAuuQSSENCOY9J0pdLOIMm"/>
+      </div>
+      <div class="space-y-md">
+        <h2 class="font-h2 text-h2 text-primary">Defining the Modern Supply Chain</h2>
+        <p class="font-body-md text-body-md text-on-surface-variant">Founded on the principles of reliability and innovation, Arkan Arabia Logistics has evolved from a regional player into a global force. We specialize in complex, high-stakes supply chain solutions that demand absolute transparency and Swiss-grade precision.</p>
+        <button class="w-full h-[56px] bg-primary text-on-primary font-label-sm text-label-sm rounded-lg flex items-center justify-center gap-sm shadow-md active:scale-95 transition-transform">
+          <span class="material-symbols-outlined">download</span>
+          DOWNLOAD COMPANY PROFILE
+        </button>
+      </div>
+    </section>
+
+    <!-- Mobile: Our Journey (vertical timeline) -->
+    <section class="bg-surface-container-low px-md py-xl">
+      <h2 class="font-h2 text-h2 text-primary mb-lg">Our Journey</h2>
+      <div class="relative border-l-2 border-primary/20 ml-4 space-y-lg pb-4">
+        <div class="relative pl-8">
+          <div class="absolute -left-[9px] top-1 w-4 h-4 rounded-full bg-primary ring-4 ring-white shadow-sm"></div>
+          <div class="bg-white p-md rounded-xl shadow-sm border border-outline-variant/30">
+            <span class="font-h3 text-h3 text-primary">2009</span>
+            <h4 class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-tighter mt-xs">Foundation</h4>
+            <p class="font-body-md text-body-md mt-sm">Established in Riyadh with a focus on local port clearance and domestic trucking.</p>
+          </div>
+        </div>
+        <div class="relative pl-8">
+          <div class="absolute -left-[9px] top-1 w-4 h-4 rounded-full bg-primary ring-4 ring-white shadow-sm"></div>
+          <div class="bg-white p-md rounded-xl shadow-sm border border-outline-variant/30">
+            <span class="font-h3 text-h3 text-primary">2012</span>
+            <h4 class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-tighter mt-xs">Regional Expansion</h4>
+            <p class="font-body-md text-body-md mt-sm">Opened first international hubs in UAE and Qatar, specializing in petrochemical transport.</p>
+          </div>
+        </div>
+        <div class="relative pl-8">
+          <div class="absolute -left-[9px] top-1 w-4 h-4 rounded-full bg-primary ring-4 ring-white shadow-sm"></div>
+          <div class="bg-white p-md rounded-xl shadow-sm border border-outline-variant/30">
+            <span class="font-h3 text-h3 text-primary">2018</span>
+            <h4 class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-tighter mt-xs">Digital Transformation</h4>
+            <p class="font-body-md text-body-md mt-sm">Launched Arkan-Link AI platform for real-time global shipment tracking.</p>
+          </div>
+        </div>
+        <div class="relative pl-8">
+          <div class="absolute -left-[9px] top-1 w-4 h-4 rounded-full bg-primary ring-4 ring-white shadow-sm"></div>
+          <div class="bg-white p-md rounded-xl shadow-sm border border-outline-variant/30">
+            <span class="font-h3 text-h3 text-primary">2019</span>
+            <h4 class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-tighter mt-xs">Global Network</h4>
+            <p class="font-body-md text-body-md mt-sm">Finalized strategic partnerships with 120 global carriers reaching 1,500+ ports.</p>
+          </div>
+        </div>
+        <div class="relative pl-8">
+          <div class="absolute -left-[9px] top-1 w-4 h-4 rounded-full bg-primary ring-4 ring-white shadow-sm"></div>
+          <div class="bg-white p-md rounded-xl shadow-sm border border-outline-variant/30">
+            <span class="font-h3 text-h3 text-primary">2022</span>
+            <h4 class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-tighter mt-xs">ISO Certification</h4>
+            <p class="font-body-md text-body-md mt-sm">Achieved ISO 9001, 14001, and OHSAS 18001 certifications across all operations.</p>
+          </div>
+        </div>
+        <div class="relative pl-8">
+          <div class="absolute -left-[9px] top-1 w-4 h-4 rounded-full bg-primary ring-4 ring-white shadow-sm"></div>
+          <div class="bg-white p-md rounded-xl shadow-sm border border-outline-variant/30">
+            <span class="font-h3 text-h3 text-primary">2024+</span>
+            <h4 class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-tighter mt-xs">Vision 2030 Aligned</h4>
+            <p class="font-body-md text-body-md mt-sm">Expanding fleet and warehousing capacity to support Saudi Arabia's Vision 2030 megaprojects.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Mobile: Mission & Vision -->
+    <section class="px-md py-xl space-y-md">
+      <div class="p-lg rounded-xl bg-gradient-to-br from-primary to-primary-container text-on-primary">
+        <span class="material-symbols-outlined text-4xl mb-md block">rocket_launch</span>
+        <h3 class="font-h2 text-h2 mb-sm">Our Mission</h3>
+        <p class="font-body-lg text-body-lg opacity-90">To engineer seamless global connectivity through innovative technology and uncompromising reliability.</p>
+      </div>
+      <div class="p-lg rounded-xl bg-gradient-to-br from-secondary to-secondary-container text-on-secondary">
+        <span class="material-symbols-outlined text-4xl mb-md block">visibility</span>
+        <h3 class="font-h2 text-h2 mb-sm">Our Vision</h3>
+        <p class="font-body-lg text-body-lg opacity-90">Becoming the definitive benchmark for enterprise logistics in the Middle East and beyond.</p>
+      </div>
+    </section>
+
+    <!-- Mobile: Why Choose Us -->
+    <section class="px-md py-xl bg-surface-container">
+      <div class="text-center mb-lg">
+        <h2 class="font-h2 text-h2 text-primary">The Arkan Advantage</h2>
+        <p class="font-body-md text-body-md text-on-surface-variant mt-sm">Built for high-stakes enterprise requirements.</p>
+      </div>
+      <div class="space-y-sm">
+        <div class="flex items-center gap-md p-md bg-surface rounded-xl border border-outline-variant/30">
+          <span class="material-symbols-outlined text-primary text-3xl">verified_user</span>
+          <div class="font-body-lg text-body-lg font-semibold">ISO 9001 Certified Quality</div>
+        </div>
+        <div class="flex items-center gap-md p-md bg-surface rounded-xl border border-outline-variant/30">
+          <span class="material-symbols-outlined text-primary text-3xl">terminal</span>
+          <div class="font-body-lg text-body-lg font-semibold">Proprietary AI Ecosystem</div>
+        </div>
+        <div class="flex items-center gap-md p-md bg-surface rounded-xl border border-outline-variant/30">
+          <span class="material-symbols-outlined text-primary text-3xl">public</span>
+          <div class="font-body-lg text-body-lg font-semibold">Asset-Heavy Global Hubs</div>
+        </div>
+        <div class="flex items-center gap-md p-md bg-surface rounded-xl border border-outline-variant/30">
+          <span class="material-symbols-outlined text-primary text-3xl">support_agent</span>
+          <div class="font-body-lg text-body-lg font-semibold">24/7 Dedicated Ops Desk</div>
+        </div>
+        <div class="flex items-center gap-md p-md bg-surface rounded-xl border border-outline-variant/30">
+          <span class="material-symbols-outlined text-primary text-3xl">gavel</span>
+          <div class="font-body-lg text-body-lg font-semibold">Full Regulatory Compliance</div>
+        </div>
+        <div class="flex items-center gap-md p-md bg-surface rounded-xl border border-outline-variant/30">
+          <span class="material-symbols-outlined text-primary text-3xl">eco</span>
+          <div class="font-body-lg text-body-lg font-semibold">Sustainable Green Logistics</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Mobile: Leadership -->
+    <section class="px-md py-xl">
+      <h2 class="font-h2 text-h2 text-primary mb-lg">Our Leadership</h2>
+      <div class="space-y-md">
+        <div class="flex items-center gap-md p-sm bg-white rounded-xl shadow-sm border border-outline-variant/10">
+          <div class="w-20 h-20 rounded-lg overflow-hidden flex-shrink-0">
+            <img class="w-full h-full object-cover" alt="Omar Al-Farsi, CEO"
+                 src="https://lh3.googleusercontent.com/aida-public/AB6AXuC83S88aCUnE2BVbhcZc3-XztzluBqi0ZNnOakLkEV1LBgAZNvdL_7xH-kC4XEp_4AZngS2lgga5V3mBAxTcdjMgS9AzgdJtipa3_qqyqzBKLg50E76MTl3XtcgyrV5sG-96rx59rPkZh8bLDSOCMT_smZDjJ4fSCFwp9fuRewVYrhwD5YSTzXrKzUAojW9GTAay_RT5TMZuRkizzuttCm_jlh0GyiPIjGRSN6NDLrfl6F8eGQ8mrZDEbOWiTZaizSulVq-0GOCnHJi"/>
+          </div>
+          <div>
+            <h4 class="font-h3 text-h3 text-primary">Omar Al-Farsi</h4>
+            <p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest">Chief Executive Officer</p>
+          </div>
+        </div>
+        <div class="flex items-center gap-md p-sm bg-white rounded-xl shadow-sm border border-outline-variant/10">
+          <div class="w-20 h-20 rounded-lg overflow-hidden flex-shrink-0">
+            <img class="w-full h-full object-cover" alt="Sarah Mitchell, COO"
+                 src="https://lh3.googleusercontent.com/aida-public/AB6AXuA4usB6rcq6Qf8R_mMJ3RlsdePgqX5u-uegoPE4oBPFbDghZvh5941GVp25c7YC_4up0vFAk90qCJwbadWdf9wU9TmkBLEk5UQC5OyLQ1-NADzx4yVY_mIlg-h6TtdNEwhIIaeYP6vOiMjfhtQeHmRz-ffPmfibXvg7b325slikE4IF1IdTHrDGgFSyGUbIpmmmVpfi9aPt4qngMqtvmr8jQyx5UQBnm3vOSUGTppKBB53t93_ERYWEDq_Mx460-xmI9RMfYXSGztio"/>
+          </div>
+          <div>
+            <h4 class="font-h3 text-h3 text-primary">Sarah Mitchell</h4>
+            <p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest">Chief Operations Officer</p>
+          </div>
+        </div>
+        <div class="flex items-center gap-md p-sm bg-white rounded-xl shadow-sm border border-outline-variant/10">
+          <div class="w-20 h-20 rounded-lg overflow-hidden flex-shrink-0">
+            <img class="w-full h-full object-cover" alt="Zayed Al-Mansour, VP Logistics"
+                 src="https://lh3.googleusercontent.com/aida-public/AB6AXuABfkF1hv986kf0CMQGYsLQsPnNoywXLt9bj1zgy_UEG-RdoeC4CkRYm02vierh8UJo4gdKcSlaznRvQ2PDstwvyPlUprlltDKb6EMlgyvICvT9WnMwhdu4nmZGGxpZgKbEpBQccWM1FFM_T-94K6weUuWdDj9H5Hie910-NlrzMUU8g1RI6jx0t9pEJw0tUedOY4tvHFRgGWDrqTQMJNQapzSKmU23KU5sPVfBHZCp77FNFsV7XHRD4KTbRAlMzRddkOEthm15f6t8"/>
+          </div>
+          <div>
+            <h4 class="font-h3 text-h3 text-primary">Zayed Al-Mansour</h4>
+            <p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest">VP of Logistics</p>
+          </div>
+        </div>
+        <div class="flex items-center gap-md p-sm bg-white rounded-xl shadow-sm border border-outline-variant/10">
+          <div class="w-20 h-20 rounded-lg overflow-hidden flex-shrink-0">
+            <img class="w-full h-full object-cover" alt="Dr. Amir Rahman, CTO"
+                 src="https://lh3.googleusercontent.com/aida-public/AB6AXuDm3UYTSPOFeTnVvDvjI9Mct5jPOBVto24p3PJqp_Uops8AstUW6ZXFfvnAt9wKeT3RaqKX-l8ldRW4aDCsske173svUYVQzV9m7qtwsR5N7_h2NsUoVjiOFur2KO7p6tjjAgbDTJiZ0Dk2owzGMEnPbNMxfxS4BCBRQjOZuX_FzKh8yfkIRJpcaq1Vr50vR4zjcjiorXtf8q5ZKIhRLKCA99GIjQFFRBQXnnosjuwOOqNxx9hA7-89OwaPOaMiOWguf_GdT8MRc3uy"/>
+          </div>
+          <div>
+            <h4 class="font-h3 text-h3 text-primary">Dr. Amir Rahman</h4>
+            <p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest">Chief Technology Officer</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Mobile: Expertise -->
+    <section class="space-y-lg px-md py-xl">
+      <h2 class="font-h2 text-h2 text-primary">Deep Industrial Expertise</h2>
+      <div class="space-y-md">
+        <div class="rounded-xl overflow-hidden relative aspect-video">
+          <img alt="Heavy Lift Project Cargo" class="w-full h-full object-cover"
+               src="https://lh3.googleusercontent.com/aida/AP1WRLsimEVzQnk2OVKPGx6eOZnPdrXKFBdLfnx34wNFOdqwl1G9x5BWSQG0piZdcQMNLnJq9Jr5FPda6LMattk69u17Xhu7AE4FPdl6AtEaHrmju4s6ly7_Lh1dAaKmA5J2DJ9Oi2Kll0W4jF_53ZxkU39Sx_2Sp1WtIYZnntHN1lPa6Fp98JODjNGFpssBKFzVfowDxB_RKJ81VShb6nCEoGUB7YvClsoIJqVQ7GH3vh5-faJFqYn03k2-0n8m"/>
+          <div class="absolute inset-0 bg-gradient-to-t from-primary/80 to-transparent flex flex-col justify-end p-md text-white">
+            <h4 class="font-h3 text-h3">Project Cargo</h4>
+            <p class="font-body-md text-body-md opacity-90">Specialized handling of oversized and over-dimensional industrial assets.</p>
+          </div>
+        </div>
+        <div class="rounded-xl overflow-hidden relative aspect-video">
+          <img alt="Customs and Compliance" class="w-full h-full object-cover"
+               src="https://lh3.googleusercontent.com/aida/AP1WRLvsVZVtQqEJFzXb7LPavxKI0skZcXMgvR1Qk1QQKKpH1UFT16w1MrYAG3hLb0ntgiM3xrsoq65T3eRrEkPVMyHwmifMpu-6eZpoQ-9Ywyi7iniy6gNowlneTufhODtAU-LUkbYXBEDR1RNBgpsddAMZIARDvuh39kPyW7hucO4gXtpIRiD-TJE6rDQT4gafhkPrezKnwF8AiCi-puPLfRyonTU1GSFXGS8n4iYe_QSrV4YpjWV5D76HtWU_"/>
+          <div class="absolute inset-0 bg-gradient-to-t from-secondary/80 to-transparent flex flex-col justify-end p-md text-white">
+            <h4 class="font-h3 text-h3">Customs Advisory</h4>
+            <p class="font-body-md text-body-md opacity-90">Expert navigation of complex regional regulatory landscapes.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Mobile: Global Network -->
+    <section class="px-md py-xl bg-primary text-on-primary">
+      <h2 class="font-h2 text-h2 mb-lg">Regional Dominance</h2>
+      <div class="space-y-lg">
+        <div class="aspect-square rounded-xl bg-white/10 relative p-md overflow-hidden flex items-center justify-center">
+          <div class="absolute inset-0 opacity-20 bg-cover bg-center"
+               style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDKZpdTlI-Si4SwsFcPaOoCMKN8kQIls0dqXpxIryBxFpQmThrTKl4icQQ3wqR0204clVzDPXdjDHelGrfVqGIY6E2bAxnvZSFN1hmb2xarQjb91QAiEzFKYDMl9QRhxB0E45avfY43adXc9zCqevBuyUHn8u22nuAs3UU0yDVg69wszzwQxZogbkqEVVypCT3nY2ihrixzsTgOn9BwrvP7S2PyFf-OuS8W5nhuoo9dBCwk-5ef1htIy5B21T88HcZHb375GXbXmZCs')">
+          </div>
+          <div class="relative z-10 text-center">
+            <div class="text-[48px] font-extrabold leading-none">GCC</div>
+            <div class="font-label-sm text-label-sm tracking-widest mt-sm">STRATEGIC HUB</div>
+          </div>
+        </div>
+        <div class="grid grid-cols-2 gap-md">
+          <div class="border-l border-white/30 pl-md">
+            <div class="font-h3 text-h3">Saudi Arabia</div>
+            <p class="font-label-sm text-label-sm opacity-60">12 Primary Hubs</p>
+          </div>
+          <div class="border-l border-white/30 pl-md">
+            <div class="font-h3 text-h3">UAE</div>
+            <p class="font-label-sm text-label-sm opacity-60">Jebel Ali Core Hub</p>
+          </div>
+          <div class="border-l border-white/30 pl-md">
+            <div class="font-h3 text-h3">Kuwait</div>
+            <p class="font-label-sm text-label-sm opacity-60">Shuwaikh Express</p>
+          </div>
+          <div class="border-l border-white/30 pl-md">
+            <div class="font-h3 text-h3">Qatar</div>
+            <p class="font-label-sm text-label-sm opacity-60">Hamad Port Ops</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Mobile: CTA -->
+    <section class="px-md py-xl">
+      <div class="bg-gradient-to-r from-primary-container to-primary p-xl rounded-2xl text-white text-center space-y-lg shadow-xl">
+        <h2 class="font-h1 text-[40px] leading-tight">Ready to Optimize Your Chain?</h2>
+        <p class="font-body-lg text-body-lg opacity-90 max-w-xs mx-auto">Join the world's leading brands who trust Arkan Arabia for their critical logistics.</p>
+        <div class="flex flex-col gap-md">
+          <a href="contact.html" class="h-14 bg-white text-primary font-h3 text-h3 rounded-lg shadow-lg active:scale-95 transition-all flex items-center justify-center">Get a Quote</a>
+          <a href="contact.html" class="h-14 border-2 border-white bg-white/20 text-white font-h3 text-h3 rounded-lg backdrop-blur-md active:scale-95 transition-all shadow-lg flex items-center justify-center">Contact Us</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Mobile Footer (atomic component) -->
+    <div id="mob-footer"></div>
+  </main>
+
+  <!-- ══ MOBILE BOTTOM NAV (injected, md:hidden) ══ -->
+  <div id="mob-nav"></div>
+
+  <!-- ════════════════════════════════════════════
+       DESKTOP LAYOUT  (visible md +)
+  ════════════════════════════════════════════ -->
+
+  <!-- Desktop Hero (70vh) -->
+  <section class="hidden md:flex relative h-[70vh] w-full items-center pt-20 overflow-hidden">
+    <div class="absolute inset-0 z-0">
+      <div class="w-full h-full bg-cover bg-center"
+           style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDhO278XA7kzySQHverKisNAxH4xNF8nKsYKYOXn7v53ReY86RKHJWg_uWIeru10QXZiEYcFtewtwSMRYpy9BzmBzzo-LRBmQDl6Jdr7X2QFajVouteCNDTBujAL3d40dk229w-3jqoHWd4wdbJkrKNRaGsRdWB0XUA_NoC8b6gQIEjqS1j1WVj6C8tROh18yk6dBvjk79_Cntgn0cKb2PKff-KVmglyH5g9acS_mv9-BJSxUFsX0B6TYyfsTOKs9vI03UsiSquaw6v')">
+      </div>
+      <div class="absolute inset-0 bg-gradient-to-r from-primary/80 via-primary/50 to-transparent"></div>
+    </div>
+    <div class="relative z-10 max-w-container-max mx-auto px-12 w-full">
+      <div class="max-w-2xl">
+        <span class="inline-block px-4 py-1.5 bg-white/15 backdrop-blur-md border border-white/20 rounded-full text-white font-label-sm text-label-sm mb-6 tracking-widest">ABOUT US</span>
+        <h1 class="font-h1 text-h1 text-white mb-6 leading-tight">Architects of<br/>Global Motion</h1>
+        <p class="font-body-lg text-body-lg text-white/80 max-w-xl">Bridging continents through precision engineering and unparalleled logistics expertise across the GCC and beyond.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Desktop: Who We Are -->
+  <section class="hidden md:block py-xl max-w-container-max mx-auto px-12">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-xl items-center">
+      <div class="abt-reveal rounded-2xl overflow-hidden shadow-2xl h-[540px]">
+        <img class="w-full h-full object-cover" alt="Modern logistics warehouse"
+             src="https://lh3.googleusercontent.com/aida-public/AB6AXuBH8MK6y6M04aYDcNsceZ3r6Xt4m81ksWmAhhKnfwUIWV6ptZm2lwaXup0I4k5gWy8YePO_KVDyUUHA5gLVoTkasSPiU3BIbKR5tvtEIgfvRyR-sr_Go2N7QItZ8wxu8s_m_dXq0iyQpwHjtiClDx7KPozM1Czegwm3uwwMkxnQYb1JGy9d2y0wSUXH9dPsfNjkAV33EJeLm4gXBhLmGDYlhZBJQKsJx9xbdloi_iI5SpInQukoQgk2DvoAuuQSSENCOY9J0pdLOIMm"/>
+      </div>
+      <div class="abt-reveal space-y-6" style="transition-delay:0.15s">
+        <span class="text-primary font-bold tracking-widest font-label-sm text-label-sm block uppercase">Our Story</span>
+        <h2 class="font-h2 text-h2 text-on-surface">Defining the Modern Supply Chain</h2>
+        <p class="font-body-lg text-body-lg text-on-surface-variant">Founded on the principles of reliability and innovation, Arkan Arabia Logistics has evolved from a regional player into a global force. We specialize in complex, high-stakes supply chain solutions that demand absolute transparency and Swiss-grade precision.</p>
+        <div class="grid grid-cols-2 gap-6 pt-2">
+          <div class="text-center p-6 bg-surface-container rounded-2xl">
+            <div class="text-4xl font-extrabold text-primary mb-1">15+</div>
+            <div class="font-label-sm text-on-surface-variant">Years of Excellence</div>
+          </div>
+          <div class="text-center p-6 bg-surface-container rounded-2xl">
+            <div class="text-4xl font-extrabold text-primary mb-1">400k</div>
+            <div class="font-label-sm text-on-surface-variant">TEU Annually</div>
+          </div>
+          <div class="text-center p-6 bg-surface-container rounded-2xl">
+            <div class="text-4xl font-extrabold text-primary mb-1">120+</div>
+            <div class="font-label-sm text-on-surface-variant">Countries Served</div>
+          </div>
+          <div class="text-center p-6 bg-surface-container rounded-2xl">
+            <div class="text-4xl font-extrabold text-primary mb-1">2.4m</div>
+            <div class="font-label-sm text-on-surface-variant">Sq Ft Warehousing</div>
+          </div>
+        </div>
+        <a href="#" class="inline-flex items-center gap-2 bg-primary text-white px-8 py-4 rounded-2xl font-bold hover:shadow-xl transition-all">
+          <span class="material-symbols-outlined">download</span> Download Company Profile
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Desktop: Timeline -->
+  <section class="hidden md:block py-xl bg-surface-container-low overflow-hidden">
+    <div class="max-w-container-max mx-auto px-12 mb-16">
+      <span class="text-primary font-bold tracking-widest font-label-sm text-label-sm block uppercase mb-3">Our Journey</span>
+      <h2 class="font-h2 text-h2">Milestones That Define Us</h2>
+    </div>
+    <div class="relative overflow-x-auto hide-scrollbar px-12 pb-6">
+      <div class="timeline-line relative flex gap-8 min-w-max pb-8">
+        <div class="abt-reveal relative z-10 w-64 bg-white rounded-2xl p-6 shadow-sm flex-shrink-0" style="transition-delay:0.05s">
+          <span class="text-3xl font-extrabold text-primary block mb-2">2009</span>
+          <h4 class="font-bold text-on-surface mb-2 uppercase text-sm tracking-wide">Foundation</h4>
+          <p class="text-sm text-on-surface-variant">Established in Riyadh with focus on local port clearance and domestic trucking.</p>
+        </div>
+        <div class="abt-reveal relative z-10 w-64 bg-white rounded-2xl p-6 shadow-sm flex-shrink-0" style="transition-delay:0.1s">
+          <span class="text-3xl font-extrabold text-primary block mb-2">2012</span>
+          <h4 class="font-bold text-on-surface mb-2 uppercase text-sm tracking-wide">Regional Expansion</h4>
+          <p class="text-sm text-on-surface-variant">Opened first international hubs in UAE and Qatar, specializing in petrochemical transport.</p>
+        </div>
+        <div class="abt-reveal relative z-10 w-64 bg-white rounded-2xl p-6 shadow-sm flex-shrink-0" style="transition-delay:0.15s">
+          <span class="text-3xl font-extrabold text-primary block mb-2">2018</span>
+          <h4 class="font-bold text-on-surface mb-2 uppercase text-sm tracking-wide">Digital Transformation</h4>
+          <p class="text-sm text-on-surface-variant">Launched Arkan-Link AI platform for real-time global shipment tracking.</p>
+        </div>
+        <div class="abt-reveal relative z-10 w-64 bg-white rounded-2xl p-6 shadow-sm flex-shrink-0" style="transition-delay:0.2s">
+          <span class="text-3xl font-extrabold text-primary block mb-2">2019</span>
+          <h4 class="font-bold text-on-surface mb-2 uppercase text-sm tracking-wide">Global Network</h4>
+          <p class="text-sm text-on-surface-variant">Finalized strategic partnerships with 120 global carriers reaching 1,500+ ports.</p>
+        </div>
+        <div class="abt-reveal relative z-10 w-64 bg-white rounded-2xl p-6 shadow-sm flex-shrink-0" style="transition-delay:0.25s">
+          <span class="text-3xl font-extrabold text-primary block mb-2">2022</span>
+          <h4 class="font-bold text-on-surface mb-2 uppercase text-sm tracking-wide">ISO Certification</h4>
+          <p class="text-sm text-on-surface-variant">Achieved ISO 9001, 14001, and OHSAS 18001 certifications across all operations.</p>
+        </div>
+        <div class="abt-reveal relative z-10 w-64 bg-white rounded-2xl p-6 shadow-sm flex-shrink-0" style="transition-delay:0.3s">
+          <span class="text-3xl font-extrabold text-primary block mb-2">2024+</span>
+          <h4 class="font-bold text-on-surface mb-2 uppercase text-sm tracking-wide">Vision 2030 Aligned</h4>
+          <p class="text-sm text-on-surface-variant">Expanding fleet and warehousing to support Saudi Arabia's Vision 2030 megaprojects.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Desktop: Mission & Vision -->
+  <section class="hidden md:block py-xl max-w-container-max mx-auto px-12">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <div class="abt-reveal p-lg rounded-2xl bg-gradient-to-br from-primary to-primary-container text-on-primary">
+        <span class="material-symbols-outlined text-4xl mb-md block">rocket_launch</span>
+        <h3 class="font-h2 text-h2 mb-4">Our Mission</h3>
+        <p class="font-body-lg text-body-lg opacity-90">To engineer seamless global connectivity through innovative technology and uncompromising reliability, empowering our clients to operate without borders.</p>
+      </div>
+      <div class="abt-reveal p-lg rounded-2xl bg-gradient-to-br from-secondary to-secondary-container text-on-secondary" style="transition-delay:0.1s">
+        <span class="material-symbols-outlined text-4xl mb-md block">visibility</span>
+        <h3 class="font-h2 text-h2 mb-4">Our Vision</h3>
+        <p class="font-body-lg text-body-lg opacity-90">Becoming the definitive benchmark for enterprise logistics in the Middle East and beyond — where precision, trust, and innovation are the standard.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Desktop: Why Choose Us -->
+  <section class="hidden md:block py-xl bg-inverse-surface text-white">
+    <div class="max-w-container-max mx-auto px-12">
+      <div class="text-center mb-16 abt-reveal">
+        <h2 class="font-h2 text-h2">The Arkan Advantage</h2>
+        <p class="font-body-md text-white/60 max-w-xl mx-auto mt-3">Built for high-stakes enterprise requirements — where failure is not an option.</p>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="abt-reveal p-lg border border-white/10 rounded-2xl hover:bg-white/5 transition-colors" style="transition-delay:0.05s">
+          <span class="material-symbols-outlined text-primary-fixed-dim text-[40px] mb-md block">verified_user</span>
+          <h4 class="font-h3 text-lg mb-2">ISO 9001 Certified Quality</h4>
+          <p class="text-white/60 text-sm">Internationally accredited quality management across all operations.</p>
+        </div>
+        <div class="abt-reveal p-lg border border-white/10 rounded-2xl hover:bg-white/5 transition-colors" style="transition-delay:0.1s">
+          <span class="material-symbols-outlined text-primary-fixed-dim text-[40px] mb-md block">terminal</span>
+          <h4 class="font-h3 text-lg mb-2">Proprietary AI Ecosystem</h4>
+          <p class="text-white/60 text-sm">Arkan-Link platform provides predictive analytics and real-time visibility.</p>
+        </div>
+        <div class="abt-reveal p-lg border border-white/10 rounded-2xl hover:bg-white/5 transition-colors" style="transition-delay:0.15s">
+          <span class="material-symbols-outlined text-primary-fixed-dim text-[40px] mb-md block">public</span>
+          <h4 class="font-h3 text-lg mb-2">Asset-Heavy Global Hubs</h4>
+          <p class="text-white/60 text-sm">Owned infrastructure across KSA, UAE, Qatar, Kuwait, Oman, and Bahrain.</p>
+        </div>
+        <div class="abt-reveal p-lg border border-white/10 rounded-2xl hover:bg-white/5 transition-colors" style="transition-delay:0.2s">
+          <span class="material-symbols-outlined text-primary-fixed-dim text-[40px] mb-md block">support_agent</span>
+          <h4 class="font-h3 text-lg mb-2">24/7 Dedicated Ops Desk</h4>
+          <p class="text-white/60 text-sm">Round-the-clock operations team monitoring every active shipment.</p>
+        </div>
+        <div class="abt-reveal p-lg border border-white/10 rounded-2xl hover:bg-white/5 transition-colors" style="transition-delay:0.25s">
+          <span class="material-symbols-outlined text-primary-fixed-dim text-[40px] mb-md block">gavel</span>
+          <h4 class="font-h3 text-lg mb-2">Full Regulatory Compliance</h4>
+          <p class="text-white/60 text-sm">Expert customs brokerage and trade compliance teams at every GCC border.</p>
+        </div>
+        <div class="abt-reveal p-lg border border-white/10 rounded-2xl hover:bg-white/5 transition-colors" style="transition-delay:0.3s">
+          <span class="material-symbols-outlined text-primary-fixed-dim text-[40px] mb-md block">eco</span>
+          <h4 class="font-h3 text-lg mb-2">Sustainable Green Logistics</h4>
+          <p class="text-white/60 text-sm">Eco-optimised fleet and carbon-offset programmes for responsible brands.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Desktop: Leadership Team -->
+  <section class="hidden md:block py-xl max-w-container-max mx-auto px-12">
+    <div class="text-center mb-16 abt-reveal">
+      <span class="text-primary font-bold tracking-widest font-label-sm text-label-sm block uppercase mb-3">The People Behind the Precision</span>
+      <h2 class="font-h2 text-h2">Our Leadership Team</h2>
+    </div>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+      <div class="abt-reveal group text-center" style="transition-delay:0.05s">
+        <div class="w-full aspect-square rounded-2xl overflow-hidden mb-4 shadow-lg">
+          <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" alt="Omar Al-Farsi, CEO"
+               src="https://lh3.googleusercontent.com/aida-public/AB6AXuC83S88aCUnE2BVbhcZc3-XztzluBqi0ZNnOakLkEV1LBgAZNvdL_7xH-kC4XEp_4AZngS2lgga5V3mBAxTcdjMgS9AzgdJtipa3_qqyqzBKLg50E76MTl3XtcgyrV5sG-96rx59rPkZh8bLDSOCMT_smZDjJ4fSCFwp9fuRewVYrhwD5YSTzXrKzUAojW9GTAay_RT5TMZuRkizzuttCm_jlh0GyiPIjGRSN6NDLrfl6F8eGQ8mrZDEbOWiTZaizSulVq-0GOCnHJi"/>
+        </div>
+        <h4 class="font-h3 text-lg text-primary font-bold">Omar Al-Farsi</h4>
+        <p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest">Chief Executive Officer</p>
+      </div>
+      <div class="abt-reveal group text-center" style="transition-delay:0.1s">
+        <div class="w-full aspect-square rounded-2xl overflow-hidden mb-4 shadow-lg">
+          <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" alt="Sarah Mitchell, COO"
+               src="https://lh3.googleusercontent.com/aida-public/AB6AXuA4usB6rcq6Qf8R_mMJ3RlsdePgqX5u-uegoPE4oBPFbDghZvh5941GVp25c7YC_4up0vFAk90qCJwbadWdf9wU9TmkBLEk5UQC5OyLQ1-NADzx4yVY_mIlg-h6TtdNEwhIIaeYP6vOiMjfhtQeHmRz-ffPmfibXvg7b325slikE4IF1IdTHrDGgFSyGUbIpmmmVpfi9aPt4qngMqtvmr8jQyx5UQBnm3vOSUGTppKBB53t93_ERYWEDq_Mx460-xmI9RMfYXSGztio"/>
+        </div>
+        <h4 class="font-h3 text-lg text-primary font-bold">Sarah Mitchell</h4>
+        <p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest">Chief Operations Officer</p>
+      </div>
+      <div class="abt-reveal group text-center" style="transition-delay:0.15s">
+        <div class="w-full aspect-square rounded-2xl overflow-hidden mb-4 shadow-lg">
+          <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" alt="Zayed Al-Mansour, VP Logistics"
+               src="https://lh3.googleusercontent.com/aida-public/AB6AXuABfkF1hv986kf0CMQGYsLQsPnNoywXLt9bj1zgy_UEG-RdoeC4CkRYm02vierh8UJo4gdKcSlaznRvQ2PDstwvyPlUprlltDKb6EMlgyvICvT9WnMwhdu4nmZGGxpZgKbEpBQccWM1FFM_T-94K6weUuWdDj9H5Hie910-NlrzMUU8g1RI6jx0t9pEJw0tUedOY4tvHFRgGWDrqTQMJNQapzSKmU23KU5sPVfBHZCp77FNFsV7XHRD4KTbRAlMzRddkOEthm15f6t8"/>
+        </div>
+        <h4 class="font-h3 text-lg text-primary font-bold">Zayed Al-Mansour</h4>
+        <p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest">VP of Logistics</p>
+      </div>
+      <div class="abt-reveal group text-center" style="transition-delay:0.2s">
+        <div class="w-full aspect-square rounded-2xl overflow-hidden mb-4 shadow-lg">
+          <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" alt="Dr. Amir Rahman, CTO"
+               src="https://lh3.googleusercontent.com/aida-public/AB6AXuDm3UYTSPOFeTnVvDvjI9Mct5jPOBVto24p3PJqp_Uops8AstUW6ZXFfvnAt9wKeT3RaqKX-l8ldRW4aDCsske173svUYVQzV9m7qtwsR5N7_h2NsUoVjiOFur2KO7p6tjjAgbDTJiZ0Dk2owzGMEnPbNMxfxS4BCBRQjOZuX_FzKh8yfkIRJpcaq1Vr50vR4zjcjiorXtf8q5ZKIhRLKCA99GIjQFFRBQXnnosjuwOOqNxx9hA7-89OwaPOaMiOWguf_GdT8MRc3uy"/>
+        </div>
+        <h4 class="font-h3 text-lg text-primary font-bold">Dr. Amir Rahman</h4>
+        <p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest">Chief Technology Officer</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Desktop: Specialized Expertise -->
+  <section class="hidden md:block py-xl bg-surface-container-low">
+    <div class="max-w-container-max mx-auto px-12 mb-16 abt-reveal">
+      <span class="text-primary font-bold tracking-widest font-label-sm text-label-sm block uppercase mb-3">Specialized Expertise</span>
+      <h2 class="font-h2 text-h2">Deep Industrial Knowledge</h2>
+    </div>
+    <div class="max-w-container-max mx-auto px-12 grid grid-cols-1 md:grid-cols-2 gap-8">
+      <div class="abt-reveal rounded-2xl overflow-hidden relative h-80 shadow-xl group">
+        <img alt="Heavy Lift Project Cargo" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+             src="https://lh3.googleusercontent.com/aida/AP1WRLsimEVzQnk2OVKPGx6eOZnPdrXKFBdLfnx34wNFOdqwl1G9x5BWSQG0piZdcQMNLnJq9Jr5FPda6LMattk69u17Xhu7AE4FPdl6AtEaHrmju4s6ly7_Lh1dAaKmA5J2DJ9Oi2Kll0W4jF_53ZxkU39Sx_2Sp1WtIYZnntHN1lPa6Fp98JODjNGFpssBKFzVfowDxB_RKJ81VShb6nCEoGUB7YvClsoIJqVQ7GH3vh5-faJFqYn03k2-0n8m"/>
+        <div class="absolute inset-0 bg-gradient-to-t from-primary/80 to-transparent flex flex-col justify-end p-8 text-white">
+          <h4 class="font-h3 text-h3 mb-2">Project Cargo</h4>
+          <p class="font-body-md opacity-90">Specialized handling of oversized and over-dimensional industrial assets across GCC and internationally.</p>
+        </div>
+      </div>
+      <div class="abt-reveal rounded-2xl overflow-hidden relative h-80 shadow-xl group" style="transition-delay:0.1s">
+        <img alt="Customs Advisory" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+             src="https://lh3.googleusercontent.com/aida/AP1WRLvsVZVtQqEJFzXb7LPavxKI0skZcXMgvR1Qk1QQKKpH1UFT16w1MrYAG3hLb0ntgiM3xrsoq65T3eRrEkPVMyHwmifMpu-6eZpoQ-9Ywyi7iniy6gNowlneTufhODtAU-LUkbYXBEDR1RNBgpsddAMZIARDvuh39kPyW7hucO4gXtpIRiD-TJE6rDQT4gafhkPrezKnwF8AiCi-puPLfRyonTU1GSFXGS8n4iYe_QSrV4YpjWV5D76HtWU_"/>
+        <div class="absolute inset-0 bg-gradient-to-t from-secondary/80 to-transparent flex flex-col justify-end p-8 text-white">
+          <h4 class="font-h3 text-h3 mb-2">Customs Advisory</h4>
+          <p class="font-body-md opacity-90">Expert navigation of complex regional regulatory landscapes ensuring zero delays at every border.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Desktop: Global Network -->
+  <section class="hidden md:block py-xl bg-primary text-on-primary">
+    <div class="max-w-container-max mx-auto px-12">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-xl items-center">
+        <div class="abt-reveal">
+          <h2 class="font-h2 text-h2 mb-6">Regional Dominance, Global Reach</h2>
+          <p class="font-body-lg text-body-lg opacity-80 mb-10">Our strategically positioned GCC hubs create the backbone of one of the region's most reliable logistics networks.</p>
+          <div class="grid grid-cols-2 gap-6">
+            <div class="border-l-2 border-white/30 pl-6">
+              <div class="font-h3 text-h3">Saudi Arabia</div>
+              <p class="font-label-sm text-label-sm opacity-60">12 Primary Hubs</p>
+            </div>
+            <div class="border-l-2 border-white/30 pl-6">
+              <div class="font-h3 text-h3">UAE</div>
+              <p class="font-label-sm text-label-sm opacity-60">Jebel Ali Core Hub</p>
+            </div>
+            <div class="border-l-2 border-white/30 pl-6">
+              <div class="font-h3 text-h3">Kuwait</div>
+              <p class="font-label-sm text-label-sm opacity-60">Shuwaikh Express</p>
+            </div>
+            <div class="border-l-2 border-white/30 pl-6">
+              <div class="font-h3 text-h3">Qatar</div>
+              <p class="font-label-sm text-label-sm opacity-60">Hamad Port Ops</p>
+            </div>
+            <div class="border-l-2 border-white/30 pl-6">
+              <div class="font-h3 text-h3">Oman</div>
+              <p class="font-label-sm text-label-sm opacity-60">Salalah &amp; Muscat</p>
+            </div>
+            <div class="border-l-2 border-white/30 pl-6">
+              <div class="font-h3 text-h3">Bahrain</div>
+              <p class="font-label-sm text-label-sm opacity-60">Manama Logistics Park</p>
+            </div>
+          </div>
+        </div>
+        <div class="abt-reveal rounded-2xl overflow-hidden relative h-[480px] shadow-2xl" style="transition-delay:0.15s">
+          <div class="absolute inset-0 opacity-30 bg-cover bg-center"
+               style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDKZpdTlI-Si4SwsFcPaOoCMKN8kQIls0dqXpxIryBxFpQmThrTKl4icQQ3wqR0204clVzDPXdjDHelGrfVqGIY6E2bAxnvZSFN1hmb2xarQjb91QAiEzFKYDMl9QRhxB0E45avfY43adXc9zCqevBuyUHn8u22nuAs3UU0yDVg69wszzwQxZogbkqEVVypCT3nY2ihrixzsTgOn9BwrvP7S2PyFf-OuS8W5nhuoo9dBCwk-5ef1htIy5B21T88HcZHb375GXbXmZCs')">
+          </div>
+          <div class="relative z-10 w-full h-full flex items-center justify-center">
+            <div class="text-center">
+              <div class="text-[80px] font-extrabold leading-none opacity-90">GCC</div>
+              <div class="font-label-sm text-label-sm tracking-[0.3em] mt-2 opacity-70">STRATEGIC HUB</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Desktop: CTA -->
+  <section class="hidden md:block py-20 px-6">
+    <div class="max-w-container-max mx-auto rounded-[40px] bg-gradient-to-r from-primary-container to-primary p-12 lg:p-20 text-center text-white abt-reveal">
+      <h2 class="font-h2 text-4xl md:text-5xl font-black mb-6">Ready to Optimize Your Chain?</h2>
+      <p class="text-primary-fixed text-lg mb-10 max-w-xl mx-auto opacity-90">Join the world's leading brands who trust Arkan Arabia for their critical logistics operations across the GCC.</p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="contact.html" class="inline-block bg-white text-primary px-12 py-5 rounded-2xl font-black text-xl hover:scale-105 transition-transform shadow-2xl">Get a Quote</a>
+        <a href="contact.html" class="inline-block border-2 border-white bg-white/10 backdrop-blur-md text-white px-12 py-5 rounded-2xl font-black text-xl hover:bg-white/20 transition-all">Contact Us</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Desktop shared footer -->
+  <div id="site-footer" class="hidden md:block"></div>
+
+  <script src="../assets/js/script.js"></script>
+  <script>
+    // Scroll reveal
+    const abtObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          abtObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.abt-reveal').forEach(el => abtObserver.observe(el));
+
+    // Mobile header scroll effect
+    window.addEventListener('scroll', () => {
+      const mobileHeader = document.querySelector('header.md\\:hidden');
+      if (mobileHeader) {
+        mobileHeader.classList.toggle('shadow-md', window.scrollY > 20);
+      }
+    });
+  </script>
+</body>
+</html>

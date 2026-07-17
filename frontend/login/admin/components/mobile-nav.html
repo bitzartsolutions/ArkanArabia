@@ -1,0 +1,39 @@
+<!-- ================================================================
+     Mobile Bottom Navigation Bar  (md:hidden)
+     Injected via fetch() into #mob-nav on every page.
+     / is replaced at runtime by loadComponent() in script.js
+     Active tab is set by initMobileNav() in script.js using
+     data-mob-nav="filename.html" matching location.pathname
+================================================================ -->
+<nav class="md:hidden fixed bottom-0 left-0 right-0 h-16 bg-white/90 backdrop-blur-lg border-t border-outline-variant/30 flex items-center justify-around px-2 z-50">
+  <a href="/index.html"
+     data-mob-nav="index.html"
+     class="mob-nav-link flex flex-col items-center gap-1 text-on-surface-variant transition-colors">
+    <span class="material-symbols-outlined text-xl mob-nav-icon">home</span>
+    <span class="text-[10px] font-semibold">Home</span>
+  </a>
+  <a href="/pages/industries.html"
+     data-mob-nav="industries.html"
+     class="mob-nav-link flex flex-col items-center gap-1 text-on-surface-variant transition-colors">
+    <span class="material-symbols-outlined text-xl mob-nav-icon">category</span>
+    <span class="text-[10px] font-semibold">Industries</span>
+  </a>
+  <a href="/pages/services.html"
+     data-mob-nav="services.html"
+     class="mob-nav-link flex flex-col items-center gap-1 text-on-surface-variant transition-colors">
+    <span class="material-symbols-outlined text-xl mob-nav-icon">local_shipping</span>
+    <span class="text-[10px] font-semibold">Services</span>
+  </a>
+  <a href="/pages/about.html"
+     data-mob-nav="about.html"
+     class="mob-nav-link flex flex-col items-center gap-1 text-on-surface-variant transition-colors">
+    <span class="material-symbols-outlined text-xl mob-nav-icon">groups</span>
+    <span class="text-[10px] font-semibold">About</span>
+  </a>
+  <a href="/pages/contact.html"
+     data-mob-nav="contact.html"
+     class="mob-nav-link flex flex-col items-center gap-1 text-on-surface-variant transition-colors">
+    <span class="material-symbols-outlined text-xl mob-nav-icon">call</span>
+    <span class="text-[10px] font-semibold">Contact</span>
+  </a>
+</nav>

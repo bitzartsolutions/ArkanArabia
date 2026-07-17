@@ -1,0 +1,79 @@
+[
+  {
+    "id": "b1784047818755",
+    "title": "gfgh",
+    "category": "Technology",
+    "excerpt": "hbxjhhx",
+    "body": "xjxbjkbxxjdygd\r\ndkddhudb",
+    "author": "Arkan Arabia Team",
+    "readTime": "5 min",
+    "coverImage": "http://localhost:4000/uploads/blog/blog-1784047818690-c6ca9635-40d2-4592-8e19-66a987434442.jpg",
+    "date": "2026-07-14"
+  },
+  {
+    "id": "b1",
+    "title": "Navigating GCC Customs in 2024: What Every Importer Needs to Know",
+    "category": "Customs & Compliance",
+    "excerpt": "Customs regulations across the GCC are evolving rapidly. Here is your complete guide to staying compliant and avoiding costly delays at every border crossing.",
+    "body": "The Gulf Cooperation Council has seen significant shifts in customs regulations over the past two years, driven by Saudi Vision 2030 and UAE digital transformation.\n\nKey 2024 updates include full electronic documentation, HS 2022 code changes, and stricter VAT documentation controls.",
+    "coverImage": "https://images.unsplash.com/photo-1618946236955-a99d1cf11bb5?w=800&q=80",
+    "date": "2024-06-15",
+    "readTime": "6 min",
+    "author": "Arkan Arabia Team"
+  },
+  {
+    "id": "b2",
+    "title": "How AI is Transforming Freight Forwarding in the Middle East",
+    "category": "Technology",
+    "excerpt": "Artificial intelligence is no longer a buzzword in logistics. Discover how Arkan Arabia is leading the digital shift.",
+    "body": "AI route optimization, predictive maintenance, and document automation are helping freight operators reduce costs and improve reliability across GCC corridors.",
+    "coverImage": "https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&q=80",
+    "date": "2024-05-28",
+    "readTime": "5 min",
+    "author": "Dr. Amir Rahman"
+  },
+  {
+    "id": "b3",
+    "title": "Saudi Vision 2030 and the Logistics Boom",
+    "category": "GCC Markets",
+    "excerpt": "Saudi Arabia Vision 2030 is driving major growth in logistics demand and infrastructure investment.",
+    "body": "Megaprojects and industrial expansion are creating long-term opportunities for import/export and project cargo logistics providers.",
+    "coverImage": "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80",
+    "date": "2024-05-10",
+    "readTime": "7 min",
+    "author": "Arkan Arabia Team"
+  },
+  {
+    "id": "b4",
+    "title": "Sustainable Logistics: Green Fleet Initiative",
+    "category": "Sustainability",
+    "excerpt": "Arkan Arabia aims to reduce fleet emissions by 40% before 2030 through EVs, LNG, and solar warehousing.",
+    "body": "Sustainability is now integrated into daily logistics operations with measurable reporting for client Scope 3 programs.",
+    "coverImage": "https://images.unsplash.com/photo-1473445730015-841f29a9490b?w=800&q=80",
+    "date": "2024-04-22",
+    "readTime": "4 min",
+    "author": "Sarah Mitchell"
+  },
+  {
+    "id": "b5",
+    "title": "Project Cargo Handling: Lessons from Our Largest 2024 Operation",
+    "category": "Industry News",
+    "excerpt": "Inside a complex 450-tonne heavy-lift movement from Dammam to a remote processing plant.",
+    "body": "Deep route engineering, inter-agency coordination, and telemetry-based monitoring were key to successful delivery.",
+    "coverImage": "https://images.unsplash.com/photo-1577368211130-4bbd0181ddf0?w=800&q=80",
+    "date": "2024-03-15",
+    "readTime": "8 min",
+    "author": "Zayed Al-Mansour"
+  },
+  {
+    "id": "b6",
+    "title": "Arkan Arabia Named Top 10 Freight Forwarder in GCC",
+    "category": "Company News",
+    "excerpt": "Arkan Arabia was recognized among the Top 10 Freight Forwarders in the GCC by Arabian Logistics Awards 2024.",
+    "body": "The recognition highlights on-time performance, innovation, and sustainability progress across regional operations.",
+    "coverImage": "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800&q=80",
+    "date": "2024-03-10",
+    "readTime": "3 min",
+    "author": "Omar Al-Farsi"
+  }
+]

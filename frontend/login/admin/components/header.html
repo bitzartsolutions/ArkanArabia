@@ -1,0 +1,86 @@
+<!-- ══════════════════════════════════════════════════════════
+     SHARED HEADER  –  components/header.html
+     / is replaced at runtime by rootPath() in script.js
+     ══════════════════════════════════════════════════════════ -->
+
+<!-- Top Info Bar -->
+<div class="bg-primary py-2 px-6 lg:px-12 flex flex-wrap justify-between items-center text-white text-xs font-medium z-[100] relative">
+  <div class="flex gap-6 items-center">
+    <span class="flex items-center gap-1">
+      <span class="material-symbols-outlined text-[16px]">support_agent</span> 24/7 Priority Support
+    </span>
+    <span class="hidden sm:flex items-center gap-1">
+      <span class="material-symbols-outlined text-[16px]">public</span> Full GCC Coverage
+    </span>
+    <span class="hidden md:flex items-center gap-1">
+      <span class="material-symbols-outlined text-[16px]">verified_user</span> Customs Compliance Experts
+    </span>
+  </div>
+  <div class="hidden md:flex gap-4">
+    <a class="hover:text-primary-fixed transition-colors" href="tel:+966123456789">KSA: +966 12 345 6789</a>
+    <span class="opacity-30">|</span>
+    <a class="hover:text-primary-fixed transition-colors" href="mailto:info@arkanarabia.com">info@arkanarabia.com</a>
+  </div>
+</div>
+
+<!-- Sticky Navigation -->
+<nav class="fixed top-0 w-full z-[90] transition-all duration-300 translate-y-8 px-6 lg:px-12" id="main-nav">
+  <div class="max-w-7xl mx-auto flex items-center justify-between py-4 transition-all duration-300" data-nav-inner>
+
+    <!-- Brand -->
+    <a href="/index.html" class="flex items-center gap-2">
+      <img src="/arkan arabia-01.png" alt="Arkan Arabia Logo" class="nav-logo h-24 w-auto object-contain drop-shadow-lg transition-all duration-300" />
+    </a>
+
+    <!-- Desktop Links -->
+    <div class="hidden xl:flex items-center gap-8 font-semibold text-sm text-white">
+      <a class="nav-link hover:text-primary-fixed transition-colors" href="/index.html">Home</a>
+      <a class="nav-link hover:text-primary-fixed transition-colors" href="/pages/about.html">About</a>
+      <a class="nav-link hover:text-primary-fixed transition-colors" href="/pages/services.html">Services</a>
+      <a class="nav-link hover:text-primary-fixed transition-colors" href="/pages/industries.html">Industries</a>
+      <a class="nav-link hover:text-primary-fixed transition-colors" href="/pages/network.html">Network</a>
+      <a class="nav-link hover:text-primary-fixed transition-colors" href="/pages/solutions.html">Solutions</a>
+      <a class="nav-link hover:text-primary-fixed transition-colors" href="/pages/gallery.html">Gallery</a>
+      <a class="nav-link hover:text-primary-fixed transition-colors" href="/pages/blog.html">Blog</a>
+      <a class="nav-link hover:text-primary-fixed transition-colors" href="/login/admin">Admin</a>
+      <a class="nav-link hover:text-primary-fixed transition-colors" href="/pages/news.html">News</a>
+      <a class="nav-link hover:text-primary-fixed transition-colors" href="/pages/contact.html">Contact</a>
+    </div>
+
+    <!-- CTA Buttons + Mobile Hamburger -->
+    <div class="flex gap-3 items-center">
+      <a href="/pages/contact.html#quote"
+         class="bg-primary-fixed text-on-primary-fixed px-6 py-2.5 rounded-xl font-bold text-sm shadow-lg hover:scale-105 transition-transform">
+        Get Quote
+      </a>
+      <a href="/pages/track.html"
+         class="hidden sm:inline-flex bg-white text-primary border border-primary/20 px-6 py-2.5 rounded-xl font-bold text-sm shadow-sm hover:bg-surface-container transition-all">
+        Track Shipment
+      </a>
+      <!-- Hamburger (mobile) -->
+      <button id="mobile-menu-btn"
+              class="xl:hidden w-10 h-10 flex items-center justify-center rounded-lg bg-white/10 text-white"
+              aria-label="Open menu">
+        <span class="material-symbols-outlined">menu</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile Menu -->
+    <div id="mobile-menu"
+         class="hidden xl:hidden bg-white/95 backdrop-blur-lg rounded-2xl mt-2 shadow-xl overflow-hidden">
+      <div class="flex flex-col py-4 px-6 gap-1 font-semibold text-sm text-on-surface">
+        <a class="nav-link py-3 border-b border-surface-container hover:text-primary transition-colors" href="/index.html">Home</a>
+        <a class="nav-link py-3 border-b border-surface-container hover:text-primary transition-colors" href="/pages/about.html">About</a>
+        <a class="nav-link py-3 border-b border-surface-container hover:text-primary transition-colors" href="/pages/services.html">Services</a>
+        <a class="nav-link py-3 border-b border-surface-container hover:text-primary transition-colors" href="/pages/industries.html">Industries</a>
+        <a class="nav-link py-3 border-b border-surface-container hover:text-primary transition-colors" href="/pages/network.html">Network</a>
+        <a class="nav-link py-3 border-b border-surface-container hover:text-primary transition-colors" href="/pages/solutions.html">Solutions</a>
+        <a class="nav-link py-3 border-b border-surface-container hover:text-primary transition-colors" href="/pages/gallery.html">Gallery</a>
+        <a class="nav-link py-3 border-b border-surface-container hover:text-primary transition-colors" href="/pages/blog.html">Blog</a>
+        <a class="nav-link py-3 border-b border-surface-container hover:text-primary transition-colors" href="/login/admin">Admin</a>
+        <a class="nav-link py-3 border-b border-surface-container hover:text-primary transition-colors" href="/pages/news.html">News</a>
+        <a class="nav-link py-3 hover:text-primary transition-colors" href="/pages/contact.html">Contact</a>
+      </div>
+    </div>
+</nav>

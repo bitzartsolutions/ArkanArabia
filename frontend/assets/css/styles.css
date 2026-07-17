@@ -1,0 +1,92 @@
+/* ============================================================
+   Arkan Arabia – Custom Styles
+   (Tailwind handles utilities; this file handles custom logic)
+   ============================================================ */
+
+/* ── Google Fonts are loaded via <link> in each HTML file ── */
+
+/* ── Font-variation for Material Symbols ── */
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+
+/* ── Glassmorphism utility ── */
+.glass {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* ── Sticky nav – scrolled state ── */
+.nav-scrolled {
+  background-color: rgba(255, 255, 255, 0.95) !important;
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+}
+
+/* When nav is scrolled, change text & logo colours */
+.nav-scrolled .nav-link   { color: #1c1b1b !important; }
+.nav-scrolled .nav-brand  { color: #00337d !important; }
+.nav-scrolled .nav-logo   { background-color: #00337d !important; }
+
+/* ── Service-card animated top border ── */
+.service-card:hover .border-anim {
+  width: 100%;
+}
+
+/* ── Scroll-reveal ── */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal.delay-200 { transition-delay: 0.2s; }
+.reveal.delay-400 { transition-delay: 0.4s; }
+
+/* ── Infinite logo carousel ── */
+.logo-scroll {
+  animation: logoScroll 30s linear infinite;
+}
+@keyframes logoScroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* ── Hide scrollbar (fleet gallery) ── */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* ── Page-transition fade-in ── */
+body {
+  animation: pageFadeIn 0.4s ease-out;
+}
+@keyframes pageFadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Active nav link highlight ── */
+.nav-link.active {
+  color: #00337d !important;
+  font-weight: 700;
+}
+
+/* ── Hero min-height safety ── */
+#hero-section {
+  min-height: 860px;
+}
+
+/* ── Section headings rhythm ── */
+.section-eyebrow {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #00337d;
+  margin-bottom: 1rem;
+}

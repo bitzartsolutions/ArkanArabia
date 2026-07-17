@@ -1,0 +1,1157 @@
+<!DOCTYPE html>
+<html class="scroll-smooth" lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>Gallery | Arkan Arabia Logistics</title>
+  <meta name="description" content="Explore Arkan Arabia Logistics through our gallery — fleet, warehouses, operations, events, and projects across the GCC and beyond."/>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "background": "#fcf9f8",
+            "surface-variant": "#e5e2e1",
+            "primary-fixed-dim": "#b0c6ff",
+            "on-surface": "#1c1b1b",
+            "tertiary": "#31383f",
+            "error-container": "#ffdad6",
+            "on-error-container": "#93000a",
+            "surface-bright": "#fcf9f8",
+            "on-secondary-container": "#26348a",
+            "secondary": "#4957ad",
+            "secondary-fixed": "#dee0ff",
+            "tertiary-fixed": "#dce3eb",
+            "surface-container-lowest": "#ffffff",
+            "primary": "#00337d",
+            "on-secondary": "#ffffff",
+            "surface-container-low": "#f6f3f2",
+            "secondary-container": "#94a2fe",
+            "primary-container": "#1b4a9f",
+            "on-tertiary-fixed-variant": "#40484e",
+            "inverse-primary": "#b0c6ff",
+            "on-secondary-fixed": "#000e5e",
+            "error": "#ba1a1a",
+            "surface-container-high": "#eae7e7",
+            "surface": "#fcf9f8",
+            "surface-container-highest": "#e5e2e1",
+            "on-primary": "#ffffff",
+            "surface-dim": "#dcd9d9",
+            "outline": "#747783",
+            "on-background": "#1c1b1b",
+            "tertiary-container": "#484f56",
+            "on-secondary-fixed-variant": "#303e94",
+            "on-primary-fixed": "#001945",
+            "inverse-surface": "#313030",
+            "surface-tint": "#315bb0",
+            "on-tertiary-container": "#bac1c8",
+            "on-error": "#ffffff",
+            "secondary-fixed-dim": "#bbc3ff",
+            "on-tertiary": "#ffffff",
+            "on-primary-fixed-variant": "#0d4297",
+            "surface-container": "#f0edec",
+            "inverse-on-surface": "#f3f0ef",
+            "on-surface-variant": "#434652",
+            "on-tertiary-fixed": "#151c22",
+            "outline-variant": "#c3c6d4",
+            "tertiary-fixed-dim": "#c0c7cf",
+            "on-primary-container": "#a6bfff",
+            "primary-fixed": "#d9e2ff"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "2xl": "20px",
+            "full": "9999px"
+          },
+          "spacing": {
+            "md": "24px",
+            "lg": "48px",
+            "sm": "12px",
+            "xs": "4px",
+            "gutter": "24px",
+            "container-max": "1440px",
+            "xl": "80px",
+            "base": "8px"
+          },
+          "fontFamily": {
+            "h2": ["Manrope"],
+            "label-sm": ["Inter"],
+            "body-md": ["Inter"],
+            "h1": ["Manrope"],
+            "display-xl": ["Manrope"],
+            "body-lg": ["Inter"],
+            "h3": ["Manrope"]
+          },
+          "fontSize": {
+            "h2": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+            "label-sm": ["14px", {"lineHeight": "20px", "letterSpacing": "0.02em", "fontWeight": "600"}],
+            "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+            "h1": ["56px", {"lineHeight": "64px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+            "display-xl": ["72px", {"lineHeight": "84px", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+            "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+            "h3": ["24px", {"lineHeight": "32px", "fontWeight": "600"}]
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+    .hide-scrollbar::-webkit-scrollbar { display: none; }
+    .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    .text-shadow-sm { text-shadow: 0 2px 4px rgba(0,0,0,0.25); }
+
+    /* Gallery card hover */
+    .gallery-card {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+      overflow: hidden;
+      position: relative;
+      background: #1c1b1b;
+    }
+    .gallery-card:hover {
+      transform: scale(1.03);
+      box-shadow: 0 20px 60px rgba(0,51,125,0.25);
+    }
+    .gallery-card img {
+      transition: transform 0.5s ease, opacity 0.3s ease;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .gallery-card:hover img {
+      transform: scale(1.08);
+      opacity: 0.75;
+    }
+    .gallery-card .card-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,51,125,0.85) 0%, transparent 60%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 16px;
+    }
+    .gallery-card:hover .card-overlay {
+      opacity: 1;
+    }
+
+    /* Lightbox */
+    #lightbox-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      background: rgba(0,0,0,0.95);
+      backdrop-filter: blur(8px);
+      animation: fadeInLightbox 0.25s ease;
+    }
+    #lightbox-overlay.active {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    @keyframes fadeInLightbox {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    #lightbox-img {
+      transition: opacity 0.2s ease;
+      max-height: 80vh;
+      max-width: 90vw;
+      object-fit: contain;
+      border-radius: 12px;
+      box-shadow: 0 40px 80px rgba(0,0,0,0.6);
+    }
+    #lightbox-img.fade {
+      opacity: 0;
+    }
+
+    /* Category filter active */
+    .cat-pill { transition: all 0.2s ease; }
+    .cat-pill.active {
+      background: #00337d;
+      color: #ffffff;
+      box-shadow: 0 4px 14px rgba(0,51,125,0.35);
+    }
+    .cat-pill:not(.active) {
+      background: #f0edec;
+      color: #434652;
+    }
+    .cat-pill:not(.active):hover {
+      background: #e5e2e1;
+    }
+
+    /* Admin delete button */
+    .admin-delete-btn {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      z-index: 20;
+      background: rgba(186,26,26,0.9);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 32px;
+      height: 32px;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 18px;
+      transition: background 0.2s;
+    }
+    .admin-delete-btn:hover { background: #ba1a1a; }
+    body.admin-mode .admin-delete-btn { display: flex; }
+
+    /* Add photo FAB */
+    #add-photo-fab {
+      display: none;
+      position: fixed;
+      bottom: 96px;
+      right: 24px;
+      z-index: 500;
+      background: #16a34a;
+      color: white;
+      border: none;
+      border-radius: 9999px;
+      padding: 14px 22px;
+      font-size: 15px;
+      font-weight: 700;
+      font-family: Inter, sans-serif;
+      cursor: pointer;
+      box-shadow: 0 8px 30px rgba(22,163,74,0.4);
+      align-items: center;
+      gap: 8px;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    #add-photo-fab:hover { transform: scale(1.05); box-shadow: 0 12px 40px rgba(22,163,74,0.5); }
+    body.admin-mode #add-photo-fab { display: flex; }
+
+    /* Admin mode indicator */
+    #admin-mode-badge {
+      display: none;
+      position: fixed;
+      top: 72px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 600;
+      background: rgba(186,26,26,0.92);
+      color: white;
+      font-family: Inter, sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      padding: 6px 18px;
+      border-radius: 9999px;
+      backdrop-filter: blur(8px);
+      box-shadow: 0 4px 20px rgba(186,26,26,0.3);
+      align-items: center;
+      gap: 8px;
+    }
+    body.admin-mode #admin-mode-badge { display: flex; }
+
+    /* Modal backdrop */
+    .modal-backdrop {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 700;
+      background: rgba(0,0,0,0.5);
+      backdrop-filter: blur(4px);
+      animation: fadeInLightbox 0.2s ease;
+    }
+    .modal-backdrop.active { display: flex; align-items: center; justify-content: center; padding: 16px; }
+
+    /* Toast */
+    #toast-container {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      align-items: center;
+    }
+    .toast {
+      padding: 12px 24px;
+      border-radius: 9999px;
+      font-family: Inter, sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      color: white;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.25);
+      animation: toastIn 0.3s ease forwards;
+      pointer-events: none;
+    }
+    .toast.success { background: #16a34a; }
+    .toast.error { background: #ba1a1a; }
+    @keyframes toastIn {
+      from { opacity: 0; transform: translateY(16px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Gallery grid desktop masonry-feel */
+    .gallery-grid-desktop {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-auto-rows: 260px;
+      gap: 16px;
+    }
+    .gallery-grid-desktop .span-2 {
+      grid-row: span 2;
+    }
+
+    /* Gallery grid mobile */
+    .gallery-grid-mobile {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+    .gallery-grid-mobile .gallery-card {
+      aspect-ratio: 1 / 1;
+    }
+
+    /* Image source tabs */
+    .img-tab { transition: all 0.2s; cursor: pointer; }
+    .img-tab.active {
+      border-bottom: 2px solid #00337d;
+      color: #00337d;
+      font-weight: 600;
+    }
+    .img-tab:not(.active) {
+      border-bottom: 2px solid transparent;
+      color: #747783;
+    }
+
+    /* Reveal animation */
+    .glr-reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .glr-reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/css/styles.css"/>
+</head>
+<body class="bg-background text-on-background font-body-md selection:bg-primary-container selection:text-on-primary-container overflow-x-hidden">
+
+  <!-- ══ MOBILE HEADER + DRAWER (injected, md:hidden) ══ -->
+  <div id="mob-header"></div>
+
+  <!-- Desktop shared header (hidden on mobile) -->
+  <div id="site-header" class="hidden md:block"></div>
+
+  <!-- Admin Mode Badge -->
+  <div id="admin-mode-badge">
+    <span class="material-symbols-outlined" style="font-size:16px;">admin_panel_settings</span>
+    Admin Mode Active
+    <button onclick="logoutAdmin()" class="ml-2 underline text-white/80 hover:text-white text-xs font-normal">Logout</button>
+  </div>
+
+  <!-- Toast Container -->
+  <div id="toast-container"></div>
+
+  <!-- ════════════════════════════════════════════
+       MOBILE LAYOUT  (visible < md)
+  ════════════════════════════════════════════ -->
+  <main class="md:hidden pt-[64px] pb-16">
+
+    <!-- Mobile Hero -->
+    <section class="relative bg-gradient-to-b from-primary to-primary-container overflow-hidden">
+      <div class="absolute inset-0 opacity-10" style="background-image: url('https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=1200&q=60'); background-size: cover; background-position: center;"></div>
+      <div class="relative z-10 px-md pt-xl pb-lg">
+        <span class="inline-block px-sm py-1 bg-white/15 backdrop-blur-sm border border-white/20 text-white font-label-sm text-label-sm rounded-full tracking-widest mb-md">GALLERY</span>
+        <h1 class="font-h1 text-[36px] leading-tight text-white text-shadow-sm mb-sm">Our Work<br/>in Focus</h1>
+        <p class="font-body-md text-body-md text-white/80 max-w-xs">Showcasing our fleet, warehouses, and operations across the GCC — 15+ years of logistics excellence captured in every frame.</p>
+        <!-- Stats bar -->
+        <div class="grid grid-cols-3 gap-sm mt-lg">
+          <div class="text-center bg-white/10 backdrop-blur-sm rounded-xl p-sm border border-white/15">
+            <div class="text-white font-bold text-xl">500+</div>
+            <div class="text-white/70 font-label-sm text-[11px] leading-tight mt-xs">Photos</div>
+          </div>
+          <div class="text-center bg-white/10 backdrop-blur-sm rounded-xl p-sm border border-white/15">
+            <div class="text-white font-bold text-xl">6</div>
+            <div class="text-white/70 font-label-sm text-[11px] leading-tight mt-xs">Categories</div>
+          </div>
+          <div class="text-center bg-white/10 backdrop-blur-sm rounded-xl p-sm border border-white/15">
+            <div class="text-white font-bold text-xl">15+</div>
+            <div class="text-white/70 font-label-sm text-[11px] leading-tight mt-xs">Years Ops</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Mobile Category Filter -->
+    <section class="bg-surface-container-low border-b border-outline-variant/30 sticky top-[64px] z-30">
+      <div class="flex gap-sm px-md py-sm overflow-x-auto hide-scrollbar" id="mobile-filter-tabs">
+        <button class="cat-pill active flex-shrink-0 px-md py-xs rounded-full font-label-sm text-label-sm whitespace-nowrap" onclick="filterGallery('all', this, 'mobile')">All</button>
+        <button class="cat-pill flex-shrink-0 px-md py-xs rounded-full font-label-sm text-label-sm whitespace-nowrap" onclick="filterGallery('fleet', this, 'mobile')">Fleet</button>
+        <button class="cat-pill flex-shrink-0 px-md py-xs rounded-full font-label-sm text-label-sm whitespace-nowrap" onclick="filterGallery('warehouse', this, 'mobile')">Warehouse</button>
+        <button class="cat-pill flex-shrink-0 px-md py-xs rounded-full font-label-sm text-label-sm whitespace-nowrap" onclick="filterGallery('operations', this, 'mobile')">Operations</button>
+        <button class="cat-pill flex-shrink-0 px-md py-xs rounded-full font-label-sm text-label-sm whitespace-nowrap" onclick="filterGallery('events', this, 'mobile')">Events</button>
+        <button class="cat-pill flex-shrink-0 px-md py-xs rounded-full font-label-sm text-label-sm whitespace-nowrap" onclick="filterGallery('projects', this, 'mobile')">Projects</button>
+      </div>
+    </section>
+
+    <!-- Mobile Gallery Grid -->
+    <section class="px-md py-lg">
+      <div class="gallery-grid-mobile" id="gallery-grid-mobile">
+        <!-- Rendered by JS -->
+      </div>
+      <div id="gallery-empty-mobile" class="hidden text-center py-xl text-on-surface-variant font-body-md">
+        <span class="material-symbols-outlined text-5xl block mb-sm opacity-40">photo_library</span>
+        No photos in this category yet.
+      </div>
+    </section>
+
+    <!-- Mobile Footer -->
+    <div id="mob-footer"></div>
+  </main>
+
+  <!-- ══ MOBILE BOTTOM NAV (injected, md:hidden) ══ -->
+  <div id="mob-nav"></div>
+
+  <!-- ════════════════════════════════════════════
+       DESKTOP LAYOUT  (visible md +)
+  ════════════════════════════════════════════ -->
+
+  <!-- Desktop Hero -->
+  <section class="hidden md:flex relative min-h-[55vh] w-full items-center pt-24 pb-16 overflow-hidden bg-gradient-to-br from-primary via-primary to-primary-container">
+    <div class="absolute inset-0 opacity-10" style="background-image: url('https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=1600&q=60'); background-size: cover; background-position: center;"></div>
+    <!-- Subtle geometric accent -->
+    <div class="absolute right-0 top-0 w-1/3 h-full opacity-10" style="background: radial-gradient(ellipse at right top, #b0c6ff 0%, transparent 70%);"></div>
+    <div class="relative z-10 max-w-container-max mx-auto px-12 w-full">
+      <div class="max-w-3xl">
+        <span class="inline-block px-4 py-1.5 bg-white/15 backdrop-blur-md border border-white/20 rounded-full text-white font-label-sm text-label-sm mb-6 tracking-widest">GALLERY</span>
+        <h1 class="font-h1 text-h1 text-white mb-6 leading-tight">Our Work in Focus</h1>
+        <p class="font-body-lg text-body-lg text-white/80 max-w-2xl mb-10">Showcasing our fleet, warehouses, and operations across the GCC — 15+ years of logistics excellence captured in every frame.</p>
+        <!-- Desktop Stats bar -->
+        <div class="flex gap-8">
+          <div class="text-center bg-white/10 backdrop-blur-sm rounded-2xl px-8 py-md border border-white/15">
+            <div class="text-white font-extrabold text-3xl">500+</div>
+            <div class="text-white/70 font-label-sm text-label-sm mt-xs">Photos</div>
+          </div>
+          <div class="text-center bg-white/10 backdrop-blur-sm rounded-2xl px-8 py-md border border-white/15">
+            <div class="text-white font-extrabold text-3xl">6</div>
+            <div class="text-white/70 font-label-sm text-label-sm mt-xs">Categories</div>
+          </div>
+          <div class="text-center bg-white/10 backdrop-blur-sm rounded-2xl px-8 py-md border border-white/15">
+            <div class="text-white font-extrabold text-3xl">15+</div>
+            <div class="text-white/70 font-label-sm text-label-sm mt-xs">Years of Operations</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Desktop: Category Filter -->
+  <section class="hidden md:block sticky top-0 z-40 bg-surface/95 backdrop-blur-md border-b border-outline-variant/30 shadow-sm">
+    <div class="max-w-container-max mx-auto px-12">
+      <div class="flex items-center justify-center gap-sm py-md" id="desktop-filter-tabs">
+        <button class="cat-pill active px-6 py-2 rounded-full font-label-sm text-label-sm" onclick="filterGallery('all', this, 'desktop')">All</button>
+        <button class="cat-pill px-6 py-2 rounded-full font-label-sm text-label-sm" onclick="filterGallery('fleet', this, 'desktop')">Fleet</button>
+        <button class="cat-pill px-6 py-2 rounded-full font-label-sm text-label-sm" onclick="filterGallery('warehouse', this, 'desktop')">Warehouse</button>
+        <button class="cat-pill px-6 py-2 rounded-full font-label-sm text-label-sm" onclick="filterGallery('operations', this, 'desktop')">Operations</button>
+        <button class="cat-pill px-6 py-2 rounded-full font-label-sm text-label-sm" onclick="filterGallery('events', this, 'desktop')">Events</button>
+        <button class="cat-pill px-6 py-2 rounded-full font-label-sm text-label-sm" onclick="filterGallery('projects', this, 'desktop')">Projects</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Desktop: Gallery Grid -->
+  <section class="hidden md:block py-xl bg-background">
+    <div class="max-w-container-max mx-auto px-12">
+      <div class="gallery-grid-desktop" id="gallery-grid-desktop">
+        <!-- Rendered by JS -->
+      </div>
+      <div id="gallery-empty-desktop" class="hidden text-center py-xl text-on-surface-variant font-body-md">
+        <span class="material-symbols-outlined text-6xl block mb-sm opacity-40">photo_library</span>
+        <p>No photos in this category yet.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Desktop: Site Footer -->
+  <div id="site-footer" class="hidden md:block"></div>
+
+  <!-- ════════════════════════════════════════════
+       LIGHTBOX OVERLAY
+  ════════════════════════════════════════════ -->
+  <div id="lightbox-overlay" role="dialog" aria-modal="true" aria-label="Image viewer">
+    <!-- Close button -->
+    <button id="lightbox-close" onclick="closeLightbox()"
+      class="absolute top-4 right-4 z-10 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 text-white flex items-center justify-center transition-all"
+      aria-label="Close">
+      <span class="material-symbols-outlined">close</span>
+    </button>
+    <!-- Counter -->
+    <div id="lightbox-counter" class="absolute top-4 left-1/2 -translate-x-1/2 z-10 text-white/70 font-label-sm text-label-sm bg-black/30 px-4 py-1.5 rounded-full backdrop-blur-sm">1 / 12</div>
+    <!-- Prev button -->
+    <button id="lightbox-prev" onclick="prevPhoto()"
+      class="absolute left-4 top-1/2 -translate-y-1/2 z-10 w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 text-white flex items-center justify-center transition-all"
+      aria-label="Previous">
+      <span class="material-symbols-outlined">chevron_left</span>
+    </button>
+    <!-- Next button -->
+    <button id="lightbox-next" onclick="nextPhoto()"
+      class="absolute right-4 top-1/2 -translate-y-1/2 z-10 w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 text-white flex items-center justify-center transition-all"
+      aria-label="Next">
+      <span class="material-symbols-outlined">chevron_right</span>
+    </button>
+    <!-- Image + Info -->
+    <div class="flex flex-col items-center gap-md px-16 w-full max-w-5xl mx-auto">
+      <img id="lightbox-img" src="" alt="" />
+      <div class="text-center">
+        <div id="lightbox-title" class="text-white font-h3 text-h3 mb-2"></div>
+        <span id="lightbox-badge" class="inline-block px-4 py-1 rounded-full text-white font-label-sm text-label-sm bg-white/15 border border-white/20 capitalize"></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════════
+       ADMIN: Floating key button
+  ════════════════════════════════════════════ -->
+  <button id="admin-key-btn" onclick="openAdminModal()"
+    title="Admin Login"
+    class="fixed bottom-24 right-4 md:bottom-6 md:right-6 z-50 w-10 h-10 rounded-full bg-surface-container border border-outline-variant/50 text-on-surface-variant hover:bg-surface-container-high hover:border-outline transition-all shadow-md flex items-center justify-center"
+    aria-label="Admin Login">
+    <span class="material-symbols-outlined" style="font-size:18px;">key</span>
+  </button>
+
+  <!-- Add Photo FAB -->
+  <button id="add-photo-fab" onclick="openAddPhotoModal()" aria-label="Add Photo">
+    <span class="material-symbols-outlined" style="font-size:20px;">add_photo_alternate</span>
+    Add Photo
+  </button>
+
+  <!-- ════════════════════════════════════════════
+       ADMIN LOGIN MODAL
+  ════════════════════════════════════════════ -->
+  <div id="admin-login-modal" class="modal-backdrop" role="dialog" aria-modal="true" aria-label="Admin Login">
+    <div class="bg-white rounded-2xl shadow-2xl w-full max-w-sm p-8 relative">
+      <button onclick="closeAdminModal()" class="absolute top-4 right-4 text-on-surface-variant hover:text-on-surface transition-colors">
+        <span class="material-symbols-outlined">close</span>
+      </button>
+      <div class="flex items-center gap-sm mb-6">
+        <div class="w-10 h-10 rounded-xl bg-primary flex items-center justify-center">
+          <span class="material-symbols-outlined text-white">admin_panel_settings</span>
+        </div>
+        <div>
+          <h2 class="font-h3 text-h3 text-on-surface">Admin Access</h2>
+          <p class="text-xs text-on-surface-variant">Enter the admin password to continue</p>
+        </div>
+      </div>
+      <div class="space-y-md">
+        <div>
+          <label class="block font-label-sm text-label-sm text-on-surface-variant mb-2" for="admin-password-input">Password</label>
+          <input id="admin-password-input" type="password" placeholder="Enter admin password"
+            class="w-full h-12 px-md border border-outline-variant rounded-lg font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all"
+            onkeydown="if(event.key==='Enter') submitAdminLogin()"/>
+        </div>
+        <div id="admin-login-error" class="hidden text-error font-label-sm text-label-sm flex items-center gap-xs">
+          <span class="material-symbols-outlined" style="font-size:16px;">error</span>
+          Incorrect password. Try again.
+        </div>
+        <button onclick="submitAdminLogin()" id="admin-login-btn"
+          class="w-full h-12 bg-primary text-on-primary font-label-sm text-label-sm rounded-lg hover:bg-primary-container transition-colors shadow-md">
+          Login
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════════
+       ADD PHOTO MODAL
+  ════════════════════════════════════════════ -->
+  <div id="add-photo-modal" class="modal-backdrop" role="dialog" aria-modal="true" aria-label="Add Photo">
+    <div class="bg-white rounded-2xl shadow-2xl w-full max-w-lg p-8 relative max-h-[90vh] overflow-y-auto">
+      <button onclick="closeAddPhotoModal()" class="absolute top-4 right-4 text-on-surface-variant hover:text-on-surface transition-colors">
+        <span class="material-symbols-outlined">close</span>
+      </button>
+      <div class="flex items-center gap-sm mb-6">
+        <div class="w-10 h-10 rounded-xl bg-green-600 flex items-center justify-center">
+          <span class="material-symbols-outlined text-white">add_photo_alternate</span>
+        </div>
+        <div>
+          <h2 class="font-h3 text-h3 text-on-surface">Add New Photo</h2>
+          <p class="text-xs text-on-surface-variant">Add a photo to the gallery</p>
+        </div>
+      </div>
+
+      <div class="space-y-md">
+        <!-- Title -->
+        <div>
+          <label class="block font-label-sm text-label-sm text-on-surface-variant mb-2" for="photo-title-input">Photo Title <span class="text-error">*</span></label>
+          <input id="photo-title-input" type="text" placeholder="e.g. Jeddah Port Operations"
+            class="w-full h-12 px-md border border-outline-variant rounded-lg font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all"/>
+        </div>
+
+        <!-- Category -->
+        <div>
+          <label class="block font-label-sm text-label-sm text-on-surface-variant mb-2" for="photo-category-select">Category <span class="text-error">*</span></label>
+          <select id="photo-category-select"
+            class="w-full h-12 px-md border border-outline-variant rounded-lg font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all bg-white">
+            <option value="fleet">Fleet</option>
+            <option value="warehouse">Warehouse</option>
+            <option value="operations">Operations</option>
+            <option value="events">Events</option>
+            <option value="projects">Projects</option>
+          </select>
+        </div>
+
+        <!-- Image Source Tabs -->
+        <div>
+          <label class="block font-label-sm text-label-sm text-on-surface-variant mb-2">Image Source</label>
+          <div class="flex border-b border-outline-variant/40 mb-md gap-0">
+            <button id="tab-url" class="img-tab active px-6 py-2 text-sm font-medium" onclick="switchImgTab('url')">Paste URL</button>
+            <button id="tab-file" class="img-tab px-6 py-2 text-sm font-medium" onclick="switchImgTab('file')">Upload File</button>
+          </div>
+
+          <!-- URL Panel -->
+          <div id="img-panel-url">
+            <input id="photo-url-input" type="url" placeholder="https://res.cloudinary.com/..."
+              class="w-full h-12 px-md border border-outline-variant rounded-lg font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all"
+              oninput="previewFromUrl(this.value)"/>
+            <div class="mt-sm flex items-start gap-xs p-sm bg-blue-50 rounded-lg border border-blue-100">
+              <span style="font-size:16px;" class="mt-0.5 flex-shrink-0">💡</span>
+              <p class="text-xs text-blue-800">For production, upload your image to <strong>Cloudinary</strong> (free) or <strong>imgBB</strong> and paste the URL here. Images are stored by URL so they remain accessible when deployed.</p>
+            </div>
+          </div>
+
+          <!-- File Panel -->
+          <div id="img-panel-file" class="hidden">
+            <label class="flex flex-col items-center justify-center w-full h-24 border-2 border-dashed border-outline-variant rounded-lg cursor-pointer hover:bg-surface-container-low transition-colors">
+              <span class="material-symbols-outlined text-on-surface-variant text-3xl">upload_file</span>
+              <span class="text-sm text-on-surface-variant mt-1">Click to choose image</span>
+              <input id="photo-file-input" type="file" accept="image/*" class="hidden" onchange="previewFromFile(this)"/>
+            </label>
+            <div class="mt-sm flex items-start gap-xs p-sm bg-amber-50 rounded-lg border border-amber-100">
+              <span style="font-size:16px;" class="mt-0.5 flex-shrink-0">⚠️</span>
+              <p class="text-xs text-amber-800">File uploads are stored as base64 in localStorage (~5MB limit). Use the <strong>URL tab</strong> for production.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Preview -->
+        <div id="photo-preview-wrap" class="hidden">
+          <label class="block font-label-sm text-label-sm text-on-surface-variant mb-2">Preview</label>
+          <div class="w-full aspect-video rounded-xl overflow-hidden bg-surface-container border border-outline-variant/40">
+            <img id="photo-preview-img" src="" alt="Preview" class="w-full h-full object-cover"/>
+          </div>
+        </div>
+
+        <!-- Error -->
+        <div id="add-photo-error" class="hidden text-error font-label-sm text-label-sm flex items-center gap-xs">
+          <span class="material-symbols-outlined" style="font-size:16px;">error</span>
+          <span id="add-photo-error-msg">Please fill in all required fields.</span>
+        </div>
+
+        <!-- Submit -->
+        <button onclick="submitAddPhoto()" id="add-photo-btn"
+          class="w-full h-12 bg-green-600 hover:bg-green-700 text-white font-label-sm text-label-sm rounded-lg transition-colors shadow-md">
+          Add to Gallery
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════════
+       JAVASCRIPT
+  ════════════════════════════════════════════ -->
+  <script>
+    // ── Constants ──────────────────────────────────────────────────────────────
+    const API_BASE_URL = `${window.location.protocol}//${window.location.hostname}:4000`;
+    const API_GALLERY = `${API_BASE_URL}/api/gallery`;
+    const API_ADMIN_LOGIN = `${API_BASE_URL}/api/admin/login`;
+    const API_ADMIN_LOGOUT = `${API_BASE_URL}/api/admin/logout`;
+    const ADMIN_TOKEN_KEY = 'arkan_admin_token';
+    const SEED = [
+      {id:'g1',src:'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=800&q=80',category:'warehouse',title:'Riyadh Distribution Hub'},
+      {id:'g2',src:'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80',category:'fleet',title:'Container Fleet at Jeddah Port'},
+      {id:'g3',src:'https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?w=800&q=80',category:'fleet',title:'Long-Haul Truck Convoy'},
+      {id:'g4',src:'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=800&q=80',category:'operations',title:'Air Freight Operations'},
+      {id:'g5',src:'https://images.unsplash.com/photo-1553775282-20af80779df7?w=800&q=80',category:'warehouse',title:'Automated Storage Racking'},
+      {id:'g6',src:'https://images.unsplash.com/photo-1521737711867-e3b97375f902?w=800&q=80',category:'events',title:'Annual Logistics Summit 2024'},
+      {id:'g7',src:'https://images.unsplash.com/photo-1504893524553-b855bce32c67?w=800&q=80',category:'operations',title:'Port Loading Operations'},
+      {id:'g8',src:'https://images.unsplash.com/photo-1577368211130-4bbd0181ddf0?w=800&q=80',category:'projects',title:'Heavy Lift Project Cargo'},
+      {id:'g9',src:'https://images.unsplash.com/photo-1547962093-8f8b5571d5e0?w=800&q=80',category:'fleet',title:'Refrigerated Fleet Units'},
+      {id:'g10',src:'https://images.unsplash.com/photo-1618946236955-a99d1cf11bb5?w=800&q=80',category:'operations',title:'Customs Clearance Desk'},
+      {id:'g11',src:'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800&q=80',category:'events',title:'GCC Trade Expo 2024'},
+      {id:'g12',src:'https://images.unsplash.com/photo-1565793298595-6a879b1d9492?w=800&q=80',category:'projects',title:'Oversized Cargo Transport'}
+    ];
+
+    // ── State ──────────────────────────────────────────────────────────────────
+    let gallery = [];
+    let activeCategory = 'all';
+    let lightboxIndex = 0;
+    let isAdmin = false;
+    let adminToken = sessionStorage.getItem(ADMIN_TOKEN_KEY) || '';
+    let currentImgTab = 'url';
+    let pendingBase64 = null;
+
+    // ── Load / Save ────────────────────────────────────────────────────────────
+    async function loadGallery() {
+      try {
+        const res = await fetch(API_GALLERY);
+        if (!res.ok) throw new Error('Failed to load gallery');
+        const data = await res.json();
+        gallery = Array.isArray(data) && data.length ? data : JSON.parse(JSON.stringify(SEED));
+      } catch (e) {
+        gallery = JSON.parse(JSON.stringify(SEED));
+        showToast('Using fallback gallery data. Start backend for live updates.', 'error');
+      }
+    }
+
+    // ── Filter & Render ────────────────────────────────────────────────────────
+    function getFiltered() {
+      if (activeCategory === 'all') return gallery;
+      return gallery.filter(item => item.category === activeCategory);
+    }
+
+    function filterGallery(cat, btn, source) {
+      activeCategory = cat;
+      // Sync both filter bars
+      document.querySelectorAll('.cat-pill').forEach(p => p.classList.remove('active'));
+      // Activate all pills with same category across both bars
+      document.querySelectorAll('.cat-pill').forEach(p => {
+        const handler = p.getAttribute('onclick') || '';
+        if (handler.includes(`'${cat}'`)) p.classList.add('active');
+      });
+      renderGallery();
+    }
+
+    function renderGallery() {
+      const items = getFiltered();
+      renderGrid('gallery-grid-mobile', 'gallery-empty-mobile', items, 'mobile');
+      renderGrid('gallery-grid-desktop', 'gallery-empty-desktop', items, 'desktop');
+    }
+
+    function renderGrid(gridId, emptyId, items, layout) {
+      const grid = document.getElementById(gridId);
+      const empty = document.getElementById(emptyId);
+      if (!grid) return;
+
+      grid.innerHTML = '';
+      grid.style.opacity = '0';
+      grid.style.transition = 'opacity 0.3s ease';
+
+      if (!items.length) {
+        if (empty) empty.classList.remove('hidden');
+        setTimeout(() => { grid.style.opacity = '1'; }, 50);
+        return;
+      }
+      if (empty) empty.classList.add('hidden');
+
+      items.forEach((item, idx) => {
+        const isSpan = layout === 'desktop' && (idx === 0 || idx === 4 || idx === 8);
+        const card = document.createElement('div');
+        card.className = 'gallery-card rounded-xl' + (isSpan ? ' span-2' : '');
+        card.setAttribute('data-id', item.id);
+        card.style.transitionDelay = (idx * 40) + 'ms';
+
+        const img = document.createElement('img');
+        img.src = item.src;
+        img.alt = item.title;
+        img.loading = 'lazy';
+
+        const overlay = document.createElement('div');
+        overlay.className = 'card-overlay';
+
+        const badge = document.createElement('span');
+        badge.className = 'inline-block px-2 py-0.5 bg-white/20 border border-white/30 rounded-full text-white text-xs font-semibold capitalize mb-1';
+        badge.textContent = item.category;
+
+        const title = document.createElement('div');
+        title.className = 'text-white font-semibold text-sm leading-tight';
+        title.textContent = item.title;
+
+        overlay.appendChild(badge);
+        overlay.appendChild(title);
+        card.appendChild(img);
+        card.appendChild(overlay);
+
+        // Delete button (admin mode)
+        const delBtn = document.createElement('button');
+        delBtn.className = 'admin-delete-btn';
+        delBtn.setAttribute('aria-label', 'Delete photo');
+        delBtn.innerHTML = '<span class="material-symbols-outlined" style="font-size:16px;">delete</span>';
+        delBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          deletePhoto(item.id);
+        });
+        card.appendChild(delBtn);
+
+        // Click to open lightbox
+        card.addEventListener('click', () => {
+          const filtered = getFiltered();
+          const i = filtered.findIndex(f => f.id === item.id);
+          if (i >= 0) openLightbox(i);
+        });
+
+        grid.appendChild(card);
+      });
+
+      setTimeout(() => { grid.style.opacity = '1'; }, 50);
+    }
+
+    // ── Lightbox ───────────────────────────────────────────────────────────────
+    function openLightbox(index) {
+      const items = getFiltered();
+      lightboxIndex = Math.max(0, Math.min(index, items.length - 1));
+      const overlay = document.getElementById('lightbox-overlay');
+      overlay.classList.add('active');
+      document.body.style.overflow = 'hidden';
+      updateLightboxContent();
+    }
+
+    function updateLightboxContent(fade) {
+      const items = getFiltered();
+      if (!items.length) { closeLightbox(); return; }
+      const item = items[lightboxIndex];
+      const img = document.getElementById('lightbox-img');
+      const title = document.getElementById('lightbox-title');
+      const badge = document.getElementById('lightbox-badge');
+      const counter = document.getElementById('lightbox-counter');
+
+      if (fade) {
+        img.classList.add('fade');
+        setTimeout(() => {
+          img.src = item.src;
+          img.alt = item.title;
+          title.textContent = item.title;
+          badge.textContent = item.category;
+          counter.textContent = (lightboxIndex + 1) + ' / ' + items.length;
+          img.classList.remove('fade');
+        }, 200);
+      } else {
+        img.src = item.src;
+        img.alt = item.title;
+        title.textContent = item.title;
+        badge.textContent = item.category;
+        counter.textContent = (lightboxIndex + 1) + ' / ' + items.length;
+      }
+    }
+
+    function nextPhoto() {
+      const items = getFiltered();
+      lightboxIndex = (lightboxIndex + 1) % items.length;
+      updateLightboxContent(true);
+    }
+
+    function prevPhoto() {
+      const items = getFiltered();
+      lightboxIndex = (lightboxIndex - 1 + items.length) % items.length;
+      updateLightboxContent(true);
+    }
+
+    function closeLightbox() {
+      document.getElementById('lightbox-overlay').classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    // Keyboard support
+    document.addEventListener('keydown', (e) => {
+      const overlay = document.getElementById('lightbox-overlay');
+      if (!overlay.classList.contains('active')) return;
+      if (e.key === 'ArrowRight') nextPhoto();
+      else if (e.key === 'ArrowLeft') prevPhoto();
+      else if (e.key === 'Escape') closeLightbox();
+    });
+
+    // Click outside lightbox image to close
+    document.getElementById('lightbox-overlay').addEventListener('click', (e) => {
+      if (e.target.id === 'lightbox-overlay') closeLightbox();
+    });
+
+    // ── Admin ──────────────────────────────────────────────────────────────────
+    function openAdminModal() {
+      if (isAdmin) {
+        showToast('Already logged in as admin.', 'success');
+        return;
+      }
+      document.getElementById('admin-login-modal').classList.add('active');
+      document.getElementById('admin-password-input').value = '';
+      document.getElementById('admin-login-error').classList.add('hidden');
+      setTimeout(() => document.getElementById('admin-password-input').focus(), 100);
+    }
+
+    function closeAdminModal() {
+      document.getElementById('admin-login-modal').classList.remove('active');
+    }
+
+    async function submitAdminLogin() {
+      const pwd = document.getElementById('admin-password-input').value;
+      const errEl = document.getElementById('admin-login-error');
+      try {
+        const res = await fetch(API_ADMIN_LOGIN, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ password: pwd })
+        });
+
+        if (!res.ok) {
+          errEl.classList.remove('hidden');
+          document.getElementById('admin-password-input').value = '';
+          document.getElementById('admin-password-input').focus();
+          return;
+        }
+
+        const data = await res.json();
+        adminToken = data.token || '';
+        sessionStorage.setItem(ADMIN_TOKEN_KEY, adminToken);
+        isAdmin = true;
+        document.body.classList.add('admin-mode');
+        closeAdminModal();
+        showToast('Admin mode activated!', 'success');
+        document.getElementById('admin-key-btn').style.display = 'none';
+      } catch (e) {
+        showToast('Backend unavailable. Start server and try again.', 'error');
+      }
+    }
+
+    async function logoutAdmin() {
+      if (adminToken) {
+        try {
+          await fetch(API_ADMIN_LOGOUT, {
+            method: 'POST',
+            headers: { 'x-admin-token': adminToken }
+          });
+        } catch (e) {
+          // Ignore logout network errors; local session should still clear.
+        }
+      }
+
+      adminToken = '';
+      sessionStorage.removeItem(ADMIN_TOKEN_KEY);
+      isAdmin = false;
+      document.body.classList.remove('admin-mode');
+      document.getElementById('admin-key-btn').style.display = '';
+      showToast('Logged out of admin mode.', 'success');
+    }
+
+    // ── Add Photo ──────────────────────────────────────────────────────────────
+    function openAddPhotoModal() {
+      document.getElementById('add-photo-modal').classList.add('active');
+      document.getElementById('photo-title-input').value = '';
+      document.getElementById('photo-url-input').value = '';
+      document.getElementById('photo-preview-wrap').classList.add('hidden');
+      document.getElementById('add-photo-error').classList.add('hidden');
+      pendingBase64 = null;
+      switchImgTab('url');
+    }
+
+    function closeAddPhotoModal() {
+      document.getElementById('add-photo-modal').classList.remove('active');
+    }
+
+    function switchImgTab(tab) {
+      currentImgTab = tab;
+      document.getElementById('img-panel-url').classList.toggle('hidden', tab !== 'url');
+      document.getElementById('img-panel-file').classList.toggle('hidden', tab !== 'file');
+      document.getElementById('tab-url').classList.toggle('active', tab === 'url');
+      document.getElementById('tab-file').classList.toggle('active', tab === 'file');
+      document.getElementById('photo-preview-wrap').classList.add('hidden');
+      pendingBase64 = null;
+    }
+
+    function previewFromUrl(url) {
+      const wrap = document.getElementById('photo-preview-wrap');
+      const img = document.getElementById('photo-preview-img');
+      if (url && url.startsWith('http')) {
+        img.src = url;
+        wrap.classList.remove('hidden');
+      } else {
+        wrap.classList.add('hidden');
+      }
+    }
+
+    function previewFromFile(input) {
+      const file = input.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        pendingBase64 = e.target.result;
+        const wrap = document.getElementById('photo-preview-wrap');
+        const img = document.getElementById('photo-preview-img');
+        img.src = pendingBase64;
+        wrap.classList.remove('hidden');
+      };
+      reader.readAsDataURL(file);
+    }
+
+    async function submitAddPhoto() {
+      const title = document.getElementById('photo-title-input').value.trim();
+      const category = document.getElementById('photo-category-select').value;
+      const urlVal = document.getElementById('photo-url-input').value.trim();
+      const fileInput = document.getElementById('photo-file-input');
+      const errEl = document.getElementById('add-photo-error');
+      const errMsg = document.getElementById('add-photo-error-msg');
+
+      if (!adminToken) {
+        errMsg.textContent = 'Admin session expired. Please login again.';
+        errEl.classList.remove('hidden');
+        return;
+      }
+
+      if (!title) {
+        errMsg.textContent = 'Please enter a photo title.';
+        errEl.classList.remove('hidden');
+        return;
+      }
+
+      try {
+        let res;
+        if (currentImgTab === 'url') {
+          if (!urlVal || !urlVal.startsWith('http')) {
+            errMsg.textContent = 'Please enter a valid image URL (starting with http).';
+            errEl.classList.remove('hidden');
+            return;
+          }
+
+          res = await fetch(API_GALLERY, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'x-admin-token': adminToken
+            },
+            body: JSON.stringify({ title, category, src: urlVal })
+          });
+        } else {
+          const file = fileInput.files[0];
+          if (!file) {
+            errMsg.textContent = 'Please select an image file.';
+            errEl.classList.remove('hidden');
+            return;
+          }
+
+          const formData = new FormData();
+          formData.append('title', title);
+          formData.append('category', category);
+          formData.append('file', file);
+
+          res = await fetch(API_GALLERY, {
+            method: 'POST',
+            headers: { 'x-admin-token': adminToken },
+            body: formData
+          });
+        }
+
+        if (res.status === 401) {
+          adminToken = '';
+          sessionStorage.removeItem(ADMIN_TOKEN_KEY);
+          isAdmin = false;
+          document.body.classList.remove('admin-mode');
+          document.getElementById('admin-key-btn').style.display = '';
+          errMsg.textContent = 'Admin session expired. Please login again.';
+          errEl.classList.remove('hidden');
+          return;
+        }
+
+        if (!res.ok) {
+          errMsg.textContent = 'Failed to add photo. Please try again.';
+          errEl.classList.remove('hidden');
+          return;
+        }
+
+        errEl.classList.add('hidden');
+        await loadGallery();
+        renderGallery();
+        closeAddPhotoModal();
+        showToast('Photo added to gallery!', 'success');
+      } catch (e) {
+        errMsg.textContent = 'Backend unavailable. Start server and try again.';
+        errEl.classList.remove('hidden');
+      }
+    }
+
+    async function deletePhoto(id) {
+      if (!adminToken) {
+        showToast('Admin session expired. Please login again.', 'error');
+        return;
+      }
+      if (!confirm('Delete this photo from the gallery?')) return;
+      try {
+        const res = await fetch(`${API_GALLERY}/${id}`, {
+          method: 'DELETE',
+          headers: { 'x-admin-token': adminToken }
+        });
+
+        if (res.status === 401) {
+          adminToken = '';
+          sessionStorage.removeItem(ADMIN_TOKEN_KEY);
+          isAdmin = false;
+          document.body.classList.remove('admin-mode');
+          document.getElementById('admin-key-btn').style.display = '';
+          showToast('Admin session expired. Please login again.', 'error');
+          return;
+        }
+
+        if (!res.ok) {
+          showToast('Failed to delete photo.', 'error');
+          return;
+        }
+
+        await loadGallery();
+        renderGallery();
+        showToast('Photo deleted.', 'success');
+      } catch (e) {
+        showToast('Backend unavailable. Start server and try again.', 'error');
+      }
+    }
+
+    // ── Toast ──────────────────────────────────────────────────────────────────
+    function showToast(message, type = 'success') {
+      const container = document.getElementById('toast-container');
+      const toast = document.createElement('div');
+      toast.className = 'toast ' + type;
+      toast.textContent = message;
+      container.appendChild(toast);
+      setTimeout(() => {
+        toast.style.transition = 'opacity 0.3s ease';
+        toast.style.opacity = '0';
+        setTimeout(() => toast.remove(), 300);
+      }, 3000);
+    }
+
+    // ── Scroll Reveal ──────────────────────────────────────────────────────────
+    function initReveal() {
+      const els = document.querySelectorAll('.glr-reveal');
+      if (!els.length) return;
+      const obs = new IntersectionObserver((entries) => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+      }, { threshold: 0.1 });
+      els.forEach(el => obs.observe(el));
+    }
+
+    // ── Init ───────────────────────────────────────────────────────────────────
+    document.addEventListener('DOMContentLoaded', async () => {
+      await loadGallery();
+      renderGallery();
+      initReveal();
+      if (adminToken) {
+        isAdmin = true;
+        document.body.classList.add('admin-mode');
+        document.getElementById('admin-key-btn').style.display = 'none';
+      }
+    });
+  </script>
+
+  <script src="../assets/js/script.js"></script>
+</body>
+</html>

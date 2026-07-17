@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html class="scroll-smooth" lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Arkan Arabia Logistics</title>
+
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" rel="stylesheet">
+
+  <!-- Tailwind Config -->
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "surface-dim": "#dcd9d9",
+            "primary-fixed-dim": "#b0c6ff",
+            "surface-tint": "#315bb0",
+            "on-surface-variant": "#434652",
+            "surface-container-low": "#f6f3f2",
+            "inverse-surface": "#313030",
+            "error-container": "#ffdad6",
+            "primary-fixed": "#d9e2ff",
+            "primary": "#00337d",
+            "on-secondary-container": "#26348a",
+            "on-background": "#1c1b1b",
+            "on-error": "#ffffff",
+            "on-primary-fixed-variant": "#0d4297",
+            "on-secondary": "#ffffff",
+            "surface-container-high": "#eae7e7",
+            "outline-variant": "#c3c6d4",
+            "on-tertiary-container": "#bac1c8",
+            "tertiary-fixed": "#dce3eb",
+            "tertiary": "#31383f",
+            "primary-container": "#1b4a9f",
+            "inverse-primary": "#b0c6ff",
+            "on-primary-fixed": "#001945",
+            "secondary-fixed-dim": "#bbc3ff",
+            "on-tertiary": "#ffffff",
+            "on-surface": "#1c1b1b",
+            "tertiary-container": "#484f56",
+            "on-secondary-fixed-variant": "#303e94",
+            "on-primary-container": "#a6bfff",
+            "on-primary": "#ffffff",
+            "surface-container": "#f0edec",
+            "on-tertiary-fixed-variant": "#40484e",
+            "surface-bright": "#fcf9f8",
+            "on-error-container": "#93000a",
+            "error": "#ba1a1a",
+            "outline": "#747783",
+            "secondary-fixed": "#dee0ff",
+            "secondary": "#4957ad",
+            "secondary-container": "#94a2fe",
+            "surface": "#fcf9f8",
+            "background": "#fcf9f8",
+            "surface-container-lowest": "#ffffff",
+            "tertiary-fixed-dim": "#c0c7cf",
+            "inverse-on-surface": "#f3f0ef",
+            "on-tertiary-fixed": "#151c22",
+            "surface-container-highest": "#e5e2e1",
+            "surface-variant": "#e5e2e1",
+            "on-secondary-fixed": "#000e5e"
+          },
+          borderRadius: {
+            "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem",
+            "2xl": "20px", "3xl": "24px", "full": "9999px"
+          },
+          fontFamily: {
+            "display": ["Manrope", "sans-serif"],
+            "h1": ["Manrope","sans-serif"], "h2": ["Manrope","sans-serif"],
+            "h3": ["Manrope","sans-serif"], "body": ["Inter","sans-serif"],
+            "body-md": ["Inter","sans-serif"],
+            "label-sm": ["Inter","sans-serif"]
+          },
+          spacing: {
+            "xs": "4px", "sm": "8px", "md": "16px", "lg": "24px",
+            "xl": "48px", "2xl": "64px",
+            "container-max": "1280px"
+          },
+          fontSize: {
+            "display-lg": ["3rem", { lineHeight: "1.1", fontWeight: "800" }],
+            "display-md": ["2.25rem", { lineHeight: "1.15", fontWeight: "700" }],
+            "title-lg": ["1.375rem", { lineHeight: "1.3", fontWeight: "700" }],
+            "title-md": ["1rem", { lineHeight: "1.4", fontWeight: "600" }],
+            "body-md": ["0.875rem", { lineHeight: "1.6" }],
+            "label-sm": ["0.75rem", { lineHeight: "1.4", fontWeight: "500" }]
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="assets/css/styles.css">
+
+  <style>
+    /* Glass morphism */
+    .glass-card {
+      background: rgba(255,255,255,0.15);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255,255,255,0.25);
+    }
+    /* Hide scrollbar */
+    .scrollbar-hide::-webkit-scrollbar { display: none; }
+    .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+    /* Fade-in reveal */
+    .mob-reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.5s ease, transform 0.5s ease; }
+    .mob-reveal.visible { opacity: 1; transform: translateY(0); }
+    /* Side drawer transition */
+    #mobile-drawer { transform: translateX(-100%); transition: transform 0.3s ease; }
+    #mobile-drawer.open { transform: translateX(0); }
+    #drawer-overlay { opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
+    #drawer-overlay.open { opacity: 1; pointer-events: auto; }
+    /* Logo scroll */
+    .logo-scroll { animation: scrollX 28s linear infinite; display: flex; width: max-content; }
+    @keyframes scrollX { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+    /* No scrollbar utility */
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    /* Mobile process timeline line */
+    .mob-timeline { position: relative; }
+    .mob-timeline::before {
+      content: '';
+      position: absolute;
+      left: 15px;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: rgba(0,51,125,0.15);
+    }
+  </style>
+</head>
+
+<body class="bg-background text-on-background font-body-md selection:bg-primary-container selection:text-on-primary-container overflow-x-hidden">
+
+  <!-- ══ MOBILE HEADER + DRAWER (injected, md:hidden) ══ -->
+  <div id="mob-header"></div>
+
+  <!-- ══════════════════════════════════════════════════════
+       MOBILE MAIN CONTENT (< md only)
+       ══════════════════════════════════════════════════════ -->
+  <main class="md:hidden pt-[64px] pb-16">
+
+    <!-- MOBILE HERO -->
+    <section class="relative h-[85vh] flex flex-col justify-end overflow-hidden" style="padding:16px;">
+      <!-- Background -->
+      <div class="absolute inset-0 z-0">
+        <div class="absolute inset-0 bg-primary/50 z-10"></div>
+        <div class="absolute inset-0 bg-cover bg-center" style="background-image:url('https://lh3.googleusercontent.com/aida-public/AB6AXuBnluvLKPz3Vq-6tXO6hFKC1ePahoaNaTtpOJjsz7NODdTQulM7eZVNayAULlavEc3vLUfNO_YRmJNhrdlOJ-sETdQA1kzAVHZHMeRcbCWa6MsfdbT_ndnHoAL3Gza5rcz4DS6z1pguNCDgOTT14i0Z_vptdaUM556I10GZBmelbFDQeBVxHokD1_LIjicH6ESS8JqO5_2hbEKYrZ_-27qY10a8gGbOYw3M97T7H6Dfk3oJx3yZSXkEL1EZDba9E2U4QaFJ5baYZPui');"></div>
+      </div>
+      <!-- Content -->
+      <div class="relative z-10 space-y-md mb-lg">
+        <div class="space-y-sm">
+          <span class="inline-block bg-white/20 text-white text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-widest border border-white/30">GCC Logistics Leader</span>
+          <h1 class="text-white font-h1 font-extrabold leading-tight" style="font-size:2rem;">Connecting Businesses <span class="text-primary-fixed">Across Borders</span></h1>
+          <p class="text-white/80 text-sm leading-relaxed">End-to-end logistics solutions bridging markets with speed, security, and smart technology across the GCC.</p>
+        </div>
+        <div class="flex gap-sm">
+          <a href="./pages/services.html" class="flex-1 h-12 bg-primary text-on-primary font-semibold rounded-xl flex items-center justify-center gap-sm shadow-md active:scale-95 transition-transform text-sm" style="gap:6px;">
+            <span class="material-symbols-outlined" style="font-size:18px;">explore</span> Our Services
+          </a>
+          <a href="./pages/contact.html#quote" class="flex-1 h-12 bg-white/20 text-white font-semibold rounded-xl flex items-center justify-center gap-sm border border-white/30 active:scale-95 transition-transform text-sm backdrop-blur-sm" style="gap:6px;">
+            <span class="material-symbols-outlined" style="font-size:18px;">request_quote</span> Get Quote
+          </a>
+        </div>
+        <!-- KPI Glass Cards -->
+        <div class="grid grid-cols-2 gap-sm">
+          <div class="glass-card p-md rounded-xl">
+            <div class="text-white font-h1 font-bold text-2xl">15+</div>
+            <div class="text-white/70 text-xs font-medium uppercase tracking-wide">Years Experience</div>
+          </div>
+          <div class="glass-card p-md rounded-xl">
+            <div class="text-white font-h1 font-bold text-2xl">5,000+</div>
+            <div class="text-white/70 text-xs font-medium uppercase tracking-wide">Annual Shipments</div>
+          </div>
+          <div class="glass-card p-md rounded-xl">
+            <div class="text-white font-h1 font-bold text-2xl">10+</div>
+            <div class="text-white/70 text-xs font-medium uppercase tracking-wide">Countries</div>
+          </div>
+          <div class="glass-card p-md rounded-xl">
+            <div class="text-white font-h1 font-bold text-2xl">850+</div>
+            <div class="text-white/70 text-xs font-medium uppercase tracking-wide">Fleet Vehicles</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MOBILE SERVICES -->
+    <section class="px-md py-xl space-y-lg" style="padding-left:16px;padding-right:16px;padding-top:40px;padding-bottom:40px;">
+      <div class="mob-reveal">
+        <span class="text-xs font-semibold text-primary uppercase tracking-widest">What We Do</span>
+        <h2 class="font-h2 font-bold text-on-surface mt-1" style="font-size:1.5rem;">Comprehensive Service Suite</h2>
+      </div>
+
+      <!-- Service Card: Land Transportation -->
+      <div class="mob-reveal bg-white rounded-2xl shadow-sm overflow-hidden border border-outline-variant/20">
+        <div class="aspect-[4/3] overflow-hidden">
+          <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDSYkP0UNrStPuNuzMaOwpN71onQTCojSRaeAqxFVRk2v8WeyUMGx9UUTXmO4vynCWw7C5X93okA9DBGW2315IgkB5Vf1X6HTXrU5oBbaot5prV28n2Z21R64p_mbiQ37ApoOjIagOmzCQv5nEM0QDXH2sqHfCWT-XSTj122jjnL40668_05epi7eJP9EmnPGbB-3t5ztM2_dqSKsPwX8A2Fdj-pN9E-tZ7Jll60W5fXptbc2vS_X_y6tA5C8Np10T6o1c6iQiTOQrT" alt="Land Transportation" class="w-full h-full object-cover">
+        </div>
+        <div class="p-md space-y-sm" style="padding:16px;">
+          <div class="flex items-center gap-sm">
+            <div class="w-9 h-9 bg-primary/10 rounded-lg flex items-center justify-center">
+              <span class="material-symbols-outlined text-primary" style="font-size:20px;">local_shipping</span>
+            </div>
+            <h3 class="font-semibold text-on-surface">Land Transportation</h3>
+          </div>
+          <p class="text-on-surface-variant text-sm leading-relaxed">FTL and LTL solutions across the entire GCC region with real-time tracking and optimised routing.</p>
+          <a href="./pages/services.html" class="flex items-center gap-xs text-primary font-semibold text-sm" style="gap:4px;">
+            Learn More <span class="material-symbols-outlined" style="font-size:16px;">arrow_forward</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Service Card: Warehousing -->
+      <div class="mob-reveal bg-white rounded-2xl shadow-sm overflow-hidden border border-outline-variant/20">
+        <div class="aspect-[4/3] overflow-hidden">
+          <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBNricAE_wOan0ygta-xm_ErpZsmj1xOwGxJacr616Ak3_FE1G_luLxy0t5YZxXNpbN_SNJzZqUOnpHZcXP6PQjwpxLr1w9YMiSoepqn6ZoJlWkKHFysHreKsOXTWD-IhUftk6gnXAQdtuMzwxmvjOF4TzeQfApqI71WQ5QQyFea0B8YqIOpHz8YenR2gNfq0xBf5_nS5WRQzdkqW4tI-UwtrcSeDTVWtHJdi2-r0EUCD8k44_Bhqnu769i-EXhU_2Vz0wwEH9jAyag" alt="Warehousing" class="w-full h-full object-cover">
+        </div>
+        <div class="p-md space-y-sm" style="padding:16px;">
+          <div class="flex items-center gap-sm">
+            <div class="w-9 h-9 bg-primary/10 rounded-lg flex items-center justify-center">
+              <span class="material-symbols-outlined text-primary" style="font-size:20px;">warehouse</span>
+            </div>
+            <h3 class="font-semibold text-on-surface">Warehousing</h3>
+          </div>
+          <p class="text-on-surface-variant text-sm leading-relaxed">Secured, temperature-controlled facilities with advanced WMS across all major GCC hubs.</p>
+          <a href="./pages/services.html" class="flex items-center gap-xs text-primary font-semibold text-sm" style="gap:4px;">
+            Learn More <span class="material-symbols-outlined" style="font-size:16px;">arrow_forward</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Service Card: Customs Clearance -->
+      <div class="mob-reveal bg-white rounded-2xl shadow-sm overflow-hidden border border-outline-variant/20">
+        <div class="aspect-[4/3] overflow-hidden">
+          <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuCKzAxy12PiH3WaUpEGWbXgokeUKk145uZFGxoDBt1PqLwXvNk0OflQgAlH7pJW5UeX3iIlT2wKpToBxDx1FaXfuev3hTliJPLtUzmqa0Y5SH5DQHAnj38nsvz_sDzfgQIcUCZJSCEC2tAzN1gpvlPBa8dyVd-bly2_bXha2cP570-3wNC1IRU8e5WVNQgBJgKq-PSdAj42aE5rfECQ0xZ61Mnz-f9LYEMKlqCZhfcO0hB-UBBVwU-y3m9cOhDNjkJ0ADN765RRcuYE" alt="Customs Clearance" class="w-full h-full object-cover">
+        </div>
+        <div class="p-md space-y-sm" style="padding:16px;">
+          <div class="flex items-center gap-sm">
+            <div class="w-9 h-9 bg-primary/10 rounded-lg flex items-center justify-center">
+              <span class="material-symbols-outlined text-primary" style="font-size:20px;">description</span>
+            </div>
+            <h3 class="font-semibold text-on-surface">Customs Clearance</h3>
+          </div>
+          <p class="text-on-surface-variant text-sm leading-relaxed">Expert handling of documentation, tariff classifications, and smooth clearance at all major border crossings.</p>
+          <a href="./pages/services.html" class="flex items-center gap-xs text-primary font-semibold text-sm" style="gap:4px;">
+            Learn More <span class="material-symbols-outlined" style="font-size:16px;">arrow_forward</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Service Card: Project Cargo -->
+      <div class="mob-reveal bg-white rounded-2xl shadow-sm overflow-hidden border border-outline-variant/20">
+        <div class="aspect-[4/3] overflow-hidden">
+          <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuCD_yZEjtoC-OAvmb66IIm1WFhyCmTlG2hDsGRnvIslsGNNcdHOuwFSr5iK0CWUzROg37FL2v3pCfd_dhcKoZwPgq73mqY6Vpe4S2oDlt2Ob1gghJuQIr6t9LGoU8EJsTpvrsQ86q1JHoD94mhfPlcm55m8uTL2K8RnFAEK_uEkEEGqgVUZwDJv7nGMO7XKzqpemkxblfmN-jOSGPkxTz8NC0kzXxlA_yg_jOCMEaMxaXf79jp2R0HFQAL7UjzjINp22p5SMJyagbZT" alt="Project Cargo" class="w-full h-full object-cover">
+        </div>
+        <div class="p-md space-y-sm" style="padding:16px;">
+          <div class="flex items-center gap-sm">
+            <div class="w-9 h-9 bg-primary/10 rounded-lg flex items-center justify-center">
+              <span class="material-symbols-outlined text-primary" style="font-size:20px;">engineering</span>
+            </div>
+            <h3 class="font-semibold text-on-surface">Project Cargo</h3>
+          </div>
+          <p class="text-on-surface-variant text-sm leading-relaxed">Complex logistics for heavy-lift and out-of-gauge industrial shipments with dedicated project management.</p>
+          <a href="./pages/services.html" class="flex items-center gap-xs text-primary font-semibold text-sm" style="gap:4px;">
+            Learn More <span class="material-symbols-outlined" style="font-size:16px;">arrow_forward</span>
+          </a>
+        </div>
+      </div>
+
+      <a href="./pages/services.html" class="w-full h-14 bg-primary text-on-primary font-semibold rounded-xl flex items-center justify-center gap-sm shadow-md active:scale-95 transition-transform mob-reveal" style="gap:8px;">
+        View All Services <span class="material-symbols-outlined" style="font-size:18px;">arrow_forward</span>
+      </a>
+    </section>
+
+    <!-- MOBILE WHY CHOOSE US -->
+    <section class="bg-inverse-surface px-md py-xl" style="padding-left:16px;padding-right:16px;padding-top:40px;padding-bottom:40px;">
+      <div class="mob-reveal mb-lg" style="margin-bottom:24px;">
+        <span class="text-xs font-semibold text-primary-fixed uppercase tracking-widest">Why Arkan Arabia</span>
+        <h2 class="font-h2 font-bold text-white mt-1" style="font-size:1.5rem;">The Arkan Advantage</h2>
+      </div>
+      <div class="space-y-md mb-lg" style="margin-bottom:24px;">
+        <div class="flex items-start gap-md mob-reveal" style="gap:16px;">
+          <div class="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center shrink-0 mt-1">
+            <span class="material-symbols-outlined text-primary-fixed" style="font-size:20px;">shield</span>
+          </div>
+          <div>
+            <h4 class="font-semibold text-white text-base">Maximum Security</h4>
+            <p class="text-white/60 text-sm leading-relaxed">Multi-layer cargo protection protocols and comprehensive insurance options.</p>
+          </div>
+        </div>
+        <div class="flex items-start gap-md mob-reveal" style="gap:16px;">
+          <div class="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center shrink-0 mt-1">
+            <span class="material-symbols-outlined text-primary-fixed" style="font-size:20px;">schedule</span>
+          </div>
+          <div>
+            <h4 class="font-semibold text-white text-base">On-Time Performance</h4>
+            <p class="text-white/60 text-sm leading-relaxed">Strict scheduling and route optimisation ensure your deadlines are met, every time.</p>
+          </div>
+        </div>
+        <div class="flex items-start gap-md mob-reveal" style="gap:16px;">
+          <div class="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center shrink-0 mt-1">
+            <span class="material-symbols-outlined text-primary-fixed" style="font-size:20px;">visibility</span>
+          </div>
+          <div>
+            <h4 class="font-semibold text-white text-base">Total Visibility</h4>
+            <p class="text-white/60 text-sm leading-relaxed">End-to-end digital tracking from warehouse shelf to final destination.</p>
+          </div>
+        </div>
+      </div>
+      <div class="mob-reveal rounded-2xl overflow-hidden" style="height:220px;">
+        <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuCz0GBzxUjrsRB58GDlT6exO3_F4cO-Ss8EAu1IwAAP9N2H5819-Hy2j1rln0qS944nHQ2GCCuBC6le9nmMgwYUoon1a6EJyzV8qi2Qm7FnGmaAA8v34iQMxaUbO0280fJT03DpolmgCjPI03J1AwrGtlYtPVaHIotut83cPDhuw7JnlgnuA_QItH0yg1mWTKr8fX7HBA87KJtFJEYvMXhVKvrUxRATQsPTdNmp2qNI8GN87j_DZajbRfz8HrnSDlVvHwumpqnEn0mE" alt="Operations" class="w-full h-full object-cover">
+      </div>
+    </section>
+
+    <!-- MOBILE INDUSTRIES -->
+    <section class="py-xl" style="padding-top:40px;padding-bottom:40px;">
+      <div class="px-md mob-reveal" style="padding-left:16px;padding-right:16px;margin-bottom:20px;">
+        <span class="text-xs font-semibold text-primary uppercase tracking-widest">Sectors We Serve</span>
+        <h2 class="font-h2 font-bold text-on-surface mt-1" style="font-size:1.5rem;">Industry Solutions</h2>
+      </div>
+      <div class="flex gap-md overflow-x-auto scrollbar-hide pb-md" style="padding-left:16px;padding-right:16px;padding-bottom:12px;gap:12px;">
+        <!-- Industry Card: Construction -->
+        <div class="w-72 flex-shrink-0 rounded-2xl overflow-hidden relative shadow-md" style="height:220px;min-width:288px;">
+          <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuAwP6nJfJnNO1IjEaY65MFsaZBFG2BHePEhAwGCBkMfkmuEuR9KUOuJqAysE3qpqJ4W1AK5JNz10Yw1fp9RVA1kGfeD2Yjisi9Pzl_KlsbXeU8IStb3AysXQHBPZvfLF2OFvCsRxXVmEt2edj6efCUKVhqMNxhiu2Bfe5KIOabLQDaqAIXR5IoBgH09q4nSYbVpt0d55JjCwguU53hKdpti90jmP16NV3FRnP6JI5aggM5PI4o0VOl71W3feEOB-JyjNl7DM1LsDZZy" alt="Construction" class="w-full h-full object-cover">
+          <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex flex-col justify-end p-md">
+            <span class="material-symbols-outlined text-white mb-xs" style="font-size:22px;">construction</span>
+            <h4 class="text-white font-semibold text-base">Construction</h4>
+            <p class="text-white/70 text-xs">Heavy equipment & materials</p>
+          </div>
+        </div>
+        <!-- Industry Card: Retail & FMCG -->
+        <div class="w-72 flex-shrink-0 rounded-2xl overflow-hidden relative shadow-md" style="height:220px;min-width:288px;">
+          <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuAL5dw6KQfxITurxrk8WIJTqt4s12RJoxoVCYKqk-1S-zBGG9fhTvwHdFu-uXt8uDD_9pyWaS-m5vKqxY5lE6IsvEbBzUITkBLtJdgKaB4y_MnAWncVMpwJvAzkOGuJ849ycIUPgcKGYxQYLBSrMfMoqnngipeKCLuixyHdcIe4tLqSZIJEQ_gou5g6kANAe3cN5Yfpuo0q-Ug2GpWL6WneDklKiy_oYAH7q3aaVXBEy8ngEey1tYreKW0Ru8KzCvsmS25TYx9FpuQO" alt="Retail & FMCG" class="w-full h-full object-cover">
+          <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex flex-col justify-end p-md">
+            <span class="material-symbols-outlined text-white mb-xs" style="font-size:22px;">storefront</span>
+            <h4 class="text-white font-semibold text-base">Retail &amp; FMCG</h4>
+            <p class="text-white/70 text-xs">Fast-moving consumer goods</p>
+          </div>
+        </div>
+        <!-- Industry Card: Pharma & Health -->
+        <div class="w-72 flex-shrink-0 rounded-2xl overflow-hidden relative shadow-md" style="height:220px;min-width:288px;">
+          <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBeduA7FLmG52fucE7UDYDD8wH0ebGDkPgeDSrLjONeZrd-LfBYtfJVj57bfsBbputwZeFsWOO9ezh4anqGQwte8CD6M7LELIMRsK-cBr4gK_FG5YY0moL1RFklRGhv62NjV0_iUuBm4xPtwkyEPdKdz1VnLjf5IPvTu3rn3npy6yzkPY7P_Sql5mkuSWU3ZfooDQp_UkKcYIzTrG74vpGc9wE-QVeF82G46ntnTwTKA9xbVhWzSYQglKqO_rngtbOFvTU_R4ziXwh8" alt="Pharma" class="w-full h-full object-cover">
+          <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex flex-col justify-end p-md">
+            <span class="material-symbols-outlined text-white mb-xs" style="font-size:22px;">medication</span>
+            <h4 class="text-white font-semibold text-base">Pharma &amp; Health</h4>
+            <p class="text-white/70 text-xs">Temperature-controlled logistics</p>
+          </div>
+        </div>
+        <!-- Industry Card: Government -->
+        <div class="w-72 flex-shrink-0 rounded-2xl overflow-hidden relative shadow-md" style="height:220px;min-width:288px;">
+          <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuCQfdaKQbgjKE2uxZt-fl-EPxRmm5bv0Ub-JDDjVxaTLKgnlpqv0GbzxQY1hbcdjSALbTGrkonoU6o7TDFBD0sCCPL7d-3MuotaYDx0R1Mo68ypVpxaYO_XyVwL-CKTd1k-gRw_oWy8Tp9luoSzusP89FoYeGh1olAFecsmsE69xjfkK_E3J1-XxrO4rFG-PUCIRULr916qol-wF3xBqRKoslU_y-s2vZpizgYMK9E_6bEV3BAns414o7990QTDJWImKRgPZn1Ov4PE" alt="Government" class="w-full h-full object-cover">
+          <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex flex-col justify-end p-md">
+            <span class="material-symbols-outlined text-white mb-xs" style="font-size:22px;">account_balance</span>
+            <h4 class="text-white font-semibold text-base">Government</h4>
+            <p class="text-white/70 text-xs">Public sector logistics</p>
+          </div>
+        </div>
+        <!-- Industry Card: E-Commerce -->
+        <div class="w-72 flex-shrink-0 rounded-2xl overflow-hidden relative shadow-md" style="height:220px;min-width:288px;">
+          <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBHdUGL9-OAmLoOLDVqaVrxWkZhU69MaNhZe7HpNtrKlvkruY8Hj58WW2m76WjFS5HmEQXNsRMBQM7M3JUbUh316NtC6EEXsuxu2vX0kxrVHtPK0FFzRd2-d-5VlDcvGodyn-MAOGNmxSdVZEMWuqPyc4h7dJizYq-9fTE5tvEMuCyqhtEfql1Sp-835afxFQjXj8bwJM-Pvtkg6ZjNemnr7Jq52E0nIhzGKbF8gGbmq5v8Zf57NyUnMVlKnnzRnL8R87r7LQzKlop7" alt="E-Commerce" class="w-full h-full object-cover">
+          <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex flex-col justify-end p-md">
+            <span class="material-symbols-outlined text-white mb-xs" style="font-size:22px;">shopping_cart</span>
+            <h4 class="text-white font-semibold text-base">E-Commerce</h4>
+            <p class="text-white/70 text-xs">Last-mile delivery solutions</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MOBILE PROCESS -->
+    <section class="bg-surface-container-low px-md py-xl" style="padding-left:16px;padding-right:16px;padding-top:40px;padding-bottom:40px;">
+      <div class="mob-reveal mb-lg" style="margin-bottom:24px;">
+        <span class="text-xs font-semibold text-primary uppercase tracking-widest">How It Works</span>
+        <h2 class="font-h2 font-bold text-on-surface mt-1" style="font-size:1.5rem;">Streamlined Journey</h2>
+      </div>
+      <!-- Vertical timeline -->
+      <div class="relative mob-timeline space-y-lg" style="margin-left:4px;">
+        <!-- Step 1 -->
+        <div class="relative pl-10 mob-reveal" style="padding-left:40px;">
+          <div class="absolute left-0 top-1 w-8 h-8 bg-primary text-on-primary rounded-full flex items-center justify-center font-bold text-sm shadow-md z-10" style="width:32px;height:32px;">1</div>
+          <div class="bg-white p-md rounded-xl shadow-sm border border-outline-variant/30" style="padding:16px;">
+            <h4 class="font-semibold text-on-surface text-base mb-1">Request &amp; Quote</h4>
+            <p class="text-on-surface-variant text-sm leading-relaxed">Submit your requirements and receive a transparent quote within hours.</p>
+          </div>
+        </div>
+        <!-- Step 2 -->
+        <div class="relative pl-10 mob-reveal" style="padding-left:40px;">
+          <div class="absolute left-0 top-1 w-8 h-8 bg-primary text-on-primary rounded-full flex items-center justify-center font-bold text-sm shadow-md z-10" style="width:32px;height:32px;">2</div>
+          <div class="bg-white p-md rounded-xl shadow-sm border border-outline-variant/30" style="padding:16px;">
+            <h4 class="font-semibold text-on-surface text-base mb-1">Strategic Planning</h4>
+            <p class="text-on-surface-variant text-sm leading-relaxed">Our experts optimise the route and select the best transport mode for your cargo.</p>
+          </div>
+        </div>
+        <!-- Step 3 -->
+        <div class="relative pl-10 mob-reveal" style="padding-left:40px;">
+          <div class="absolute left-0 top-1 w-8 h-8 bg-primary text-on-primary rounded-full flex items-center justify-center font-bold text-sm shadow-md z-10" style="width:32px;height:32px;">3</div>
+          <div class="bg-white p-md rounded-xl shadow-sm border border-outline-variant/30" style="padding:16px;">
+            <h4 class="font-semibold text-on-surface text-base mb-1">Documentation</h4>
+            <p class="text-on-surface-variant text-sm leading-relaxed">We handle all permits, customs paperwork, and compliance checks end-to-end.</p>
+          </div>
+        </div>
+        <!-- Step 4 -->
+        <div class="relative pl-10 mob-reveal" style="padding-left:40px;">
+          <div class="absolute left-0 top-1 w-8 h-8 bg-primary text-on-primary rounded-full flex items-center justify-center font-bold text-sm shadow-md z-10" style="width:32px;height:32px;">4</div>
+          <div class="bg-white p-md rounded-xl shadow-sm border border-outline-variant/30" style="padding:16px;">
+            <h4 class="font-semibold text-on-surface text-base mb-1">Transit &amp; Track</h4>
+            <p class="text-on-surface-variant text-sm leading-relaxed">Real-time GPS monitoring as your cargo moves through our specialised network.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MOBILE FLEET GALLERY -->
+    <section class="py-xl" style="padding-top:40px;padding-bottom:40px;">
+      <div class="px-md mob-reveal" style="padding-left:16px;padding-right:16px;margin-bottom:20px;">
+        <span class="text-xs font-semibold text-primary uppercase tracking-widest">Our Assets</span>
+        <h2 class="font-h2 font-bold text-on-surface mt-1" style="font-size:1.5rem;">Modern Fleet</h2>
+        <p class="text-on-surface-variant text-sm">The muscles behind our operations.</p>
+      </div>
+      <div class="flex gap-md overflow-x-auto scrollbar-hide pb-md" style="padding-left:16px;padding-right:16px;padding-bottom:12px;gap:12px;">
+        <div class="w-80 h-64 flex-shrink-0 rounded-2xl overflow-hidden shadow-md" style="min-width:320px;height:256px;">
+          <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuD-Ha3D-mYTC9ku21AE0pa8W6uypylSqEi5qHCeB78Pidq-T8QgtdRhyTXd_qBVIzjIN532D8Tpbr7cclOswepawWgMhOoZkhrn8tmyUC6wloFUvotoK03swVvfL4vZ3vZ5ARcGmcznN2NcKkcgl5mJ7wJ2wMY8pLDwOOWzkSEowmbqcLcAUY_-QLXWmonTZwOIDOPKljiPuEalrBYNK47XeCacdnTlQrSCJOIlFt08iNnlrccI8U96OqS3SAkNA9qtvEuifE2qMesR" alt="Fleet 1" class="w-full h-full object-cover">
+        </div>
+        <div class="w-80 h-64 flex-shrink-0 rounded-2xl overflow-hidden shadow-md" style="min-width:320px;height:256px;">
+          <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuCyaHDQrmWSSnL5aaWdfO_FCNY9ETVMpuaV2mmdCU7ixVjweEgOGvEdCSVDIeTl88_gYbF3K-g10jWqcdcVat6I9Uv8Cevxp7FTYzFTym4-LEAgBFDwFjjD_UXRob74JyBGptedmUXxGg4sK_dsCbisnOdEbQayuyQfc54K2vc94i78QILBEh6_7B5zAV9LKFg9cU3JMTSZASVN5eRgZst2T13bD_4JabiWyKNcHkeZx8e-uagpIj1rFgJUYHDB2VjvTwbHYXnq9264" alt="Fleet 2" class="w-full h-full object-cover">
+        </div>
+        <div class="w-80 h-64 flex-shrink-0 rounded-2xl overflow-hidden shadow-md" style="min-width:320px;height:256px;">
+          <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBahhnGsHyyXkUJoVSg0H4yaQcSjFvorbbP67vCFPXABvXQK6SeQRku9fS4ot_TixohKbbTK2D8x4nybjxOslpPmRFt3VcMY5eqcJ5R7bSKsKp2pOgRFsgzhpVHUtqxX7BDn5pSwZWRxTCOx0xZPswxjEUfcDdEL4nRs0qnjqFadH4Lj_1Bta7brh8R0J4NPFd6OiVi5j3sOtLSwMblnHQ7Np5vwkjYlHjHjr7vs8yVzw3A-G92mtY52nW8wOYEo620ko2qS5Cu8EYb" alt="Fleet 3" class="w-full h-full object-cover">
+        </div>
+        <div class="w-80 h-64 flex-shrink-0 rounded-2xl overflow-hidden shadow-md" style="min-width:320px;height:256px;">
+          <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBzqtADD1cwL4rn4J86Mpd-yTReQ68yI1rdNnifCQsRwKSGceIFVExd9jU4q6tAnItMIhD1kpA3QEjnscIHr4ID5Adv27dJUaRnpoWkXjfHoH8lOri94QtVLrDHpdDl6NpBPsmO_tC-JNer24JEKdKk8rzMf-mZYAFOjrF3crNPyCcipm_LQjGRdtiy_7FSxCmgXJ_RiPvxySkJGxLqDYvxmDN9sYIwv4L_sEcuqX9lQnWtvwwuPbuVCGvcJiXiMWeesXWN8u_Ip7Im" alt="Fleet 4" class="w-full h-full object-cover">
+        </div>
+      </div>
+    </section>
+
+    <!-- MOBILE CTA -->
+    <section class="px-md pb-xl" style="padding-left:16px;padding-right:16px;padding-bottom:40px;">
+      <div class="bg-gradient-to-br from-primary-container to-primary rounded-2xl p-lg text-center space-y-md shadow-xl mob-reveal" style="padding:24px;">
+        <div class="w-14 h-14 bg-white/10 rounded-xl flex items-center justify-center mx-auto" style="width:56px;height:56px;">
+          <span class="material-symbols-outlined text-white" style="font-size:28px;">rocket_launch</span>
+        </div>
+        <h3 class="font-h2 font-bold text-white" style="font-size:1.375rem;">Ready to Optimize Your Supply Chain?</h3>
+        <p class="text-white/80 text-sm">Join hundreds of businesses that trust Arkan Arabia for their mission-critical logistics.</p>
+        <div class="flex flex-col gap-sm" style="gap:8px;">
+          <a href="./pages/contact.html#quote" class="w-full h-12 bg-white text-primary font-bold rounded-xl flex items-center justify-center active:scale-95 transition-transform shadow-md text-sm">
+            Get a Free Quote Now
+          </a>
+          <a href="./pages/contact.html" class="w-full h-12 border-2 border-white/30 text-white font-semibold rounded-xl flex items-center justify-center active:scale-95 transition-transform text-sm">
+            Contact Sales
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- MOBILE FOOTER (atomic component) -->
+    <div id="mob-footer"></div>
+
+  </main>
+  <!-- END MOBILE MAIN -->
+
+  <!-- ══ MOBILE BOTTOM NAV (injected, md:hidden) ══ -->
+  <div id="mob-nav"></div>
+
+  <!-- ══════════════════════════════════════════════════════
+       DESKTOP SHARED HEADER (injected, md+ only)
+       ══════════════════════════════════════════════════════ -->
+  <div id="site-header" class="hidden md:block"></div>
+
+  <!-- ══════════════════════════════════════════════════════
+       DESKTOP SECTIONS (md+ only)
+       ══════════════════════════════════════════════════════ -->
+
+  <!-- DESKTOP HERO -->
+  <section id="hero-section" class="hidden md:flex relative h-screen min-h-[860px] items-center overflow-hidden">
+    <div class="absolute inset-0 z-0">
+      <div class="absolute inset-0 bg-primary/40 z-10"></div>
+      <div class="w-full h-full bg-cover bg-center" style="background-image:url('https://lh3.googleusercontent.com/aida-public/AB6AXuBnluvLKPz3Vq-6tXO6hFKC1ePahoaNaTtpOJjsz7NODdTQulM7eZVNayAULlavEc3vLUfNO_YRmJNhrdlOJ-sETdQA1kzAVHZHMeRcbCWa6MsfdbT_ndnHoAL3Gza5rcz4DS6z1pguNCDgOTT14i0Z_vptdaUM556I10GZBmelbFDQeBVxHokD1_LIjicH6ESS8JqO5_2hbEKYrZ_-27qY10a8gGbOYw3M97T7H6Dfk3oJx3yZSXkEL1EZDba9E2U4QaFJ5baYZPui');"></div>
+    </div>
+    <div class="relative z-30 max-w-7xl mx-auto px-6 lg:px-12 w-full pt-20 pb-16 lg:pb-20">
+      <div class="max-w-3xl">
+        <h1 class="text-white text-6xl md:text-8xl font-h1 font-extrabold leading-[1.1] mb-6 tracking-tight">
+          Connecting Businesses <br><span class="text-primary-fixed">Across Borders</span>
+        </h1>
+        <p class="text-white/90 text-xl md:text-2xl font-light mb-12 max-w-2xl leading-relaxed">
+          Arkan Arabia provides end-to-end logistics solutions, bridging markets with speed, security, and smart technology across the GCC.
+        </p>
+        <div class="flex flex-wrap gap-4 mb-20">
+          <a href="pages/services.html" class="bg-primary-fixed text-on-primary-fixed px-10 py-4 rounded-2xl font-bold text-lg hover:scale-105 transition-transform">Explore Solutions</a>
+          <button class="glass text-white px-10 py-4 rounded-2xl font-bold text-lg border-white/40 hover:bg-white/20 transition-all flex items-center gap-2">
+            <span class="material-symbols-outlined">play_circle</span> Watch Overview
+          </button>
+        </div>
+        <!-- KPI Cards -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+          <div class="glass p-6 rounded-2xl">
+            <h4 class="text-primary-fixed text-4xl font-bold mb-1">15+</h4>
+            <p class="text-white/80 font-medium text-sm tracking-widest uppercase">Years Experience</p>
+          </div>
+          <div class="glass p-6 rounded-2xl">
+            <h4 class="text-primary-fixed text-4xl font-bold mb-1">5,000+</h4>
+            <p class="text-white/80 font-medium text-sm tracking-widest uppercase">Annual Shipments</p>
+          </div>
+          <div class="glass p-6 rounded-2xl">
+            <h4 class="text-primary-fixed text-4xl font-bold mb-1">10+</h4>
+            <p class="text-white/80 font-medium text-sm tracking-widest uppercase">Countries Connected</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DESKTOP TRUSTED BY -->
+  <section class="hidden md:block py-16 bg-white border-b border-surface-container-high overflow-hidden">
+    <div class="max-w-7xl mx-auto px-6 mb-10 text-center">
+      <p class="text-on-surface-variant font-bold text-sm uppercase tracking-[0.2em]">Trusted by Global Industry Leaders</p>
+    </div>
+    <div class="flex logo-scroll gap-20 items-center">
+      <div class="flex items-center gap-20 grayscale opacity-40 shrink-0">
+        <div class="text-3xl font-black text-on-surface">ARAMCO</div>
+        <div class="text-3xl font-black text-on-surface">SABIC</div>
+        <div class="text-3xl font-black text-on-surface">DHL</div>
+        <div class="text-3xl font-black text-on-surface">MAERSK</div>
+        <div class="text-3xl font-black text-on-surface">DP WORLD</div>
+        <div class="text-3xl font-black text-on-surface">STC</div>
+      </div>
+      <div class="flex items-center gap-20 grayscale opacity-40 shrink-0" aria-hidden="true">
+        <div class="text-3xl font-black text-on-surface">ARAMCO</div>
+        <div class="text-3xl font-black text-on-surface">SABIC</div>
+        <div class="text-3xl font-black text-on-surface">DHL</div>
+        <div class="text-3xl font-black text-on-surface">MAERSK</div>
+        <div class="text-3xl font-black text-on-surface">DP WORLD</div>
+        <div class="text-3xl font-black text-on-surface">STC</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DESKTOP COMPANY OVERVIEW -->
+  <section class="hidden md:block py-24 md:py-32 bg-surface">
+    <div class="max-w-7xl mx-auto px-6 lg:px-12 grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+      <div class="reveal">
+        <span class="section-eyebrow">Our Legacy</span>
+        <h2 class="text-4xl md:text-5xl font-h2 font-bold mb-8 leading-tight">Mastering the Art of <br>Precision Logistics</h2>
+        <p class="text-lg text-on-surface-variant mb-8 leading-relaxed">
+          Founded on the principles of reliability and efficiency, Arkan Arabia has grown into a cornerstone of the regional supply chain. We specialise in navigating the complexities of cross-border trade, providing our partners with the peace of mind to focus on their core business.
+        </p>
+        <div class="grid grid-cols-2 gap-8 mb-10">
+          <div class="border-l-4 border-primary pl-6">
+            <h4 class="font-bold text-xl mb-2">GCC Experts</h4>
+            <p class="text-sm text-on-surface-variant">Unrivaled knowledge of regional customs and routes.</p>
+          </div>
+          <div class="border-l-4 border-primary pl-6">
+            <h4 class="font-bold text-xl mb-2">Agile Fleet</h4>
+            <p class="text-sm text-on-surface-variant">Modern equipment tailored for every cargo type.</p>
+          </div>
+        </div>
+        <a href="pages/about.html" class="inline-block bg-primary text-white px-8 py-4 rounded-2xl font-bold hover:shadow-xl transition-all">Learn More About Us</a>
+      </div>
+      <div class="relative reveal delay-200">
+        <div class="rounded-3xl overflow-hidden shadow-2xl">
+          <div class="w-full h-[500px] bg-cover bg-center" style="background-image:url('https://lh3.googleusercontent.com/aida-public/AB6AXuBmjBYXldgca-kQfQTXDNneGkA3cu1-wza2eJOmYiZor24QmqenQvBEA1WUFMIVqNfq1VYXcfLPduXzBXvTFmZWDq7nnuZGOOSa9RrCAgUlrNHAOT64K2e4cIIxhPyCFC8vrv43z5mYmZO9Pnm9bUkAXQ8BbPh_-zsBPjP0DzaJjd8tQK6IygGinxNeSqVLktRYL9fah9kqQicoRknHXV5ZdukpGaYdZaKs30MLr_s4oB5OkQ3mZLo19vyLv_HpHrh7XOGCQAiCDXwo');"></div>
+        </div>
+        <div class="absolute -bottom-10 -left-10 bg-primary-container p-8 rounded-3xl shadow-xl hidden md:block max-w-[280px]">
+          <span class="material-symbols-outlined text-white text-5xl mb-4">verified</span>
+          <p class="text-white font-bold text-xl italic leading-snug">"Excellence isn't an act, it's our daily operation."</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DESKTOP STATISTICS -->
+  <section class="hidden md:block py-24 bg-gradient-to-br from-primary to-primary-container text-white">
+    <div class="max-w-7xl mx-auto px-6 lg:px-12 grid grid-cols-2 lg:grid-cols-4 gap-12 text-center">
+      <div><div class="text-6xl font-black mb-2 counter" data-target="850">0</div><div class="text-primary-fixed uppercase tracking-widest text-sm font-bold">Fleet Vehicles</div></div>
+      <div><div class="text-6xl font-black mb-2 counter" data-target="12">0</div><div class="text-primary-fixed uppercase tracking-widest text-sm font-bold">Strategic Hubs</div></div>
+      <div><div class="text-6xl font-black mb-2 counter" data-target="150">0</div><div class="text-primary-fixed uppercase tracking-widest text-sm font-bold">Qualified Drivers</div></div>
+      <div><div class="text-6xl font-black mb-2 counter" data-target="100" data-suffix="%">0</div><div class="text-primary-fixed uppercase tracking-widest text-sm font-bold">Client Satisfaction</div></div>
+    </div>
+  </section>
+
+  <!-- DESKTOP SERVICES GRID -->
+  <section class="hidden md:block py-24 bg-surface-container-lowest">
+    <div class="max-w-7xl mx-auto px-6 lg:px-12 mb-16 text-center">
+      <span class="section-eyebrow">What We Do</span>
+      <h2 class="text-4xl md:text-5xl font-h2 font-bold mb-6">Comprehensive Service Suite</h2>
+      <p class="text-on-surface-variant max-w-2xl mx-auto">From individual parcels to industrial project cargo, we have the infrastructure to move your business forward.</p>
+    </div>
+    <div class="max-w-7xl mx-auto px-6 lg:px-12 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-8">
+      <div class="service-card group bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden relative border border-outline-variant/30">
+        <div class="h-48 overflow-hidden rounded-t-2xl"><img alt="Land Transportation" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDSYkP0UNrStPuNuzMaOwpN71onQTCojSRaeAqxFVRk2v8WeyUMGx9UUTXmO4vynCWw7C5X93okA9DBGW2315IgkB5Vf1X6HTXrU5oBbaot5prV28n2Z21R64p_mbiQ37ApoOjIagOmzCQv5nEM0QDXH2sqHfCWT-XSTj122jjnL40668_05epi7eJP9EmnPGbB-3t5ztM2_dqSKsPwX8A2Fdj-pN9E-tZ7Jll60W5fXptbc2vS_X_y6tA5C8Np10T6o1c6iQiTOQrT"></div>
+        <div class="border-anim absolute top-0 left-0 h-1 bg-primary transition-all duration-500 w-0"></div>
+        <div class="p-8">
+          <div class="w-14 h-14 bg-primary/5 rounded-xl flex items-center justify-center mb-6 group-hover:bg-primary group-hover:text-white transition-all"><span class="material-symbols-outlined text-3xl">local_shipping</span></div>
+          <h3 class="text-xl font-bold mb-3">Land Transportation</h3>
+          <p class="text-on-surface-variant text-sm leading-relaxed mb-6">FTL and LTL solutions across the entire GCC region with real-time tracking.</p>
+          <a class="text-primary font-bold text-sm flex items-center gap-2 group-hover:gap-4 transition-all" href="/land-transportation">Explore <span class="material-symbols-outlined text-sm">arrow_forward</span></a>
+        </div>
+      </div>
+      <div class="service-card group bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden relative border border-outline-variant/30">
+        <div class="h-48 overflow-hidden rounded-t-2xl"><img alt="Customs Clearance" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCKzAxy12PiH3WaUpEGWbXgokeUKk145uZFGxoDBt1PqLwXvNk0OflQgAlH7pJW5UeX3iIlT2wKpToBxDx1FaXfuev3hTliJPLtUzmqa0Y5SH5DQHAnj38nsvz_sDzfgQIcUCZJSCEC2tAzN1gpvlPBa8dyVd-bly2_bXha2cP570-3wNC1IRU8e5WVNQgBJgKq-PSdAj42aE5rfECQ0xZ61Mnz-f9LYEMKlqCZhfcO0hB-UBBVwU-y3m9cOhDNjkJ0ADN765RRcuYE"></div>
+        <div class="border-anim absolute top-0 left-0 h-1 bg-primary transition-all duration-500 w-0"></div>
+        <div class="p-8">
+          <div class="w-14 h-14 bg-primary/5 rounded-xl flex items-center justify-center mb-6 group-hover:bg-primary group-hover:text-white transition-all"><span class="material-symbols-outlined text-3xl">description</span></div>
+          <h3 class="text-xl font-bold mb-3">Customs Clearance</h3>
+          <p class="text-on-surface-variant text-sm leading-relaxed mb-6">Expert handling of documentation, tariff classifications, and smooth clearance at all major border crossings.</p>
+          <a class="text-primary font-bold text-sm flex items-center gap-2 group-hover:gap-4 transition-all" href="/customs-clearance">Explore <span class="material-symbols-outlined text-sm">arrow_forward</span></a>
+        </div>
+      </div>
+      <div class="service-card group bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden relative border border-outline-variant/30">
+        <div class="h-48 overflow-hidden rounded-t-2xl"><img alt="Warehousing" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBNricAE_wOan0ygta-xm_ErpZsmj1xOwGxJacr616Ak3_FE1G_luLxy0t5YZxXNpbN_SNJzZqUOnpHZcXP6PQjwpxLr1w9YMiSoepqn6ZoJlWkKHFysHreKsOXTWD-IhUftk6gnXAQdtuMzwxmvjOF4TzeQfApqI71WQ5QQyFea0B8YqIOpHz8YenR2gNfq0xBf5_nS5WRQzdkqW4tI-UwtrcSeDTVWtHJdi2-r0EUCD8k44_Bhqnu769i-EXhU_2Vz0wwEH9jAyag"></div>
+        <div class="border-anim absolute top-0 left-0 h-1 bg-primary transition-all duration-500 w-0"></div>
+        <div class="p-8">
+          <div class="w-14 h-14 bg-primary/5 rounded-xl flex items-center justify-center mb-6 group-hover:bg-primary group-hover:text-white transition-all"><span class="material-symbols-outlined text-3xl">warehouse</span></div>
+          <h3 class="text-xl font-bold mb-3">Warehousing</h3>
+          <p class="text-on-surface-variant text-sm leading-relaxed mb-6">Secured, temperature-controlled facilities with advanced WMS.</p>
+          <a class="text-primary font-bold text-sm flex items-center gap-2 group-hover:gap-4 transition-all" href="/warehousing">Explore <span class="material-symbols-outlined text-sm">arrow_forward</span></a>
+        </div>
+      </div>
+      <div class="service-card group bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden relative border border-outline-variant/30">
+        <div class="h-48 overflow-hidden rounded-t-2xl"><img alt="Project Cargo" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCD_yZEjtoC-OAvmb66IIm1WFhyCmTlG2hDsGRnvIslsGNNcdHOuwFSr5iK0CWUzROg37FL2v3pCfd_dhcKoZwPgq73mqY6Vpe4S2oDlt2Ob1gghJuQIr6t9LGoU8EJsTpvrsQ86q1JHoD94mhfPlcm55m8uTL2K8RnFAEK_uEkEEGqgVUZwDJv7nGMO7XKzqpemkxblfmN-jOSGPkxTz8NC0kzXxlA_yg_jOCMEaMxaXf79jp2R0HFQAL7UjzjINp22p5SMJyagbZT"></div>
+        <div class="border-anim absolute top-0 left-0 h-1 bg-primary transition-all duration-500 w-0"></div>
+        <div class="p-8">
+          <div class="w-14 h-14 bg-primary/5 rounded-xl flex items-center justify-center mb-6 group-hover:bg-primary group-hover:text-white transition-all"><span class="material-symbols-outlined text-3xl">engineering</span></div>
+          <h3 class="text-xl font-bold mb-3">Project Cargo</h3>
+          <p class="text-on-surface-variant text-sm leading-relaxed mb-6">Complex logistics for heavy-lift and out-of-gauge industrial shipments.</p>
+          <a class="text-primary font-bold text-sm flex items-center gap-2 group-hover:gap-4 transition-all" href="/project-cargo">Explore <span class="material-symbols-outlined text-sm">arrow_forward</span></a>
+        </div>
+      </div>
+    </div>
+    <div class="text-center mt-14">
+      <a href="pages/services.html" class="inline-flex items-center gap-2 bg-primary text-white px-10 py-4 rounded-2xl font-bold hover:shadow-xl transition-all">View All Services <span class="material-symbols-outlined">arrow_forward</span></a>
+    </div>
+  </section>
+
+  <!-- DESKTOP WHY CHOOSE US -->
+  <section class="hidden md:block py-24 bg-inverse-surface text-white">
+    <div class="max-w-7xl mx-auto px-6 lg:px-12 grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+      <div>
+        <h2 class="text-4xl md:text-5xl font-h2 font-bold mb-12">The Arkan Advantage</h2>
+        <div class="space-y-8">
+          <div class="flex gap-6">
+            <div class="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-primary-fixed">shield</span></div>
+            <div><h4 class="text-xl font-bold mb-2">Maximum Security</h4><p class="text-white/60">Multi-layer cargo protection protocols and comprehensive insurance options.</p></div>
+          </div>
+          <div class="flex gap-6">
+            <div class="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-primary-fixed">schedule</span></div>
+            <div><h4 class="text-xl font-bold mb-2">On-Time Performance</h4><p class="text-white/60">Strict scheduling and route optimisation ensure your deadlines are met, every time.</p></div>
+          </div>
+          <div class="flex gap-6">
+            <div class="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-primary-fixed">visibility</span></div>
+            <div><h4 class="text-xl font-bold mb-2">Total Visibility</h4><p class="text-white/60">End-to-end digital tracking from warehouse shelf to final destination.</p></div>
+          </div>
+        </div>
+      </div>
+      <div class="rounded-3xl overflow-hidden reveal">
+        <div class="w-full h-[500px] bg-cover bg-center" style="background-image:url('https://lh3.googleusercontent.com/aida-public/AB6AXuCz0GBzxUjrsRB58GDlT6exO3_F4cO-Ss8EAu1IwAAP9N2H5819-Hy2j1rln0qS944nHQ2GCCuBC6le9nmMgwYUoon1a6EJyzV8qi2Qm7FnGmaAA8v34iQMxaUbO0280fJT03DpolmgCjPI03J1AwrGtlYtPVaHIotut83cPDhuw7JnlgnuA_QItH0yg1mWTKr8fX7HBA87KJtFJEYvMXhVKvrUxRATQsPTdNmp2qNI8GN87j_DZajbRfz8HrnSDlVvHwumpqnEn0mE');"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DESKTOP INDUSTRIES -->
+  <section class="hidden md:block py-24 bg-surface">
+    <div class="max-w-7xl mx-auto px-6 lg:px-12 mb-16 text-center">
+      <h2 class="text-4xl font-h2 font-bold">Specialized Industry Solutions</h2>
+    </div>
+    <div class="max-w-7xl mx-auto px-6 lg:px-12 grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6">
+      <div class="group relative rounded-2xl overflow-hidden h-80 shadow-lg cursor-pointer">
+        <div class="w-full h-full bg-cover bg-center group-hover:scale-110 transition-transform duration-700" style="background-image:url('https://lh3.googleusercontent.com/aida-public/AB6AXuAwP6nJfJnNO1IjEaY65MFsaZBFG2BHePEhAwGCBkMfkmuEuR9KUOuJqAysE3qpqJ4W1AK5JNz10Yw1fp9RVA1kGfeD2Yjisi9Pzl_KlsbXeU8IStb3AysXQHBPZvfLF2OFvCsRxXVmEt2edj6efCUKVhqMNxhiu2Bfe5KIOabLQDaqAIXR5IoBgH09q4nSYbVpt0d55JjCwguU53hKdpti90jmP16NV3FRnP6JI5aggM5PI4o0VOl71W3feEOB-JyjNl7DM1LsDZZy');"></div>
+        <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex flex-col justify-end p-6"><h4 class="text-white font-bold text-lg">Construction</h4></div>
+      </div>
+      <div class="group relative rounded-2xl overflow-hidden h-80 shadow-lg cursor-pointer">
+        <div class="w-full h-full bg-cover bg-center group-hover:scale-110 transition-transform duration-700" style="background-image:url('https://lh3.googleusercontent.com/aida-public/AB6AXuAL5dw6KQfxITurxrk8WIJTqt4s12RJoxoVCYKqk-1S-zBGG9fhTvwHdFu-uXt8uDD_9pyWaS-m5vKqxY5lE6IsvEbBzUITkBLtJdgKaB4y_MnAWncVMpwJvAzkOGuJ849ycIUPgcKGYxQYLBSrMfMoqnngipeKCLuixyHdcIe4tLqSZIJEQ_gou5g6kANAe3cN5Yfpuo0q-Ug2GpWL6WneDklKiy_oYAH7q3aaVXBEy8ngEey1tYreKW0Ru8KzCvsmS25TYx9FpuQO');"></div>
+        <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex flex-col justify-end p-6"><h4 class="text-white font-bold text-lg">Retail &amp; FMCG</h4></div>
+      </div>
+      <div class="group relative rounded-2xl overflow-hidden h-80 shadow-lg cursor-pointer">
+        <div class="w-full h-full bg-cover bg-center group-hover:scale-110 transition-transform duration-700" style="background-image:url('https://lh3.googleusercontent.com/aida-public/AB6AXuBeduA7FLmG52fucE7UDYDD8wH0ebGDkPgeDSrLjONeZrd-LfBYtfJVj57bfsBbputwZeFsWOO9ezh4anqGQwte8CD6M7LELIMRsK-cBr4gK_FG5YY0moL1RFklRGhv62NjV0_iUuBm4xPtwkyEPdKdz1VnLjf5IPvTu3rn3npy6yzkPY7P_Sql5mkuSWU3ZfooDQp_UkKcYIzTrG74vpGc9wE-QVeF82G46ntnTwTKA9xbVhWzSYQglKqO_rngtbOFvTU_R4ziXwh8');"></div>
+        <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex flex-col justify-end p-6"><h4 class="text-white font-bold text-lg">Pharma &amp; Health</h4></div>
+      </div>
+      <div class="group relative rounded-2xl overflow-hidden h-80 shadow-lg cursor-pointer">
+        <div class="w-full h-full bg-cover bg-center group-hover:scale-110 transition-transform duration-700" style="background-image:url('https://lh3.googleusercontent.com/aida-public/AB6AXuCQfdaKQbgjKE2uxZt-fl-EPxRmm5bv0Ub-JDDjVxaTLKgnlpqv0GbzxQY1hbcdjSALbTGrkonoU6o7TDFBD0sCCPL7d-3MuotaYDx0R1Mo68ypVpxaYO_XyVwL-CKTd1k-gRw_oWy8Tp9luoSzusP89FoYeGh1olAFecsmsE69xjfkK_E3J1-XxrO4rFG-PUCIRULr916qol-wF3xBqRKoslU_y-s2vZpizgYMK9E_6bEV3BAns414o7990QTDJWImKRgPZn1Ov4PE');"></div>
+        <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex flex-col justify-end p-6"><h4 class="text-white font-bold text-lg">Government</h4></div>
+      </div>
+      <div class="group relative rounded-2xl overflow-hidden h-80 shadow-lg cursor-pointer">
+        <div class="w-full h-full bg-cover bg-center group-hover:scale-110 transition-transform duration-700" style="background-image:url('https://lh3.googleusercontent.com/aida-public/AB6AXuBHdUGL9-OAmLoOLDVqaVrxWkZhU69MaNhZe7HpNtrKlvkruY8Hj58WW2m76WjFS5HmEQXNsRMBQM7M3JUbUh316NtC6EEXsuxu2vX0kxrVHtPK0FFzRd2-d-5VlDcvGodyn-MAOGNmxSdVZEMWuqPyc4h7dJizYq-9fTE5tvEMuCyqhtEfql1Sp-835afxFQjXj8bwJM-Pvtkg6ZjNemnr7Jq52E0nIhzGKbF8gGbmq5v8Zf57NyUnMVlKnnzRnL8R87r7LQzKlop7');"></div>
+        <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex flex-col justify-end p-6"><h4 class="text-white font-bold text-lg">E-Commerce</h4></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DESKTOP PROCESS -->
+  <section class="hidden md:block py-24 bg-surface-container-low overflow-hidden">
+    <div class="max-w-7xl mx-auto px-6 lg:px-12">
+      <h2 class="text-4xl font-h2 font-bold mb-20 text-center">Streamlined Journey</h2>
+      <div class="relative flex flex-col items-center">
+        <div class="absolute h-full w-1 bg-primary/20 left-1/2 -translate-x-1/2"></div>
+        <div class="space-y-24 w-full">
+          <div class="flex flex-row items-center justify-center gap-20 w-full reveal">
+            <div class="flex-1 text-right"><h3 class="text-2xl font-bold mb-2">Request &amp; Quote</h3><p class="text-on-surface-variant">Submit your requirements and receive a transparent quote within hours.</p></div>
+            <div class="w-12 h-12 bg-primary text-white rounded-full flex items-center justify-center font-bold z-10 shrink-0 shadow-lg ring-8 ring-surface-container-low">1</div>
+            <div class="flex-1"></div>
+          </div>
+          <div class="flex flex-row items-center justify-center gap-20 w-full reveal">
+            <div class="flex-1"></div>
+            <div class="w-12 h-12 bg-primary text-white rounded-full flex items-center justify-center font-bold z-10 shrink-0 shadow-lg ring-8 ring-surface-container-low">2</div>
+            <div class="flex-1 text-left"><h3 class="text-2xl font-bold mb-2">Strategic Planning</h3><p class="text-on-surface-variant">Our experts optimise the route and select the best transport mode for your cargo.</p></div>
+          </div>
+          <div class="flex flex-row items-center justify-center gap-20 w-full reveal">
+            <div class="flex-1 text-right"><h3 class="text-2xl font-bold mb-2">Documentation</h3><p class="text-on-surface-variant">We handle all permits, customs paperwork, and compliance checks.</p></div>
+            <div class="w-12 h-12 bg-primary text-white rounded-full flex items-center justify-center font-bold z-10 shrink-0 shadow-lg ring-8 ring-surface-container-low">3</div>
+            <div class="flex-1"></div>
+          </div>
+          <div class="flex flex-row items-center justify-center gap-20 w-full reveal">
+            <div class="flex-1"></div>
+            <div class="w-12 h-12 bg-primary text-white rounded-full flex items-center justify-center font-bold z-10 shrink-0 shadow-lg ring-8 ring-surface-container-low">4</div>
+            <div class="flex-1 text-left"><h3 class="text-2xl font-bold mb-2">Transit &amp; Track</h3><p class="text-on-surface-variant">Real-time GPS monitoring as your cargo moves through our specialised network.</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DESKTOP FLEET GALLERY -->
+  <section class="hidden md:block py-24 bg-surface">
+    <div class="max-w-7xl mx-auto px-6 lg:px-12 mb-16 flex justify-between items-end">
+      <div><h2 class="text-4xl font-h2 font-bold">Our Modern Fleet</h2><p class="text-on-surface-variant">The muscles behind our operations.</p></div>
+      <div class="flex gap-4">
+        <button data-fleet-prev class="w-12 h-12 rounded-full border border-outline flex items-center justify-center hover:bg-primary hover:text-white transition-all"><span class="material-symbols-outlined">chevron_left</span></button>
+        <button data-fleet-next class="w-12 h-12 rounded-full border border-outline flex items-center justify-center hover:bg-primary hover:text-white transition-all"><span class="material-symbols-outlined">chevron_right</span></button>
+      </div>
+    </div>
+    <div id="fleet-rail" class="flex gap-6 overflow-x-auto pb-12 px-6 lg:px-12 no-scrollbar">
+      <div class="fleet-card min-w-[400px] h-64 rounded-3xl overflow-hidden shadow-lg shrink-0"><div class="w-full h-full bg-cover bg-center" style="background-image:url('https://lh3.googleusercontent.com/aida-public/AB6AXuD-Ha3D-mYTC9ku21AE0pa8W6uypylSqEi5qHCeB78Pidq-T8QgtdRhyTXd_qBVIzjIN532D8Tpbr7cclOswepawWgMhOoZkhrn8tmyUC6wloFUvotoK03swVvfL4vZ3vZ5ARcGmcznN2NcKkcgl5mJ7wJ2wMY8pLDwOOWzkSEowmbqcLcAUY_-QLXWmonTZwOIDOPKljiPuEalrBYNK47XeCacdnTlQrSCJOIlFt08iNnlrccI8U96OqS3SAkNA9qtvEuifE2qMesR');"></div></div>
+      <div class="fleet-card min-w-[400px] h-64 rounded-3xl overflow-hidden shadow-lg shrink-0"><div class="w-full h-full bg-cover bg-center" style="background-image:url('https://lh3.googleusercontent.com/aida-public/AB6AXuCyaHDQrmWSSnL5aaWdfO_FCNY9ETVMpuaV2mmdCU7ixVjweEgOGvEdCSVDIeTl88_gYbF3K-g10jWqcdcVat6I9Uv8Cevxp7FTYzFTym4-LEAgBFDwFjjD_UXRob74JyBGptedmUXxGg4sK_dsCbisnOdEbQayuyQfc54K2vc94i78QILBEh6_7B5zAV9LKFg9cU3JMTSZASVN5eRgZst2T13bD_4JabiWyKNcHkeZx8e-uagpIj1rFgJUYHDB2VjvTwbHYXnq9264');"></div></div>
+      <div class="fleet-card min-w-[400px] h-64 rounded-3xl overflow-hidden shadow-lg shrink-0"><div class="w-full h-full bg-cover bg-center" style="background-image:url('https://lh3.googleusercontent.com/aida-public/AB6AXuBahhnGsHyyXkUJoVSg0H4yaQcSjFvorbbP67vCFPXABvXQK6SeQRku9fS4ot_TixohKbbTK2D8x4nybjxOslpPmRFt3VcMY5eqcJ5R7bSKsKp2pOgRFsgzhpVHUtqxX7BDn5pSwZWRxTCOx0xZPswxjEUfcDdEL4nRs0qnjqFadH4Lj_1Bta7brh8R0J4NPFd6OiVi5j3sOtLSwMblnHQ7Np5vwkjYlHjHjr7vs8yVzw3A-G92mtY52nW8wOYEo620ko2qS5Cu8EYb');"></div></div>
+      <div class="fleet-card min-w-[400px] h-64 rounded-3xl overflow-hidden shadow-lg shrink-0"><div class="w-full h-full bg-cover bg-center" style="background-image:url('https://lh3.googleusercontent.com/aida-public/AB6AXuBzqtADD1cwL4rn4J86Mpd-yTReQ68yI1rdNnifCQsRwKSGceIFVExd9jU4q6tAnItMIhD1kpA3QEjnscIHr4ID5Adv27dJUaRnpoWkXjfHoH8lOri94QtVLrDHpdDl6NpBPsmO_tC-JNer24JEKdKk8rzMf-mZYAFOjrF3crNPyCcipm_LQjGRdtiy_7FSxCmgXJ_RiPvxySkJGxLqDYvxmDN9sYIwv4L_sEcuqX9lQnWtvwwuPbuVCGvcJiXiMWeesXWN8u_Ip7Im');"></div></div>
+    </div>
+  </section>
+
+  <!-- DESKTOP TESTIMONIAL -->
+  <section class="hidden md:block py-24 bg-surface-container">
+    <div class="max-w-7xl mx-auto px-6 lg:px-12">
+      <div class="bg-white rounded-[40px] p-12 lg:p-20 shadow-xl reveal">
+        <span class="material-symbols-outlined text-primary text-6xl mb-8">format_quote</span>
+        <div class="max-w-3xl">
+          <p class="text-2xl md:text-3xl font-medium text-on-surface italic leading-relaxed mb-10">
+            "Arkan Arabia has been our primary logistics partner for over 5 years. Their ability to handle complex customs clearances at the Jordan-Saudi border is unmatched. They don't just deliver cargo; they deliver solutions."
+          </p>
+          <div class="flex items-center gap-4">
+            <div class="w-16 h-16 rounded-full overflow-hidden bg-surface-container">
+              <div class="w-full h-full bg-cover bg-center" style="background-image:url('https://lh3.googleusercontent.com/aida-public/AB6AXuBK2QbIob_y7Cs0N65nax8Jx8y8-jMBITROQ7gOU_ioc7EpcYIC1HnuR7OPQaWXQeGRS7mHdOkDqoUF0K3Eg-3hcN10IYO3UADIM7cc2hY1p3IEm4mNRyOGQ85uW6WurMxRPWTxcrikjV9fj8u9BVvy68bONawlj9s01dbsNxDIW7gR_-kRWlWBERGUSdpyT8yeQamJUaPEnBpUGyHE4XRgo2vW5RWmPKDaJJIMd5Ts7NTAcxxpyR7RtlEMo7nhXUyAZGphyEde6tib');"></div>
+            </div>
+            <div>
+              <h5 class="font-bold text-lg">Ahmed Al-Rashid</h5>
+              <p class="text-on-surface-variant text-sm">Operations Director, Gulf Petro-Energy</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DESKTOP FINAL CTA -->
+  <section class="hidden md:block py-24 px-6">
+    <div class="max-w-7xl mx-auto rounded-[40px] bg-gradient-to-r from-primary to-primary-container p-12 lg:p-24 text-center text-white relative overflow-hidden">
+      <div class="relative z-10">
+        <h2 class="text-4xl md:text-6xl font-h2 font-black mb-8">Ready to Optimize Your <br>Supply Chain?</h2>
+        <p class="text-xl text-primary-fixed mb-12 max-w-2xl mx-auto">Join hundreds of businesses that trust Arkan Arabia for their mission-critical logistics.</p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a href="pages/contact.html#quote" class="bg-white text-primary px-12 py-5 rounded-2xl font-black text-xl hover:scale-105 transition-transform shadow-2xl">Get a Free Quote Now</a>
+          <a href="pages/contact.html" class="border-2 border-white/40 text-white px-12 py-5 rounded-2xl font-bold text-xl hover:bg-white/10 transition-all">Contact Sales</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DESKTOP SHARED FOOTER (injected) -->
+  <div id="site-footer" class="hidden md:block"></div>
+
+  <!-- ══ Scripts ══ -->
+  <script src="assets/js/script.js"></script>
+  <script>
+    // ── Mobile scroll-reveal ──
+    const mobObserver = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('visible'); mobObserver.unobserve(e.target); }
+      });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.mob-reveal').forEach(el => mobObserver.observe(el));
+  </script>
+</body>
+</html>

@@ -1,0 +1,89 @@
+<!-- ================================================================
+     Mobile Top App Bar + Side Drawer  (md:hidden)
+     Injected via fetch() into #mob-header on every page.
+     / is replaced at runtime by loadComponent() in script.js
+     Active nav item is highlighted by initMobileNav() in script.js
+================================================================ -->
+
+<!-- Top App Bar -->
+<header class="md:hidden fixed top-0 w-full z-50 bg-surface/80 backdrop-blur-xl border-b border-outline-variant/30 shadow-sm">
+  <div class="flex items-center justify-between px-md h-[72px] w-full max-w-container-max mx-auto">
+    <a href="/index.html" class="flex items-center gap-xs">
+      <img src="/arkan arabia-01.png" alt="Arkan Arabia Logo" class="h-16 w-auto object-contain" />
+    </a>
+    <button id="mob-hamburger" class="p-xs text-primary transition-all active:opacity-70" aria-label="Open menu">
+      <span class="material-symbols-outlined">menu</span>
+    </button>
+  </div>
+</header>
+
+<!-- Overlay -->
+<div id="mob-overlay" class="md:hidden fixed inset-0 bg-black/40 z-40 backdrop-blur-sm hidden" onclick="closeMobDrawer()"></div>
+
+<!-- Side Drawer -->
+<aside id="mob-drawer" class="md:hidden fixed top-0 left-0 h-full w-72 bg-surface z-50 flex flex-col shadow-2xl" style="transform:translateX(-100%);transition:transform 0.3s cubic-bezier(0.4,0,0.2,1);">
+  <div class="flex items-center justify-between px-md py-md border-b border-outline-variant/30">
+    <div class="flex items-center gap-xs">
+      <img src="/arkan arabia-01.png" alt="Arkan Arabia Logo" class="h-[64px] w-auto object-contain" />
+    </div>
+    <button onclick="closeMobDrawer()" class="p-xs text-on-surface-variant" aria-label="Close menu">
+      <span class="material-symbols-outlined">close</span>
+    </button>
+  </div>
+  <nav class="flex flex-col gap-1 p-3 flex-1">
+    <a href="/index.html"
+       data-mob-nav="index.html"
+       class="mob-drawer-link flex items-center gap-3 px-3 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container hover:text-primary transition-colors">
+      <span class="material-symbols-outlined text-xl">home</span>
+      <span class="font-semibold text-sm">Home</span>
+    </a>
+    <a href="/pages/industries.html"
+       data-mob-nav="industries.html"
+       class="mob-drawer-link flex items-center gap-3 px-3 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container hover:text-primary transition-colors">
+      <span class="material-symbols-outlined text-xl">category</span>
+      <span class="font-semibold text-sm">Industries</span>
+    </a>
+    <a href="/pages/services.html"
+       data-mob-nav="services.html"
+       class="mob-drawer-link flex items-center gap-3 px-3 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container hover:text-primary transition-colors">
+      <span class="material-symbols-outlined text-xl">local_shipping</span>
+      <span class="font-semibold text-sm">Services</span>
+    </a>
+    <a href="/pages/gallery.html"
+       data-mob-nav="gallery.html"
+       class="mob-drawer-link flex items-center gap-3 px-3 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container hover:text-primary transition-colors">
+      <span class="material-symbols-outlined text-xl">photo_library</span>
+      <span class="font-semibold text-sm">Gallery</span>
+    </a>
+    <a href="/pages/blog.html"
+       data-mob-nav="blog.html"
+       class="mob-drawer-link flex items-center gap-3 px-3 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container hover:text-primary transition-colors">
+      <span class="material-symbols-outlined text-xl">article</span>
+      <span class="font-semibold text-sm">Blog</span>
+    </a>
+     <a href="/login/admin"
+       data-mob-nav="admin"
+       class="mob-drawer-link flex items-center gap-3 px-3 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container hover:text-primary transition-colors">
+      <span class="material-symbols-outlined text-xl">admin_panel_settings</span>
+      <span class="font-semibold text-sm">Admin</span>
+     </a>
+    <a href="/pages/about.html"
+       data-mob-nav="about.html"
+       class="mob-drawer-link flex items-center gap-3 px-3 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container hover:text-primary transition-colors">
+      <span class="material-symbols-outlined text-xl">groups</span>
+      <span class="font-semibold text-sm">About Us</span>
+    </a>
+    <a href="/pages/contact.html"
+       data-mob-nav="contact.html"
+       class="mob-drawer-link flex items-center gap-3 px-3 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container hover:text-primary transition-colors">
+      <span class="material-symbols-outlined text-xl">call</span>
+      <span class="font-semibold text-sm">Contact</span>
+    </a>
+  </nav>
+  <div class="p-4 border-t border-outline-variant/30">
+    <a href="/pages/contact.html"
+       class="w-full flex items-center justify-center gap-2 bg-primary text-white py-3 rounded-xl font-semibold text-sm shadow-md">
+      <span class="material-symbols-outlined text-sm">call</span> Get a Quote
+    </a>
+  </div>
+</aside>

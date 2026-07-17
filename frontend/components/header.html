@@ -1,0 +1,82 @@
+<!-- ══════════════════════════════════════════════════════════
+     SHARED HEADER  –  components/header.html
+     {ROOT} is replaced at runtime by rootPath() in script.js
+     ══════════════════════════════════════════════════════════ -->
+
+<!-- Top Info Bar -->
+<div class="bg-primary py-2 lg:py-1 px-6 lg:px-12 flex flex-wrap justify-between items-center text-white text-xs font-medium z-[100] relative">
+  <div class="flex gap-6 items-center">
+    <span class="flex items-center gap-1">
+      <span class="material-symbols-outlined text-[16px]">support_agent</span> 24/7 Priority Support
+    </span>
+    <span class="hidden sm:flex items-center gap-1">
+      <span class="material-symbols-outlined text-[16px]">public</span> Full GCC Coverage
+    </span>
+    <span class="hidden md:flex items-center gap-1">
+      <span class="material-symbols-outlined text-[16px]">verified_user</span> Customs Compliance Experts
+    </span>
+  </div>
+  <div class="hidden md:flex gap-4">
+    <a class="hover:text-primary-fixed transition-colors" href="tel:+966123456789">KSA: +966 12 345 6789</a>
+    <span class="opacity-30">|</span>
+    <a class="hover:text-primary-fixed transition-colors" href="mailto:info@arkanarabia.com">info@arkanarabia.com</a>
+  </div>
+</div>
+
+<!-- Sticky Navigation -->
+<nav class="fixed top-0 w-full z-[90] transition-all duration-300 px-6 lg:px-12 md:bg-white/90 md:backdrop-blur-lg md:shadow-md" id="main-nav">
+  <div class="max-w-7xl mx-auto flex items-center justify-between py-4 lg:py-2.5 transition-all duration-300" data-nav-inner>
+
+    <!-- Brand -->
+    <a href="{ROOT}home" class="flex items-center gap-2">
+      <img src="{ROOT}arkan arabia-01.png" alt="Arkan Arabia Logo" class="nav-logo h-22 lg:h-22 w-28 lg:w-28 object-contain drop-shadow-lg transition-all duration-300" />
+    </a>
+
+    <!-- Desktop Links -->
+    <div class="hidden xl:flex items-center gap-8 font-semibold text-sm text-on-surface">
+      <a class="nav-link hover:text-primary-fixed transition-colors" href="{ROOT}home">Home</a>
+      <a class="nav-link hover:text-primary-fixed transition-colors" href="{ROOT}about">About</a>
+      <a class="nav-link hover:text-primary-fixed transition-colors" href="{ROOT}services">Services</a>
+      <a class="nav-link hover:text-primary-fixed transition-colors" href="{ROOT}industries">Industries</a>
+      <a class="nav-link hover:text-primary-fixed transition-colors" href="{ROOT}gallery">Gallery</a>
+      <a class="nav-link hover:text-primary-fixed transition-colors" href="{ROOT}blog">Blog</a>
+      <a class="nav-link hover:text-primary-fixed transition-colors" href="{ROOT}contact">Contact</a>
+    </div>
+
+    <!-- CTA Buttons + Mobile Hamburger -->
+    <div class="flex gap-3 items-center">
+      <a href="{ROOT}contact#quote"
+        class="bg-primary-fixed text-on-primary-fixed px-6 lg:px-5 py-2.5 lg:py-2 rounded-xl font-bold text-sm shadow-lg hover:scale-105 transition-transform">
+        Get Quote
+      </a>
+      <a href="{ROOT}track"
+        class="hidden sm:inline-flex bg-white text-primary border border-primary/20 px-6 lg:px-5 py-2.5 lg:py-2 rounded-xl font-bold text-sm shadow-sm hover:bg-surface-container transition-all">
+        Track Shipment
+      </a>
+      <!-- Hamburger (mobile) -->
+      <button id="mobile-menu-btn"
+              class="xl:hidden w-10 h-10 flex items-center justify-center rounded-lg bg-white/10 text-white"
+              aria-label="Open menu">
+        <span class="material-symbols-outlined">menu</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile Menu -->
+    <div id="mobile-menu"
+         class="hidden xl:hidden bg-white/95 backdrop-blur-lg rounded-2xl mt-2 shadow-xl overflow-hidden">
+      <div class="flex flex-col py-4 px-6 gap-1 font-semibold text-sm text-on-surface">
+        <a class="nav-link py-3 border-b border-surface-container hover:text-primary transition-colors" href="{ROOT}home">Home</a>
+        <a class="nav-link py-3 border-b border-surface-container hover:text-primary transition-colors" href="{ROOT}about">About</a>
+        <a class="nav-link py-3 border-b border-surface-container hover:text-primary transition-colors" href="{ROOT}services">Services</a>
+        <a class="nav-link py-3 border-b border-surface-container hover:text-primary transition-colors" href="{ROOT}industries">Industries</a>
+        <a class="nav-link py-3 border-b border-surface-container hover:text-primary transition-colors" href="{ROOT}network">Network</a>
+        <a class="nav-link py-3 border-b border-surface-container hover:text-primary transition-colors" href="{ROOT}solutions">Solutions</a>
+        <a class="nav-link py-3 border-b border-surface-container hover:text-primary transition-colors" href="{ROOT}gallery">Gallery</a>
+        <a class="nav-link py-3 border-b border-surface-container hover:text-primary transition-colors" href="{ROOT}blog">Blog</a>
+        <a class="nav-link py-3 border-b border-surface-container hover:text-primary transition-colors" href="{ROOT}login/admin">Admin</a>
+        <a class="nav-link py-3 border-b border-surface-container hover:text-primary transition-colors" href="{ROOT}news">News</a>
+        <a class="nav-link py-3 hover:text-primary transition-colors" href="{ROOT}contact">Contact</a>
+      </div>
+    </div>
+</nav>
