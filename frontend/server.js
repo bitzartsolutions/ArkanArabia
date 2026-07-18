@@ -1,9 +1,21 @@
 const express = require('express');
 const path = require('path');
+const fs = require('fs');
 
 const app = express();
 const PORT = process.env.FRONTEND_PORT || 3000;
-const ROOT = __dirname;
+
+function resolveStaticRoot() {
+  const candidates = [
+    __dirname,
+    process.cwd(),
+    path.join(process.cwd(), 'frontend')
+  ];
+
+  return candidates.find((dir) => fs.existsSync(path.join(dir, 'index.html'))) || __dirname;
+}
+
+const ROOT = resolveStaticRoot();
 
 const routes = {
   '/': 'index.html',
@@ -38,7 +50,11 @@ app.use(express.static(ROOT));
 
 Object.entries(routes).forEach(([route, file]) => {
   app.get(route, (_req, res) => {
-    res.sendFile(path.join(ROOT, file));
+    const target = path.join(ROOT, file);
+    res.sendFile(target, (err) => {
+      if (!err) return;
+      res.status(err.statusCode || 404).send('Not Found');
+    });
   });
 });
 
