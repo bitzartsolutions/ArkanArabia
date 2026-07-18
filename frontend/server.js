@@ -67,7 +67,16 @@ Object.entries(routes).forEach(([route, file]) => {
 module.exports = app;
 
 if (!process.env.VERCEL) {
-  app.listen(PORT, () => {
+  const server = app.listen(PORT, () => {
     console.log(`Arkan Arabia frontend running on http://localhost:${PORT}`);
+  });
+
+  server.on('error', (err) => {
+    if (err && err.code === 'EADDRINUSE') {
+      console.error(`Frontend port ${PORT} is already in use. Stop the other process or set FRONTEND_PORT.`);
+    } else {
+      console.error('Failed to start frontend server:', err);
+    }
+    process.exit(1);
   });
 }

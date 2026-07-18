@@ -361,8 +361,17 @@ ensurePath()
     if (!galleryExists) await writeJson(GALLERY_FILE, []);
     if (!blogExists) await writeJson(BLOG_FILE, []);
 
-    app.listen(PORT, () => {
+    const server = app.listen(PORT, () => {
       console.log(`Arkan Arabia backend running on http://localhost:${PORT}`);
+    });
+
+    server.on('error', (err) => {
+      if (err && err.code === 'EADDRINUSE') {
+        console.error(`Backend port ${PORT} is already in use. Stop the other process or set PORT.`);
+      } else {
+        console.error('Failed to start backend server:', err);
+      }
+      process.exit(1);
     });
   })
   .catch((err) => {
