@@ -47,15 +47,21 @@ const routes = {
 };
 
 app.use(express.static(ROOT));
+app.use('/frontend', express.static(ROOT));
+
+function sendRouteFile(res, file) {
+  const target = path.join(ROOT, file);
+  res.sendFile(target, (err) => {
+    if (!err) return;
+    res.status(err.statusCode || 404).send('Not Found');
+  });
+}
 
 Object.entries(routes).forEach(([route, file]) => {
-  app.get(route, (_req, res) => {
-    const target = path.join(ROOT, file);
-    res.sendFile(target, (err) => {
-      if (!err) return;
-      res.status(err.statusCode || 404).send('Not Found');
-    });
-  });
+  app.get(route, (_req, res) => sendRouteFile(res, file));
+
+  const prefixedRoute = route === '/' ? '/frontend' : `/frontend${route}`;
+  app.get(prefixedRoute, (_req, res) => sendRouteFile(res, file));
 });
 
 module.exports = app;
