@@ -1,14 +1,556 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html class="scroll-smooth" lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta http-equiv="refresh" content="0;url=/pages/admin.html">
-  <link rel="canonical" href="/pages/admin.html">
-  <title>Redirecting...</title>
-  <script>window.location.replace('/pages/admin.html');</script>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>Admin Dashboard | Arkan Arabia Logistics</title>
+  <meta name="description" content="Central admin dashboard to manage gallery and blog content for Arkan Arabia."/>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            background: '#fcf9f8',
+            primary: '#00337d',
+            'primary-container': '#1b4a9f',
+            'on-primary': '#ffffff',
+            surface: '#fcf9f8',
+            'surface-container': '#f0edec',
+            'surface-container-low': '#f6f3f2',
+            'surface-container-high': '#eae7e7',
+            'on-surface': '#1c1b1b',
+            'on-surface-variant': '#434652',
+            error: '#ba1a1a',
+            success: '#16a34a',
+            'outline-variant': '#c3c6d4'
+          },
+          fontFamily: {
+            h: ['Manrope'],
+            body: ['Inter']
+          }
+        }
+      }
+    };
+  </script>
+  <style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 450, 'GRAD' 0, 'opsz' 24;
+    }
+    .admin-card {
+      border: 1px solid rgba(195, 198, 212, 0.5);
+      background: linear-gradient(180deg, #ffffff 0%, #f8f6f5 100%);
+      box-shadow: 0 12px 35px rgba(10, 22, 40, 0.06);
+    }
+    .tab-active {
+      background: #00337d;
+      color: #ffffff;
+      border-color: #00337d;
+    }
+    .table-head {
+      background: #f0edec;
+      color: #434652;
+      font-size: 12px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+  </style>
+  <script>
+    if (!sessionStorage.getItem('arkan_admin_token')) {
+      window.location.replace('/login/admin');
+    }
+  </script>
+  <link rel="stylesheet" href="../assets/css/styles.css"/>
 </head>
-<body>
-  <p>Redirecting to <a href="/pages/admin.html">/pages/admin.html</a>...</p>
+<body class="bg-background text-on-surface font-body overflow-x-hidden">
+
+  <div id="mob-header"></div>
+  <div id="site-header" class="hidden md:block"></div>
+
+  <main class="pt-[64px] md:pt-28 pb-20 min-h-screen">
+    <section class="relative overflow-hidden bg-gradient-to-br from-primary to-primary-container text-on-primary">
+      <div class="absolute inset-0 opacity-10" style="background-image:radial-gradient(circle at 20% 10%, #ffffff 1px, transparent 1px); background-size: 18px 18px;"></div>
+      <div class="relative z-10 max-w-7xl mx-auto px-4 md:px-12 py-10 md:py-14">
+        <p class="text-xs md:text-sm font-semibold tracking-[0.22em] uppercase text-white/80">Control Center</p>
+        <h1 class="font-h text-3xl md:text-5xl font-extrabold leading-tight mt-2">Admin Dashboard</h1>
+        <p class="max-w-2xl mt-3 text-white/85 text-sm md:text-base">Manage gallery images and blog posts from one panel without changing your public website layout.</p>
+      </div>
+    </section>
+
+    <section class="max-w-7xl mx-auto px-4 md:px-12 -mt-6 md:-mt-8 relative z-20">
+      <div class="admin-card rounded-2xl p-4 md:p-6">
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+          <div>
+            <h2 class="font-h text-xl md:text-2xl font-bold">Session</h2>
+            <p class="text-on-surface-variant text-sm">You are authenticated. Logout will return to admin login page.</p>
+          </div>
+          <div id="session-state" class="text-sm font-semibold text-success">Logged in</div>
+        </div>
+
+        <div class="mt-5 flex justify-end">
+          <button id="logout-btn" type="button" class="h-12 px-6 rounded-xl border border-outline-variant bg-surface-container-low font-semibold text-on-surface">Logout</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="max-w-7xl mx-auto px-4 md:px-12 mt-6">
+      <div class="admin-card rounded-2xl p-4 md:p-6">
+        <div class="flex flex-wrap gap-2 mb-5">
+          <button id="tab-gallery" class="h-11 px-5 rounded-xl border border-outline-variant bg-surface-container-low font-semibold tab-active" type="button">Gallery</button>
+          <button id="tab-blog" class="h-11 px-5 rounded-xl border border-outline-variant bg-surface-container-low font-semibold" type="button">Blog</button>
+        </div>
+
+        <div id="dashboard-message" class="mb-4 text-sm text-on-surface-variant">Load data to view the latest content.</div>
+
+        <div id="panel-gallery" class="space-y-6">
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <form id="gallery-form" class="bg-white rounded-xl border border-outline-variant/60 p-4 space-y-3">
+              <h3 class="font-h text-lg font-bold">Add Gallery Photo</h3>
+              <input id="gallery-title" type="text" class="w-full h-11 rounded-lg border border-outline-variant px-3" placeholder="Photo title" required/>
+              <select id="gallery-category" class="w-full h-11 rounded-lg border border-outline-variant px-3 bg-white" required>
+                <option value="fleet">Fleet</option>
+                <option value="warehouse">Warehouse</option>
+                <option value="operations">Operations</option>
+                <option value="events">Events</option>
+                <option value="projects">Projects</option>
+              </select>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                <input id="gallery-src" type="url" class="w-full h-11 rounded-lg border border-outline-variant px-3" placeholder="Image URL (optional if file)"/>
+                <input id="gallery-file" type="file" accept="image/*" class="w-full h-11 rounded-lg border border-outline-variant px-2 py-1 bg-surface-container-low"/>
+              </div>
+              <button type="submit" class="h-11 px-4 rounded-lg bg-success text-white font-semibold">Add Photo</button>
+            </form>
+
+            <div class="bg-white rounded-xl border border-outline-variant/60 p-4">
+              <h3 class="font-h text-lg font-bold">Gallery Overview</h3>
+              <p class="text-sm text-on-surface-variant mt-1">Quick manage photos with delete actions.</p>
+              <div id="gallery-count" class="mt-3 text-sm font-semibold">0 photos</div>
+            </div>
+          </div>
+
+          <div class="overflow-auto border border-outline-variant/60 rounded-xl bg-white">
+            <table class="min-w-full">
+              <thead>
+                <tr class="table-head">
+                  <th class="text-left px-4 py-3">Image</th>
+                  <th class="text-left px-4 py-3">Title</th>
+                  <th class="text-left px-4 py-3">Category</th>
+                  <th class="text-right px-4 py-3">Action</th>
+                </tr>
+              </thead>
+              <tbody id="gallery-table"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div id="panel-blog" class="space-y-6 hidden">
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <form id="blog-form" class="bg-white rounded-xl border border-outline-variant/60 p-4 space-y-3">
+              <h3 id="blog-form-title" class="font-h text-lg font-bold">New Blog Post</h3>
+              <input id="blog-id" type="hidden"/>
+              <input id="blog-title" type="text" class="w-full h-11 rounded-lg border border-outline-variant px-3" placeholder="Title" required/>
+              <select id="blog-category" class="w-full h-11 rounded-lg border border-outline-variant px-3 bg-white" required>
+                <option value="Industry News">Industry News</option>
+                <option value="Customs & Compliance">Customs & Compliance</option>
+                <option value="Technology">Technology</option>
+                <option value="Sustainability">Sustainability</option>
+                <option value="Company News">Company News</option>
+                <option value="GCC Markets">GCC Markets</option>
+              </select>
+              <input id="blog-excerpt" type="text" maxlength="150" class="w-full h-11 rounded-lg border border-outline-variant px-3" placeholder="Excerpt (max 150 chars)"/>
+              <textarea id="blog-body" rows="5" class="w-full rounded-lg border border-outline-variant px-3 py-2" placeholder="Body"></textarea>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                <input id="blog-author" type="text" class="w-full h-11 rounded-lg border border-outline-variant px-3" value="Arkan Arabia Team" placeholder="Author"/>
+                <input id="blog-read-time" type="text" class="w-full h-11 rounded-lg border border-outline-variant px-3" value="5 min" placeholder="Read time"/>
+              </div>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                <input id="blog-cover-url" type="url" class="w-full h-11 rounded-lg border border-outline-variant px-3" placeholder="Cover URL (optional if file)"/>
+                <input id="blog-cover-file" type="file" accept="image/*" class="w-full h-11 rounded-lg border border-outline-variant px-2 py-1 bg-surface-container-low"/>
+              </div>
+              <div class="flex gap-2">
+                <button id="blog-save-btn" type="submit" class="h-11 px-4 rounded-lg bg-primary text-on-primary font-semibold">Publish</button>
+                <button id="blog-reset-btn" type="button" class="h-11 px-4 rounded-lg border border-outline-variant bg-surface-container-low hidden">Cancel Edit</button>
+              </div>
+            </form>
+
+            <div class="bg-white rounded-xl border border-outline-variant/60 p-4">
+              <h3 class="font-h text-lg font-bold">Blog Overview</h3>
+              <p class="text-sm text-on-surface-variant mt-1">Edit or delete posts directly from the list.</p>
+              <div id="blog-count" class="mt-3 text-sm font-semibold">0 posts</div>
+            </div>
+          </div>
+
+          <div class="overflow-auto border border-outline-variant/60 rounded-xl bg-white">
+            <table class="min-w-full">
+              <thead>
+                <tr class="table-head">
+                  <th class="text-left px-4 py-3">Poster</th>
+                  <th class="text-left px-4 py-3">Title</th>
+                  <th class="text-left px-4 py-3">Category</th>
+                  <th class="text-left px-4 py-3">Date</th>
+                  <th class="text-right px-4 py-3">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="blog-table"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="site-footer" class="hidden md:block"></div>
+  <div id="mob-footer"></div>
+  <div id="mob-nav"></div>
+
+  <script src="../assets/js/script.js"></script>
+  <script src="../assets/js/runtime-config.js"></script>
+  <script>
+    const API_BASE_URL = window.ARKAN_API_BASE_URL;
+    const API_ADMIN_LOGOUT = `${API_BASE_URL}/api/admin/logout`;
+    const API_GALLERY = `${API_BASE_URL}/api/gallery`;
+    const API_BLOG = `${API_BASE_URL}/api/blog`;
+    const ADMIN_TOKEN_KEY = 'arkan_admin_token';
+
+    let adminToken = sessionStorage.getItem(ADMIN_TOKEN_KEY) || '';
+    let galleryItems = [];
+    let blogPosts = [];
+
+    function setMessage(text, isError) {
+      const el = document.getElementById('dashboard-message');
+      el.textContent = text;
+      el.classList.toggle('text-error', Boolean(isError));
+      el.classList.toggle('text-on-surface-variant', !isError);
+    }
+
+    function setSessionUI(isLoggedIn) {
+      document.getElementById('session-state').textContent = isLoggedIn ? 'Logged in' : 'Logged out';
+      document.getElementById('session-state').className = isLoggedIn
+        ? 'text-sm font-semibold text-success'
+        : 'text-sm font-semibold text-on-surface-variant';
+    }
+
+    function switchTab(tab) {
+      const galleryPanel = document.getElementById('panel-gallery');
+      const blogPanel = document.getElementById('panel-blog');
+      const tabGallery = document.getElementById('tab-gallery');
+      const tabBlog = document.getElementById('tab-blog');
+
+      const showGallery = tab === 'gallery';
+      galleryPanel.classList.toggle('hidden', !showGallery);
+      blogPanel.classList.toggle('hidden', showGallery);
+      tabGallery.classList.toggle('tab-active', showGallery);
+      tabBlog.classList.toggle('tab-active', !showGallery);
+    }
+
+    async function fetchJson(url) {
+      const res = await fetch(url);
+      if (!res.ok) throw new Error('Request failed');
+      return res.json();
+    }
+
+    async function loadData() {
+      try {
+        const [gallery, blog] = await Promise.all([
+          fetchJson(API_GALLERY),
+          fetchJson(API_BLOG)
+        ]);
+        galleryItems = Array.isArray(gallery) ? gallery : [];
+        blogPosts = Array.isArray(blog) ? blog : [];
+        renderGallery();
+        renderBlog();
+        setMessage('Data loaded successfully.', false);
+      } catch (e) {
+        setMessage('Could not load data. Start backend server to use admin dashboard.', true);
+      }
+    }
+
+    function renderGallery() {
+      document.getElementById('gallery-count').textContent = `${galleryItems.length} photos`;
+      const body = document.getElementById('gallery-table');
+      if (!galleryItems.length) {
+        body.innerHTML = '<tr><td colspan="4" class="px-4 py-6 text-sm text-on-surface-variant text-center">No gallery items found.</td></tr>';
+        return;
+      }
+
+      body.innerHTML = galleryItems.map(item => {
+        return `
+          <tr class="border-t border-outline-variant/40">
+            <td class="px-4 py-3"><img src="${item.src}" alt="${item.title}" class="w-20 h-12 rounded object-cover bg-surface-container"/></td>
+            <td class="px-4 py-3 text-sm font-semibold">${item.title}</td>
+            <td class="px-4 py-3 text-sm capitalize">${item.category}</td>
+            <td class="px-4 py-3 text-right">
+              <button data-delete-gallery="${item.id}" class="h-9 px-3 rounded-lg bg-error text-white text-sm font-semibold">Delete</button>
+            </td>
+          </tr>`;
+      }).join('');
+    }
+
+    function resetBlogForm() {
+      document.getElementById('blog-form').reset();
+      document.getElementById('blog-id').value = '';
+      document.getElementById('blog-author').value = 'Arkan Arabia Team';
+      document.getElementById('blog-read-time').value = '5 min';
+      document.getElementById('blog-form-title').textContent = 'New Blog Post';
+      document.getElementById('blog-save-btn').textContent = 'Publish';
+      document.getElementById('blog-reset-btn').classList.add('hidden');
+    }
+
+    function renderBlog() {
+      document.getElementById('blog-count').textContent = `${blogPosts.length} posts`;
+      const body = document.getElementById('blog-table');
+      if (!blogPosts.length) {
+        body.innerHTML = '<tr><td colspan="5" class="px-4 py-6 text-sm text-on-surface-variant text-center">No blog posts found.</td></tr>';
+        return;
+      }
+
+      body.innerHTML = blogPosts.map(post => {
+        const poster = post.coverImage
+          ? `<img src="${post.coverImage}" alt="${post.title}" class="w-20 h-12 rounded object-cover bg-surface-container"/>`
+          : '<div class="w-20 h-12 rounded bg-surface-container flex items-center justify-center text-on-surface-variant text-xs">No Image</div>';
+
+        return `
+          <tr class="border-t border-outline-variant/40">
+            <td class="px-4 py-3">${poster}</td>
+            <td class="px-4 py-3 text-sm font-semibold">${post.title}</td>
+            <td class="px-4 py-3 text-sm">${post.category || '-'}</td>
+            <td class="px-4 py-3 text-sm">${post.date || '-'}</td>
+            <td class="px-4 py-3 text-right">
+              <button data-edit-blog="${post.id}" class="h-9 px-3 rounded-lg border border-outline-variant text-sm font-semibold mr-2">Edit</button>
+              <button data-delete-blog="${post.id}" class="h-9 px-3 rounded-lg bg-error text-white text-sm font-semibold">Delete</button>
+            </td>
+          </tr>`;
+      }).join('');
+    }
+
+    async function logoutAdmin() {
+      if (adminToken) {
+        try {
+          await fetch(API_ADMIN_LOGOUT, {
+            method: 'POST',
+            headers: { 'x-admin-token': adminToken }
+          });
+        } catch (e) {
+          // No-op.
+        }
+      }
+      adminToken = '';
+      sessionStorage.removeItem(ADMIN_TOKEN_KEY);
+      setSessionUI(false);
+      window.location.replace('/login/admin');
+    }
+
+    function authHeaders() {
+      return { 'x-admin-token': adminToken };
+    }
+
+    async function submitGalleryForm(e) {
+      e.preventDefault();
+      if (!adminToken) {
+        setMessage('Please login first.', true);
+        return;
+      }
+
+      const title = document.getElementById('gallery-title').value.trim();
+      const category = document.getElementById('gallery-category').value;
+      const src = document.getElementById('gallery-src').value.trim();
+      const file = document.getElementById('gallery-file').files[0];
+
+      if (!title || !category || (!src && !file)) {
+        setMessage('Gallery form needs title, category, and image URL or file.', true);
+        return;
+      }
+
+      let res;
+      if (file) {
+        const formData = new FormData();
+        formData.append('title', title);
+        formData.append('category', category);
+        formData.append('file', file);
+        res = await fetch(API_GALLERY, {
+          method: 'POST',
+          headers: authHeaders(),
+          body: formData
+        });
+      } else {
+        res = await fetch(API_GALLERY, {
+          method: 'POST',
+          headers: { ...authHeaders(), 'Content-Type': 'application/json' },
+          body: JSON.stringify({ title, category, src })
+        });
+      }
+
+      if (res.status === 401) {
+        await logoutAdmin();
+        setMessage('Session expired. Please login again.', true);
+        return;
+      }
+
+      if (!res.ok) {
+        setMessage('Could not add gallery item.', true);
+        return;
+      }
+
+      document.getElementById('gallery-form').reset();
+      await loadData();
+      setMessage('Gallery photo added.', false);
+    }
+
+    async function submitBlogForm(e) {
+      e.preventDefault();
+      if (!adminToken) {
+        setMessage('Please login first.', true);
+        return;
+      }
+
+      const id = document.getElementById('blog-id').value;
+      const title = document.getElementById('blog-title').value.trim();
+      const category = document.getElementById('blog-category').value;
+      const excerpt = document.getElementById('blog-excerpt').value.trim();
+      const body = document.getElementById('blog-body').value.trim();
+      const author = document.getElementById('blog-author').value.trim() || 'Arkan Arabia Team';
+      const readTime = document.getElementById('blog-read-time').value.trim() || '5 min';
+      const coverImage = document.getElementById('blog-cover-url').value.trim();
+      const coverFile = document.getElementById('blog-cover-file').files[0];
+
+      if (!title || !category) {
+        setMessage('Blog form needs title and category.', true);
+        return;
+      }
+
+      const endpoint = id ? `${API_BLOG}/${id}` : API_BLOG;
+      const method = id ? 'PUT' : 'POST';
+
+      let res;
+      if (coverFile) {
+        const formData = new FormData();
+        formData.append('title', title);
+        formData.append('category', category);
+        formData.append('excerpt', excerpt);
+        formData.append('body', body);
+        formData.append('author', author);
+        formData.append('readTime', readTime);
+        formData.append('coverFile', coverFile);
+        res = await fetch(endpoint, {
+          method,
+          headers: authHeaders(),
+          body: formData
+        });
+      } else {
+        res = await fetch(endpoint, {
+          method,
+          headers: { ...authHeaders(), 'Content-Type': 'application/json' },
+          body: JSON.stringify({ title, category, excerpt, body, author, readTime, coverImage })
+        });
+      }
+
+      if (res.status === 401) {
+        await logoutAdmin();
+        setMessage('Session expired. Please login again.', true);
+        return;
+      }
+
+      if (!res.ok) {
+        setMessage('Could not save blog post.', true);
+        return;
+      }
+
+      resetBlogForm();
+      await loadData();
+      setMessage(id ? 'Blog post updated.' : 'Blog post published.', false);
+    }
+
+    async function deleteGallery(id) {
+      if (!adminToken || !confirm('Delete this gallery image?')) return;
+      const res = await fetch(`${API_GALLERY}/${id}`, {
+        method: 'DELETE',
+        headers: authHeaders()
+      });
+
+      if (res.status === 401) {
+        await logoutAdmin();
+        setMessage('Session expired. Please login again.', true);
+        return;
+      }
+      if (!res.ok) {
+        setMessage('Could not delete gallery item.', true);
+        return;
+      }
+
+      await loadData();
+      setMessage('Gallery image deleted.', false);
+    }
+
+    async function deleteBlog(id) {
+      if (!adminToken || !confirm('Delete this blog post?')) return;
+      const res = await fetch(`${API_BLOG}/${id}`, {
+        method: 'DELETE',
+        headers: authHeaders()
+      });
+
+      if (res.status === 401) {
+        await logoutAdmin();
+        setMessage('Session expired. Please login again.', true);
+        return;
+      }
+      if (!res.ok) {
+        setMessage('Could not delete blog post.', true);
+        return;
+      }
+
+      await loadData();
+      setMessage('Blog post deleted.', false);
+    }
+
+    function editBlog(id) {
+      const post = blogPosts.find(p => p.id === id);
+      if (!post) return;
+      switchTab('blog');
+      document.getElementById('blog-id').value = post.id || '';
+      document.getElementById('blog-title').value = post.title || '';
+      document.getElementById('blog-category').value = post.category || 'Industry News';
+      document.getElementById('blog-excerpt').value = post.excerpt || '';
+      document.getElementById('blog-body').value = post.body || '';
+      document.getElementById('blog-author').value = post.author || 'Arkan Arabia Team';
+      document.getElementById('blog-read-time').value = post.readTime || '5 min';
+      document.getElementById('blog-cover-url').value = post.coverImage || '';
+      document.getElementById('blog-cover-file').value = '';
+      document.getElementById('blog-form-title').textContent = 'Edit Blog Post';
+      document.getElementById('blog-save-btn').textContent = 'Update';
+      document.getElementById('blog-reset-btn').classList.remove('hidden');
+    }
+
+    document.addEventListener('DOMContentLoaded', async () => {
+      setSessionUI(Boolean(adminToken));
+      await loadData();
+
+      document.getElementById('tab-gallery').addEventListener('click', () => switchTab('gallery'));
+      document.getElementById('tab-blog').addEventListener('click', () => switchTab('blog'));
+
+      document.getElementById('logout-btn').addEventListener('click', logoutAdmin);
+      document.getElementById('gallery-form').addEventListener('submit', submitGalleryForm);
+      document.getElementById('blog-form').addEventListener('submit', submitBlogForm);
+      document.getElementById('blog-reset-btn').addEventListener('click', resetBlogForm);
+
+      document.getElementById('gallery-table').addEventListener('click', (e) => {
+        const btn = e.target.closest('[data-delete-gallery]');
+        if (btn) deleteGallery(btn.getAttribute('data-delete-gallery'));
+      });
+
+      document.getElementById('blog-table').addEventListener('click', (e) => {
+        const editBtn = e.target.closest('[data-edit-blog]');
+        if (editBtn) {
+          editBlog(editBtn.getAttribute('data-edit-blog'));
+          return;
+        }
+        const delBtn = e.target.closest('[data-delete-blog]');
+        if (delBtn) deleteBlog(delBtn.getAttribute('data-delete-blog'));
+      });
+    });
+  </script>
 </body>
 </html>

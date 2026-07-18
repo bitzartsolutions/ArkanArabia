@@ -1,14 +1,412 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html class="scroll-smooth" lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta http-equiv="refresh" content="0;url=/pages/service-detail.html">
-  <link rel="canonical" href="/pages/service-detail.html">
-  <title>Redirecting...</title>
-  <script>window.location.replace('/pages/service-detail.html');</script>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>Service Details | Arkan Arabia Logistics</title>
+  <meta name="description" content="Arkan Arabia logistics service details."/>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" rel="stylesheet"/>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "surface-dim": "#dcd9d9",
+            "primary-fixed-dim": "#b0c6ff",
+            "surface-tint": "#315bb0",
+            "on-surface-variant": "#434652",
+            "surface-container-low": "#f6f3f2",
+            "inverse-surface": "#313030",
+            "error-container": "#ffdad6",
+            "primary-fixed": "#d9e2ff",
+            "primary": "#00337d",
+            "on-secondary-container": "#26348a",
+            "on-background": "#1c1b1b",
+            "on-error": "#ffffff",
+            "on-primary-fixed-variant": "#0d4297",
+            "on-secondary": "#ffffff",
+            "surface-container-high": "#eae7e7",
+            "outline-variant": "#c3c6d4",
+            "on-tertiary-container": "#bac1c8",
+            "tertiary-fixed": "#dce3eb",
+            "tertiary": "#31383f",
+            "primary-container": "#1b4a9f",
+            "inverse-primary": "#b0c6ff",
+            "on-primary-fixed": "#001945",
+            "secondary-fixed-dim": "#bbc3ff",
+            "on-tertiary": "#ffffff",
+            "on-surface": "#1c1b1b",
+            "tertiary-container": "#484f56",
+            "on-secondary-fixed-variant": "#303e94",
+            "on-primary-container": "#a6bfff",
+            "on-primary": "#ffffff",
+            "surface-container": "#f0edec",
+            "on-tertiary-fixed-variant": "#40484e",
+            "surface-bright": "#fcf9f8",
+            "on-error-container": "#93000a",
+            "error": "#ba1a1a",
+            "outline": "#747783",
+            "secondary-fixed": "#dee0ff",
+            "secondary": "#4957ad",
+            "secondary-container": "#94a2fe",
+            "surface": "#fcf9f8",
+            "background": "#fcf9f8",
+            "surface-container-lowest": "#ffffff",
+            "tertiary-fixed-dim": "#c0c7cf",
+            "inverse-on-surface": "#f3f0ef",
+            "on-tertiary-fixed": "#151c22",
+            "surface-container-highest": "#e5e2e1",
+            "surface-variant": "#e5e2e1",
+            "on-secondary-fixed": "#000e5e"
+          },
+          borderRadius: {
+            "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem",
+            "2xl": "20px", "3xl": "24px", "full": "9999px"
+          },
+          fontFamily: {
+            "display": ["Manrope", "sans-serif"],
+            "h1": ["Manrope","sans-serif"], "h2": ["Manrope","sans-serif"],
+            "h3": ["Manrope","sans-serif"], "body": ["Inter","sans-serif"],
+            "body-md": ["Inter","sans-serif"], "label-sm": ["Inter","sans-serif"]
+          },
+          spacing: {
+            "xs": "4px", "sm": "8px", "md": "16px", "lg": "24px",
+            "xl": "48px", "2xl": "64px", "container-max": "1280px"
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+    .service-shadow {
+      box-shadow: 0 20px 60px rgba(17, 24, 39, 0.08);
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/css/styles.css"/>
 </head>
-<body>
-  <p>Redirecting to <a href="/pages/service-detail.html">/pages/service-detail.html</a>...</p>
+<body class="bg-background text-on-background font-body-md selection:bg-primary-container selection:text-on-primary-container overflow-x-hidden">
+  <div id="mob-header"></div>
+  <div id="site-header" class="hidden md:block"></div>
+
+  <main class="pt-[64px] md:pt-0 overflow-x-hidden">
+    <section class="relative overflow-hidden text-white min-h-[74vh] flex items-center">
+      <div class="absolute inset-0">
+        <img id="hero-image" alt="Service operations" class="h-full w-full object-cover"/>
+        <div class="absolute inset-0 bg-primary/65"></div>
+        <div class="absolute inset-0 opacity-25" style="background-image: radial-gradient(circle at top left, rgba(255,255,255,0.3) 0, rgba(255,255,255,0) 35%), radial-gradient(circle at bottom right, rgba(255,255,255,0.18) 0, rgba(255,255,255,0) 30%);"></div>
+      </div>
+      <div class="relative w-full max-w-container-max mx-auto px-6 md:px-12 py-16 md:py-24">
+        <div class="max-w-3xl space-y-6">
+          <span class="inline-flex items-center gap-2 rounded-full bg-white/15 px-4 py-2 text-xs font-semibold uppercase tracking-[0.22em] text-white border border-white/20 shadow-sm backdrop-blur-md">
+            <span id="hero-icon" class="material-symbols-outlined text-[18px]">local_shipping</span>
+            <span id="hero-kicker">Service</span>
+          </span>
+          <div class="space-y-4">
+            <h1 id="hero-title" class="font-h1 text-4xl md:text-6xl font-extrabold leading-tight">Service Title</h1>
+            <p id="hero-description" class="text-white/85 text-lg md:text-xl leading-relaxed max-w-2xl">Service description.</p>
+          </div>
+          <div class="flex flex-wrap gap-3">
+            <a href="/contact#quote" class="inline-flex items-center justify-center gap-2 bg-white text-primary font-bold px-6 py-3 rounded-xl shadow-lg hover:scale-[1.02] transition-transform">Request Service Quote</a>
+            <a href="/services" class="inline-flex items-center justify-center gap-2 bg-white/10 backdrop-blur-md border border-white/20 text-white font-semibold px-6 py-3 rounded-xl hover:bg-white/15 transition-colors">Back to Services</a>
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4 max-w-2xl">
+            <div class="rounded-2xl p-5 bg-primary text-white border border-white/20 shadow-xl">
+              <div class="h-1 w-12 rounded-full bg-primary-fixed mb-3"></div>
+              <div id="metric-1-value" class="text-2xl font-extrabold text-white">24/7</div>
+              <div id="metric-1-label" class="text-sm text-white/75">Operational coverage</div>
+            </div>
+            <div class="rounded-2xl p-5 bg-white text-primary border border-primary/15 shadow-xl">
+              <div class="h-1 w-12 rounded-full bg-secondary mb-3"></div>
+              <div id="metric-2-value" class="text-2xl font-extrabold text-primary">99%</div>
+              <div id="metric-2-label" class="text-sm text-on-surface-variant">Service reliability</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-16 md:py-24 bg-surface-container-low">
+      <div class="max-w-container-max mx-auto px-6 md:px-12 grid lg:grid-cols-[1.1fr_0.9fr] gap-8 items-start">
+        <div class="space-y-6">
+          <span class="section-eyebrow">Service Overview</span>
+          <h2 id="overview-title" class="font-h2 text-3xl md:text-4xl font-bold text-on-surface">Built for dependable operations.</h2>
+          <p id="overview-text" class="text-on-surface-variant text-lg leading-relaxed">Overview content.</p>
+          <div class="grid md:grid-cols-3 gap-4">
+            <div class="bg-white rounded-2xl p-5 border border-outline-variant/20 service-shadow">
+              <span class="material-symbols-outlined text-primary text-3xl">check_circle</span>
+              <h3 id="point-1-title" class="mt-3 font-bold text-on-surface">Planning</h3>
+              <p id="point-1-text" class="mt-2 text-sm text-on-surface-variant">Point 1 details.</p>
+            </div>
+            <div class="bg-white rounded-2xl p-5 border border-outline-variant/20 service-shadow">
+              <span class="material-symbols-outlined text-primary text-3xl">tune</span>
+              <h3 id="point-2-title" class="mt-3 font-bold text-on-surface">Execution</h3>
+              <p id="point-2-text" class="mt-2 text-sm text-on-surface-variant">Point 2 details.</p>
+            </div>
+            <div class="bg-white rounded-2xl p-5 border border-outline-variant/20 service-shadow">
+              <span class="material-symbols-outlined text-primary text-3xl">visibility</span>
+              <h3 id="point-3-title" class="mt-3 font-bold text-on-surface">Visibility</h3>
+              <p id="point-3-text" class="mt-2 text-sm text-on-surface-variant">Point 3 details.</p>
+            </div>
+          </div>
+        </div>
+        <div class="rounded-3xl overflow-hidden border border-outline-variant/20 service-shadow bg-white">
+          <img id="overview-image" alt="Service image" class="w-full h-80 object-cover"/>
+          <div class="p-6">
+            <h3 id="panel-title" class="font-h3 text-xl font-bold text-on-surface">Operational focus</h3>
+            <p id="panel-text" class="mt-2 text-on-surface-variant">Panel content.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="site-footer" class="hidden md:block"></div>
+  <div id="mob-footer"></div>
+  <div id="mob-nav"></div>
+
+  <script src="../assets/js/script.js"></script>
+  <script>
+    const serviceData = {
+      "land-transportation": {
+        title: "Land Transportation",
+        kicker: "Land Transportation",
+        icon: "local_shipping",
+        heroImage: "https://lh3.googleusercontent.com/aida-public/AB6AXuC_R1qSzXbUI9QKawzSxb43Imd1Wx-s0Q6SnOnVoXxW1p6goggvOQJYayhb7Zml56D3l_yHrKwUr3-epcfGNeFmgzaKu5iZzL37tfHlOcHYNCweqoOd7AjwPy048UXDLNrPRK4HjoRQFyFa4DWOBKwBn299-4Nkp2IvJwdYFktlYLxg6qIiXGelIkUnq5wObl7UG_nj3ogXmGAUt-nzs9_5K9dUmuGVUX-m8XiC-bqnviMEolCzIJC8upKUm8l7_AN8-qD12bufLQjR",
+        heroDescription: "FTL and LTL solutions across the GCC with optimized routing, fleet visibility, and dependable delivery windows.",
+        metric1: ["1,200+", "Monthly road movements"],
+        metric2: ["24/7", "Dispatch monitoring"],
+        overviewTitle: "Road logistics with speed and control.",
+        overviewText: "From point-to-point deliveries to multi-stop distribution, our transport team coordinates planning, dispatch, and destination handoff with strict SLA compliance.",
+        points: [
+          ["Route optimization", "Dynamic route planning to reduce transit time and fuel cost."],
+          ["Fleet coordination", "Real-time assignment across FTL, LTL, and specialized vehicles."],
+          ["Live tracking", "Continuous shipment visibility and proactive status updates."]
+        ],
+        panelTitle: "Cross-border ready operations",
+        panelText: "Experienced teams at key GCC corridors help maintain smooth cross-border movements.",
+        overviewImage: "https://lh3.googleusercontent.com/aida-public/AB6AXuDSYkP0UNrStPuNuzMaOwpN71onQTCojSRaeAqxFVRk2v8WeyUMGx9UUTXmO4vynCWw7C5X93okA9DBGW2315IgkB5Vf1X6HTXrU5oBbaot5prV28n2Z21R64p_mbiQ37ApoOjIagOmzCQv5nEM0QDXH2sqHfCWT-XSTj122jjnL40668_05epi7eJP9EmnPGbB-3t5ztM2_dqSKsPwX8A2Fdj-pN9E-tZ7Jll60W5fXptbc2vS_X_y6tA5C8Np10T6o1c6iQiTOQrT"
+      },
+      "warehousing": {
+        title: "Warehousing",
+        kicker: "Warehousing",
+        icon: "inventory_2",
+        heroImage: "https://lh3.googleusercontent.com/aida-public/AB6AXuCwYfO1ZiD9tRxO53-IQUhRNScqcR6LMMC7hT-VqPrZffqRUqmvAyz7nrWYbClezWKinsw7-yjMAR_dlWlCQGEbkRxyK8S5tqPtzRKZnxTnE2fKd8UUbOrAEPWtZd-Vki23b8Z3tSaAqAk_hXiW-mo6ShFG8UKNtDuT-sNr-hc5qPZpw9SHBGzO__GHp3oKRaFsexfk-5Kiz4MXQkQU9US4O8aFZVQhdxa1oCkEEcJw5GmILaHIG77lp5xzKtegyoPeP4C6qudcOrOC",
+        heroDescription: "Scalable storage infrastructure with inventory accuracy, rapid pick-pack flow, and secure handling.",
+        metric1: ["2.4M", "Sq ft managed capacity"],
+        metric2: ["99.5%", "Inventory accuracy"],
+        overviewTitle: "Storage and fulfillment designed for growth.",
+        overviewText: "We operate structured warehousing workflows with barcode-based inventory visibility and service models tailored to B2B and retail distribution.",
+        points: [
+          ["Inventory control", "Live stock monitoring and systematic location management."],
+          ["Order fulfillment", "Fast pick-pack-ship workflows for scheduled dispatch."],
+          ["Secure handling", "Controlled access and standardized cargo protection."]
+        ],
+        panelTitle: "High-throughput warehousing",
+        panelText: "Our facilities are optimized for fast receiving, put-away, and outbound processing.",
+        overviewImage: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=1200&q=80&auto=format&fit=crop"
+      },
+      "project-cargo": {
+        title: "Project Cargo",
+        kicker: "Project Cargo",
+        icon: "engineering",
+        heroImage: "https://lh3.googleusercontent.com/aida-public/AB6AXuCD_yZEjtoC-OAvmb66IIm1WFhyCmTlG2hDsGRnvIslsGNNcdHOuwFSr5iK0CWUzROg37FL2v3pCfd_dhcKoZwPgq73mqY6Vpe4S2oDlt2Ob1gghJuQIr6t9LGoU8EJsTpvrsQ86q1JHoD94mhfPlcm55m8uTL2K8RnFAEK_uEkEEGqgVUZwDJv7nGMO7XKzqpemkxblfmN-jOSGPkxTz8NC0kzXxlA_yg_jOCMEaMxaXf79jp2R0HFQAL7UjzjINp22p5SMJyagbZT",
+        heroDescription: "Heavy-lift and out-of-gauge cargo operations with dedicated planning, permits, and technical handling.",
+        metric1: ["500+", "Complex loads annually"],
+        metric2: ["End-to-end", "Project coordination"],
+        overviewTitle: "Specialized logistics for oversized cargo.",
+        overviewText: "Our project cargo unit supports industrial and infrastructure deliveries with route survey, lifting strategy, and risk-managed execution.",
+        points: [
+          ["Technical planning", "Route studies, lifting plans, and permit coordination."],
+          ["Heavy-lift handling", "Specialized equipment for OOG and critical loads."],
+          ["Project control", "Single-window coordination from origin to installation site."]
+        ],
+        panelTitle: "Industrial movement expertise",
+        panelText: "Trusted execution for complex transport scopes across high-value sectors.",
+        overviewImage: "https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=1200&q=80&auto=format&fit=crop"
+      },
+      "construction-logistics": {
+        title: "Construction Logistics",
+        kicker: "Construction Logistics",
+        icon: "construction",
+        heroImage: "https://lh3.googleusercontent.com/aida-public/AB6AXuB9dyo-rf2d5NJt43DQulPP9C4l4hOWigZ-Md8oeciTcPHKH1OxFdsKt51xwYcvUsY8MFwTAoDpk2ts5aOYn5Ywjes8nCbwpVYTxhraxDSdBdh-VF3Y9vA7zG5ha-nKd-v6QwKFNTJ5ffeeqx_jWwCblrESIoFgaUvPz4SfD8soyw6VT41AI4mso7RN5Deavp9hy5asTS-6CV9HDCvZeSZgZISkbW7DUAd9NtfC0AvdKfgMulpvNEW0GY0lF6qMoC62QlBXO0E3Ydd5",
+        heroDescription: "Planned delivery and staging for construction materials, machinery, and high-priority project cargo.",
+        metric1: ["On-site", "Timed delivery slots"],
+        metric2: ["Multi-site", "Project coordination"],
+        overviewTitle: "Site-ready logistics execution.",
+        overviewText: "We synchronize suppliers, transport, and site access constraints so materials arrive in sequence and projects stay on schedule.",
+        points: [
+          ["Delivery scheduling", "Phase-based movement aligned with construction timelines."],
+          ["Site coordination", "Communication with project teams for smooth unloading."],
+          ["Equipment movement", "Safe transport for heavy machines and structural units."]
+        ],
+        panelTitle: "Built around project milestones",
+        panelText: "Reliable flow of materials and machinery for complex civil and industrial programs.",
+        overviewImage: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1200&q=80&auto=format&fit=crop"
+      },
+      "cold-chain": {
+        title: "Cold Chain",
+        kicker: "Cold Chain",
+        icon: "ac_unit",
+        heroImage: "https://lh3.googleusercontent.com/aida-public/AB6AXuAKXhbLBimX29KV_cc2q1IN6JA9-tScvaooD3BVohNL83gIiskZxSpyGPpTUt4sPwKWIs9Z8WlE3BoyFC8-L3j3vQt4DsPUyorjiN7DJlkbP3K5pE5dVtUopLe9MWGUqj13_YRq0vK9G2o-EkGED1nPqevZkV0IeztDtyzANVgMRsuMbbmySkfFWLf1IoMvgRmmKhs0nzYaZ-G-923Z3ydE6_F6Yb3Pkm7xRRoC4FkFnb-0TOc_D9VzhaqNkq2NxTc1Ksu3oXHtd3-n",
+        heroDescription: "Temperature-controlled logistics for pharma, food, and sensitive products requiring strict handling standards.",
+        metric1: ["GDP", "Compliance-ready handling"],
+        metric2: ["24/7", "Temperature monitoring"],
+        overviewTitle: "Precision temperature logistics.",
+        overviewText: "From pickup through transit and delivery, we maintain validated temperature ranges and documented chain-of-custody records.",
+        points: [
+          ["Thermal control", "Continuous monitoring across transport and storage stages."],
+          ["Quality assurance", "Process checkpoints aligned with compliance standards."],
+          ["Rapid response", "Escalation workflows for any temperature deviation alerts."]
+        ],
+        panelTitle: "Sensitive cargo confidence",
+        panelText: "Cold chain operations structured for product integrity and audit readiness.",
+        overviewImage: "https://images.unsplash.com/photo-1581093458791-9f3c3900df4b?w=1200&q=80&auto=format&fit=crop"
+      },
+      "retail-distribution": {
+        title: "Retail Distribution",
+        kicker: "Retail Distribution",
+        icon: "storefront",
+        heroImage: "https://lh3.googleusercontent.com/aida-public/AB6AXuBuGP55fjfi8SqaAmZppyaCIaddHqKWMTcis5SuiFP5mGFknduyJkUJE471BONXmK64bwnBoecL4U5thVAqMGzrP08psWQ9wCD3aoEAAsZf1KRviEy0Aax4C1c0__EoJeywGz1ixccLlJM92xnX3BdXnR8qi6bV7JlSqF4YsRzo89M3H0xU1JUY7tJWVbMBzsdxlFySMjui7CoRg8KIFPt5PVctcwfXLsJx52PoUcMzpt92N14bMoJKtAHHwcnGqng3VFjpXUQhHRm8",
+        heroDescription: "Fast-moving distribution support for retail and FMCG networks with dependable replenishment cycles.",
+        metric1: ["Multi-channel", "Store & hub deliveries"],
+        metric2: ["Same-day", "Priority replenishment"],
+        overviewTitle: "Distribution built for shelf availability.",
+        overviewText: "Our retail distribution model integrates warehousing, line-haul, and last-mile workflows to keep inventory moving efficiently.",
+        points: [
+          ["Network delivery", "Store-level and distribution center replenishment plans."],
+          ["SKU handling", "Structured product handling with scan-based verification."],
+          ["Demand response", "Flexible capacity for peak and seasonal spikes."]
+        ],
+        panelTitle: "FMCG and retail acceleration",
+        panelText: "Smarter replenishment and stronger service continuity for high-velocity supply chains.",
+        overviewImage: "https://images.unsplash.com/photo-1601597111158-2fceff292cdc?w=1200&q=80&auto=format&fit=crop"
+      },
+      "packing-moving": {
+        title: "Packing and Moving",
+        kicker: "Packing and Moving",
+        icon: "inventory",
+        heroImage: "https://images.unsplash.com/photo-1600518464441-9154a4dea21b?w=1600&q=80&auto=format&fit=crop",
+        heroDescription: "Professional packing systems and secure movement planning for commercial cargo, offices, and sensitive consignments.",
+        metric1: ["Damage-safe", "Packing standards"],
+        metric2: ["Door-to-door", "Coordinated movement"],
+        overviewTitle: "Protective packing with controlled movement.",
+        overviewText: "We apply structured packing materials, handling SOPs, and transfer controls to protect cargo integrity from origin pickup through final delivery.",
+        points: [
+          ["Material selection", "Appropriate cartons, wraps, and cushioning based on cargo type."],
+          ["Handling control", "Labeled and organized loading flow to prevent mix-ups and damage."],
+          ["Move coordination", "Planned transport windows and supervised unloading at destination."]
+        ],
+        panelTitle: "Safe cargo transition",
+        panelText: "Operational teams ensure every packed unit is documented and moved with care.",
+        overviewImage: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=1200&q=80&auto=format&fit=crop"
+      },
+      "stuffing-lashing": {
+        title: "Stuffing and Lashing",
+        kicker: "Stuffing and Lashing",
+        icon: "link",
+        heroImage: "https://images.unsplash.com/photo-1586528116493-2f7b1be6b862?w=1600&q=80&auto=format&fit=crop",
+        heroDescription: "Container stuffing and lashing execution to stabilize cargo loads and reduce in-transit movement risk.",
+        metric1: ["Load-secure", "Lashing execution"],
+        metric2: ["Compliance", "Container practices"],
+        overviewTitle: "Container safety starts before departure.",
+        overviewText: "Our teams apply cargo distribution planning, blocking and bracing techniques, and lashing checks to improve container safety and unloading efficiency.",
+        points: [
+          ["Load planning", "Weight-balanced stuffing layout for safer transport behavior."],
+          ["Lashing methods", "Straps, bars, and supports matched to cargo profile."],
+          ["Pre-dispatch checks", "Final verification before sealing and release."]
+        ],
+        panelTitle: "Stability-focused handling",
+        panelText: "Proper stuffing and lashing reduces shock, tilt, and cargo shift during transit.",
+        overviewImage: "https://images.unsplash.com/photo-1586528116493-2f7b1be6b862?w=1200&q=80&auto=format&fit=crop"
+      },
+      "cross-border-moving": {
+        title: "Cross Border Moving",
+        kicker: "Cross Border Moving",
+        icon: "sync_alt",
+        heroImage: "https://images.unsplash.com/photo-1489515217757-5fd1be406fef?w=1600&q=80&auto=format&fit=crop",
+        heroDescription: "Cross-border transportation operations supported by route planning, checkpoint readiness, and documentation alignment.",
+        metric1: ["GCC lanes", "Border expertise"],
+        metric2: ["Faster", "Checkpoint processing"],
+        overviewTitle: "Border movement with fewer delays.",
+        overviewText: "We coordinate route permits, customs-ready documents, and timing windows to keep cross-border shipments moving smoothly across key corridors.",
+        points: [
+          ["Corridor planning", "Predefined border routes with transit contingency plans."],
+          ["Document readiness", "Shipment file validation before border approach."],
+          ["Movement monitoring", "Live tracking and border status communication to stakeholders."]
+        ],
+        panelTitle: "Checkpoint-ready logistics",
+        panelText: "Operational preparation minimizes stoppages and improves delivery predictability.",
+        overviewImage: "https://images.unsplash.com/photo-1494412651409-8963ce7935a7?w=1200&q=80&auto=format&fit=crop"
+      },
+      "terminal-services": {
+        title: "Terminal Services",
+        kicker: "Terminal Services",
+        icon: "dock",
+        heroImage: "https://lh3.googleusercontent.com/aida-public/AB6AXuAD-RMgjVG2oyeN8la4CwEy_KvH3ryIANIAWiEhZbL-DEyiC7y7dJA73XL1w9cB3ukhGY49vUGVNZUm81rCA4F1_Q1HwTlSv7OwtNkKOlewFsQLFXG0yHOr1JzbESzVxlXf7zTfJ3CCAXAuec8oXeUPw0Aqx5UOwlYBL7Gmp7n7RgB26AgpirdqG7EqHXFNzgbSrjuuceE3elhco-z_RTCrvuYhs-bBNtz6sCicjS4XRarA9kEgRfOu6dY6MUyD4KDIm5Ij5oKnT4b-",
+        heroDescription: "Dedicated terminal handling and port-side operations for efficient turnaround and reduced dwell time.",
+        metric1: ["High-throughput", "Yard and gate handling"],
+        metric2: ["Reduced", "Cargo turnaround time"],
+        overviewTitle: "Port-side execution with operational discipline.",
+        overviewText: "We coordinate terminal workflows, cargo staging, and handoff timing to keep movement smooth across port and inland links.",
+        points: [
+          ["Terminal handling", "Structured receiving, staging, and dispatch control."],
+          ["Turnaround focus", "Process optimization to reduce congestion and delays."],
+          ["Integrated handoff", "Seamless transition from terminal to onward transport."]
+        ],
+        panelTitle: "Efficient cargo flow management",
+        panelText: "Reliable terminal support that strengthens total supply chain performance.",
+        overviewImage: "https://images.unsplash.com/photo-1531065208531-4036c0dba3ca?w=1200&q=80&auto=format&fit=crop"
+      }
+    };
+
+    function getSlug() {
+      const path = window.location.pathname.replace(/\/+$/, "");
+      const slug = path.split("/").filter(Boolean).pop() || "land-transportation";
+      return slug.replace(/\.html$/, "");
+    }
+
+    function setText(id, value) {
+      const el = document.getElementById(id);
+      if (el) el.textContent = value;
+    }
+
+    function renderService() {
+      const slug = getSlug();
+      const data = serviceData[slug] || serviceData["land-transportation"];
+
+      document.title = `${data.title} | Arkan Arabia Logistics`;
+      setText("hero-title", data.title);
+      setText("hero-kicker", data.kicker);
+      setText("hero-icon", data.icon);
+      setText("hero-description", data.heroDescription);
+      setText("metric-1-value", data.metric1[0]);
+      setText("metric-1-label", data.metric1[1]);
+      setText("metric-2-value", data.metric2[0]);
+      setText("metric-2-label", data.metric2[1]);
+      setText("overview-title", data.overviewTitle);
+      setText("overview-text", data.overviewText);
+      setText("point-1-title", data.points[0][0]);
+      setText("point-1-text", data.points[0][1]);
+      setText("point-2-title", data.points[1][0]);
+      setText("point-2-text", data.points[1][1]);
+      setText("point-3-title", data.points[2][0]);
+      setText("point-3-text", data.points[2][1]);
+      setText("panel-title", data.panelTitle);
+      setText("panel-text", data.panelText);
+
+      const heroImage = document.getElementById("hero-image");
+      if (heroImage) heroImage.src = data.heroImage;
+      const overviewImage = document.getElementById("overview-image");
+      if (overviewImage) overviewImage.src = data.overviewImage;
+    }
+
+    renderService();
+  </script>
 </body>
 </html>

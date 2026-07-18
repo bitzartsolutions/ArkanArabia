@@ -97,7 +97,7 @@
     const ADMIN_TOKEN_KEY = 'arkan_admin_token';
 
     if (sessionStorage.getItem(ADMIN_TOKEN_KEY)) {
-      window.location.replace('/pages/admin.html');
+      window.location.replace('/admin');
     }
 
     document.addEventListener('DOMContentLoaded', () => {
@@ -132,7 +132,7 @@
           }
 
           sessionStorage.setItem(ADMIN_TOKEN_KEY, data.token);
-          window.location.replace('/pages/admin.html');
+          window.location.replace('/admin');
         } catch (e) {
           errEl.textContent = 'Backend is unreachable. Please start backend server.';
           errEl.classList.remove('hidden');

@@ -1,14 +1,1306 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html class="scroll-smooth" lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta http-equiv="refresh" content="0;url=/pages/blog.html">
-  <link rel="canonical" href="/pages/blog.html">
-  <title>Redirecting...</title>
-  <script>window.location.replace('/pages/blog.html');</script>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>Blog | Arkan Arabia Logistics</title>
+  <meta name="description" content="Industry insights, logistics trends and company news from Arkan Arabia — the GCC's leading freight forwarder."/>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "background": "#fcf9f8",
+            "surface-variant": "#e5e2e1",
+            "primary-fixed-dim": "#b0c6ff",
+            "on-surface": "#1c1b1b",
+            "tertiary": "#31383f",
+            "error-container": "#ffdad6",
+            "on-error-container": "#93000a",
+            "surface-bright": "#fcf9f8",
+            "on-secondary-container": "#26348a",
+            "secondary": "#4957ad",
+            "secondary-fixed": "#dee0ff",
+            "tertiary-fixed": "#dce3eb",
+            "surface-container-lowest": "#ffffff",
+            "primary": "#00337d",
+            "on-secondary": "#ffffff",
+            "surface-container-low": "#f6f3f2",
+            "secondary-container": "#94a2fe",
+            "primary-container": "#1b4a9f",
+            "on-tertiary-fixed-variant": "#40484e",
+            "inverse-primary": "#b0c6ff",
+            "on-secondary-fixed": "#000e5e",
+            "error": "#ba1a1a",
+            "surface-container-high": "#eae7e7",
+            "surface": "#fcf9f8",
+            "surface-container-highest": "#e5e2e1",
+            "on-primary": "#ffffff",
+            "surface-dim": "#dcd9d9",
+            "outline": "#747783",
+            "on-background": "#1c1b1b",
+            "tertiary-container": "#484f56",
+            "on-secondary-fixed-variant": "#303e94",
+            "on-primary-fixed": "#001945",
+            "inverse-surface": "#313030",
+            "surface-tint": "#315bb0",
+            "on-tertiary-container": "#bac1c8",
+            "on-error": "#ffffff",
+            "secondary-fixed-dim": "#bbc3ff",
+            "on-tertiary": "#ffffff",
+            "on-primary-fixed-variant": "#0d4297",
+            "surface-container": "#f0edec",
+            "inverse-on-surface": "#f3f0ef",
+            "on-surface-variant": "#434652",
+            "on-tertiary-fixed": "#151c22",
+            "outline-variant": "#c3c6d4",
+            "tertiary-fixed-dim": "#c0c7cf",
+            "on-primary-container": "#a6bfff",
+            "primary-fixed": "#d9e2ff"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "2xl": "20px",
+            "full": "9999px"
+          },
+          "spacing": {
+            "md": "24px",
+            "lg": "48px",
+            "sm": "12px",
+            "xs": "4px",
+            "gutter": "24px",
+            "container-max": "1440px",
+            "xl": "80px",
+            "base": "8px"
+          },
+          "fontFamily": {
+            "h2": ["Manrope"],
+            "label-sm": ["Inter"],
+            "body-md": ["Inter"],
+            "h1": ["Manrope"],
+            "display-xl": ["Manrope"],
+            "body-lg": ["Inter"],
+            "h3": ["Manrope"]
+          },
+          "fontSize": {
+            "h2": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+            "label-sm": ["14px", {"lineHeight": "20px", "letterSpacing": "0.02em", "fontWeight": "600"}],
+            "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+            "h1": ["56px", {"lineHeight": "64px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+            "display-xl": ["72px", {"lineHeight": "84px", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+            "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+            "h3": ["24px", {"lineHeight": "32px", "fontWeight": "600"}]
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+
+    /* Blog hero dot-grid overlay */
+    .blog-hero-dots {
+      background-image: radial-gradient(circle, rgba(176,198,255,0.18) 1px, transparent 1px);
+      background-size: 28px 28px;
+    }
+
+    /* Card hover lift */
+    .blog-card {
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+    .blog-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 48px rgba(0,51,125,0.13);
+    }
+
+    /* Line-clamp utilities */
+    .line-clamp-2 {
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .line-clamp-3 {
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    /* Blog post body prose */
+    .blog-prose p {
+      margin-bottom: 1.1em;
+      color: #434652;
+      line-height: 1.75;
+      font-size: 16px;
+    }
+    .blog-prose p:last-child { margin-bottom: 0; }
+
+    /* Toast */
+    #blog-toast {
+      transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+    #blog-toast.hidden { opacity:0; pointer-events:none; transform: translateY(16px); }
+    #blog-toast.show { opacity:1; pointer-events:auto; transform: translateY(0); }
+
+    /* Scroll reveal */
+    .blg-reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .blg-reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Admin mode badge pulse */
+    @keyframes admin-pulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(186,26,26,0.4); }
+      50% { box-shadow: 0 0 0 8px rgba(186,26,26,0); }
+    }
+    .admin-pulse { animation: admin-pulse 2s infinite; }
+
+    /* Image cover aspect ratio */
+    .aspect-video { aspect-ratio: 16/9; }
+
+    /* Modal open lock scroll */
+    body.modal-open { overflow: hidden; }
+
+    /* Search input focus ring */
+    .blog-search:focus { outline: none; box-shadow: 0 0 0 3px rgba(0,51,125,0.25); }
+
+    /* Tab styles for admin */
+    .tab-btn.active-tab { background:#00337d; color:#fff; }
+    .tab-btn { transition: background 0.2s, color 0.2s; }
+
+    /* Smooth image fade-in on load */
+    .blog-img { transition: opacity 0.4s ease; }
+    .blog-img.loaded { opacity:1; }
+  </style>
+  <link rel="stylesheet" href="../assets/css/styles.css"/>
 </head>
-<body>
-  <p>Redirecting to <a href="/pages/blog.html">/pages/blog.html</a>...</p>
+<body class="bg-background text-on-background font-body-md selection:bg-primary-container selection:text-on-primary-container overflow-x-hidden">
+
+  <!-- ══ MOBILE HEADER + DRAWER (injected, md:hidden) ══ -->
+  <div id="mob-header"></div>
+
+  <!-- Desktop shared header (hidden on mobile) -->
+  <div id="site-header" class="hidden md:block"></div>
+
+  <!-- ════════════════════════════════════════════
+       MOBILE LAYOUT  (visible < md)
+  ════════════════════════════════════════════ -->
+  <main class="md:hidden pt-[64px] pb-16">
+
+    <!-- Mobile Hero -->
+    <section class="relative overflow-hidden" style="background: linear-gradient(160deg, #00337d 0%, #1b4a9f 60%, #0d4297 100%);">
+      <div class="blog-hero-dots absolute inset-0 z-0"></div>
+      <div class="relative z-10 px-md pt-xl pb-lg space-y-md">
+        <span class="inline-block px-sm py-1 bg-white/15 backdrop-blur-md border border-white/20 text-white font-label-sm text-label-sm rounded-full tracking-widest">INSIGHTS & NEWS</span>
+        <h1 class="font-h1 text-[38px] leading-tight text-white">Arkan Arabia Blog</h1>
+        <p class="font-body-lg text-body-lg text-primary-fixed-dim max-w-sm">Industry insights, logistics trends and company news from the GCC's leading freight forwarder.</p>
+        <!-- Mobile Search -->
+        <div class="relative mt-md">
+          <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant text-[20px]">search</span>
+          <input id="mob-search" type="text" placeholder="Search articles..." autocomplete="off"
+            class="blog-search w-full h-12 pl-11 pr-4 bg-white rounded-xl font-body-md text-body-md text-on-surface placeholder:text-on-surface-variant border-0 shadow-lg"/>
+        </div>
+      </div>
+    </section>
+
+    <!-- Mobile: Category filter pills -->
+    <section class="px-md pt-md pb-sm overflow-x-auto">
+      <div id="mob-filter-pills" class="flex gap-sm w-max">
+        <!-- Injected by JS -->
+      </div>
+    </section>
+
+    <!-- Mobile: Post grid -->
+    <section class="px-md pt-sm pb-md">
+      <div id="mob-post-grid" class="space-y-md">
+        <!-- Injected by JS -->
+      </div>
+      <p id="mob-no-results" class="hidden text-center text-on-surface-variant py-xl font-body-md text-body-md">No posts found.</p>
+    </section>
+
+    <!-- Mobile Footer (atomic component) -->
+    <div id="mob-footer"></div>
+  </main>
+
+  <!-- ══ MOBILE BOTTOM NAV (injected, md:hidden) ══ -->
+  <div id="mob-nav"></div>
+
+  <!-- ════════════════════════════════════════════
+       DESKTOP LAYOUT  (visible md +)
+  ════════════════════════════════════════════ -->
+
+  <!-- Desktop Hero -->
+  <section class="hidden md:block relative overflow-hidden pt-20" style="background: linear-gradient(135deg, #001945 0%, #00337d 40%, #1b4a9f 75%, #0d4297 100%);">
+    <div class="blog-hero-dots absolute inset-0 z-0"></div>
+    <!-- Decorative glow blobs -->
+    <div class="absolute top-0 right-0 w-[600px] h-[600px] rounded-full opacity-10 z-0" style="background:radial-gradient(circle, #b0c6ff 0%, transparent 70%); transform: translate(30%,-40%);"></div>
+    <div class="absolute bottom-0 left-0 w-[400px] h-[400px] rounded-full opacity-10 z-0" style="background:radial-gradient(circle, #94a2fe 0%, transparent 70%); transform: translate(-20%,30%);"></div>
+    <div class="relative z-10 max-w-container-max mx-auto px-12 py-xl">
+      <div class="max-w-3xl">
+        <span class="inline-block px-4 py-1.5 bg-white/15 backdrop-blur-md border border-white/20 rounded-full text-white font-label-sm text-label-sm mb-6 tracking-widest">INSIGHTS & NEWS</span>
+        <h1 class="font-h1 text-h1 text-white mb-6">Arkan Arabia Blog</h1>
+        <p class="font-body-lg text-body-lg text-primary-fixed-dim max-w-2xl mb-8">Industry insights, logistics trends and company news from the GCC's leading freight forwarder.</p>
+        <!-- Desktop Search -->
+        <div class="relative max-w-xl">
+          <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant text-[22px]">search</span>
+          <input id="desk-search" type="text" placeholder="Search articles..." autocomplete="off"
+            class="blog-search w-full h-14 pl-12 pr-5 bg-white rounded-xl font-body-lg text-body-lg text-on-surface placeholder:text-on-surface-variant border-0 shadow-xl"/>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Desktop: Category filter pills -->
+  <section class="hidden md:block bg-surface-container-low border-b border-outline-variant/30 sticky top-[72px] z-30">
+    <div class="max-w-container-max mx-auto px-12 py-sm">
+      <div id="desk-filter-pills" class="flex flex-wrap gap-sm">
+        <!-- Injected by JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Desktop: Main content + Sidebar -->
+  <section class="hidden md:block py-xl max-w-container-max mx-auto px-12">
+    <div class="flex gap-xl items-start">
+
+      <!-- Main post grid (2/3) -->
+      <div class="flex-1 min-w-0">
+        <!-- Admin: New Post button injected here by JS -->
+        <div id="desk-admin-btn-area" class="mb-md"></div>
+        <div id="desk-post-grid" class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-md">
+          <!-- Injected by JS -->
+        </div>
+        <p id="desk-no-results" class="hidden text-center text-on-surface-variant py-xl font-body-md text-body-md">No posts found.</p>
+      </div>
+
+      <!-- Sidebar (1/3) -->
+      <aside class="w-80 flex-shrink-0 space-y-md sticky top-36">
+
+        <!-- Featured post -->
+        <div id="desk-featured" class="bg-surface-container-low rounded-2xl overflow-hidden shadow-sm border border-outline-variant/20">
+          <!-- Injected by JS -->
+        </div>
+
+        <!-- Categories -->
+        <div class="bg-surface-container-low rounded-2xl p-md border border-outline-variant/20 shadow-sm">
+          <h3 class="font-h3 text-[18px] font-semibold text-on-surface mb-md border-b border-outline-variant/30 pb-sm">Categories</h3>
+          <ul id="desk-categories" class="space-y-xs">
+            <!-- Injected by JS -->
+          </ul>
+        </div>
+
+        <!-- Recent posts -->
+        <div class="bg-surface-container-low rounded-2xl p-md border border-outline-variant/20 shadow-sm">
+          <h3 class="font-h3 text-[18px] font-semibold text-on-surface mb-md border-b border-outline-variant/30 pb-sm">Recent Posts</h3>
+          <ul id="desk-recent-posts" class="space-y-md">
+            <!-- Injected by JS -->
+          </ul>
+        </div>
+
+      </aside>
+    </div>
+  </section>
+
+  <!-- Desktop Footer -->
+  <div id="site-footer"></div>
+
+  <!-- ════════════════════════════════════════════
+       POST DETAIL MODAL
+  ════════════════════════════════════════════ -->
+  <div id="post-modal" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-start justify-center py-8 px-4 hidden" role="dialog" aria-modal="true" aria-label="Post detail">
+    <div id="post-modal-panel" class="bg-white w-full max-w-3xl rounded-2xl shadow-2xl overflow-y-auto max-h-[90vh] relative">
+      <button id="post-modal-close" onclick="closePost()" aria-label="Close"
+        class="absolute top-4 right-4 z-10 w-10 h-10 rounded-full bg-surface-container flex items-center justify-center hover:bg-surface-container-high transition-colors shadow-sm">
+        <span class="material-symbols-outlined text-on-surface">close</span>
+      </button>
+      <div id="post-modal-content">
+        <!-- Injected by JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════════
+       ADMIN PANEL — Login Modal
+  ════════════════════════════════════════════ -->
+  <div id="admin-login-modal" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center hidden" role="dialog" aria-modal="true">
+    <div class="bg-white rounded-2xl shadow-2xl p-lg w-full max-w-sm mx-4">
+      <div class="flex items-center gap-sm mb-lg">
+        <span class="material-symbols-outlined text-primary text-3xl">lock</span>
+        <div>
+          <h2 class="font-h3 text-h3 text-on-surface">Admin Access</h2>
+          <p class="font-body-md text-body-md text-on-surface-variant text-sm">Blog management panel</p>
+        </div>
+      </div>
+      <label class="block font-label-sm text-label-sm text-on-surface-variant mb-xs" for="admin-password-input">Password</label>
+      <input id="admin-password-input" type="password" placeholder="Enter admin password"
+        class="w-full h-12 px-4 rounded-xl border border-outline-variant bg-surface-container-low font-body-md text-body-md text-on-surface focus:outline-none focus:ring-2 focus:ring-primary/40 mb-md"/>
+      <p id="admin-error" class="text-sm text-error mb-sm hidden">Incorrect password. Try again.</p>
+      <div class="flex gap-sm">
+        <button onclick="adminLoginSubmit()" class="flex-1 h-12 bg-primary text-on-primary font-label-sm text-label-sm rounded-xl hover:bg-primary-container transition-colors">Unlock</button>
+        <button onclick="closeAdminLogin()" class="flex-1 h-12 bg-surface-container text-on-surface font-label-sm text-label-sm rounded-xl hover:bg-surface-container-high transition-colors">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════════
+       ADMIN PANEL — Post Form Modal
+  ════════════════════════════════════════════ -->
+  <div id="post-form-modal" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-start justify-center py-8 px-4 hidden" role="dialog" aria-modal="true">
+    <div class="bg-white w-full max-w-2xl rounded-2xl shadow-2xl overflow-y-auto max-h-[90vh]">
+      <div class="flex items-center justify-between px-lg pt-lg pb-md border-b border-outline-variant/30">
+        <h2 id="post-form-title" class="font-h3 text-h3 text-on-surface">New Post</h2>
+        <button onclick="closePostForm()" class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center hover:bg-surface-container-high transition-colors">
+          <span class="material-symbols-outlined text-on-surface">close</span>
+        </button>
+      </div>
+      <form id="post-form" onsubmit="savePost(event)" class="p-lg space-y-md">
+        <input type="hidden" id="form-post-id"/>
+        <!-- Title -->
+        <div>
+          <label class="block font-label-sm text-label-sm text-on-surface-variant mb-xs" for="form-title">Title <span class="text-error">*</span></label>
+          <input id="form-title" type="text" required placeholder="Post title..."
+            class="w-full h-12 px-4 rounded-xl border border-outline-variant bg-surface-container-low font-body-md text-body-md text-on-surface focus:outline-none focus:ring-2 focus:ring-primary/40"/>
+        </div>
+        <!-- Category -->
+        <div>
+          <label class="block font-label-sm text-label-sm text-on-surface-variant mb-xs" for="form-category">Category <span class="text-error">*</span></label>
+          <select id="form-category" required
+            class="w-full h-12 px-4 rounded-xl border border-outline-variant bg-surface-container-low font-body-md text-body-md text-on-surface focus:outline-none focus:ring-2 focus:ring-primary/40">
+            <option value="">Select category...</option>
+            <option value="Industry News">Industry News</option>
+            <option value="Customs & Compliance">Customs & Compliance</option>
+            <option value="Technology">Technology</option>
+            <option value="Sustainability">Sustainability</option>
+            <option value="Company News">Company News</option>
+            <option value="GCC Markets">GCC Markets</option>
+          </select>
+        </div>
+        <!-- Excerpt -->
+        <div>
+          <label class="block font-label-sm text-label-sm text-on-surface-variant mb-xs" for="form-excerpt">Excerpt <span class="text-on-surface-variant font-normal">(max 150 chars)</span></label>
+          <textarea id="form-excerpt" rows="3" maxlength="150" placeholder="Short summary of the post..."
+            class="w-full px-4 py-3 rounded-xl border border-outline-variant bg-surface-container-low font-body-md text-body-md text-on-surface focus:outline-none focus:ring-2 focus:ring-primary/40 resize-none"></textarea>
+          <p class="text-xs text-on-surface-variant mt-xs"><span id="excerpt-counter">0</span>/150</p>
+        </div>
+        <!-- Body -->
+        <div>
+          <label class="block font-label-sm text-label-sm text-on-surface-variant mb-xs" for="form-body">Body Content</label>
+          <textarea id="form-body" rows="8" placeholder="Full post content. Use blank lines to separate paragraphs. Supports plain text."
+            class="w-full px-4 py-3 rounded-xl border border-outline-variant bg-surface-container-low font-body-md text-body-md text-on-surface focus:outline-none focus:ring-2 focus:ring-primary/40 resize-y"></textarea>
+        </div>
+        <!-- Cover Image — Tabs -->
+        <div>
+          <label class="block font-label-sm text-label-sm text-on-surface-variant mb-sm">Cover Image</label>
+          <div class="flex gap-xs mb-sm">
+            <button type="button" id="tab-url-btn" onclick="switchImageTab('url')" class="tab-btn active-tab px-4 py-2 rounded-lg border border-outline-variant font-label-sm text-label-sm">Paste URL</button>
+            <button type="button" id="tab-file-btn" onclick="switchImageTab('file')" class="tab-btn px-4 py-2 rounded-lg border border-outline-variant font-label-sm text-label-sm bg-surface-container text-on-surface">Upload File</button>
+          </div>
+          <!-- URL tab -->
+          <div id="image-tab-url">
+            <input id="form-cover-url" type="url" placeholder="https://res.cloudinary.com/your-cloud/..."
+              class="w-full h-12 px-4 rounded-xl border border-outline-variant bg-surface-container-low font-body-md text-body-md text-on-surface focus:outline-none focus:ring-2 focus:ring-primary/40 mb-sm"/>
+            <p class="text-xs text-on-surface-variant bg-blue-50 border border-blue-100 rounded-lg p-sm">
+              💡 For production use, upload your image to <strong>Cloudinary</strong> (free at cloudinary.com) or <strong>imgBB</strong> (imgbb.com), then paste the URL here. This keeps images accessible when your site is deployed online.
+            </p>
+          </div>
+          <!-- File tab -->
+          <div id="image-tab-file" class="hidden">
+            <input id="form-cover-file" type="file" accept="image/*" onchange="handleFileUpload(event)"
+              class="w-full text-sm text-on-surface-variant file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:font-label-sm file:bg-primary file:text-on-primary hover:file:bg-primary-container mb-sm cursor-pointer"/>
+            <p class="text-xs text-error bg-error-container border border-red-100 rounded-lg p-sm">
+              ⚠️ Files are stored as base64 in browser storage. For production, use the <strong>URL tab</strong> with an image hosting service.
+            </p>
+          </div>
+          <!-- Image preview -->
+          <div id="cover-preview" class="hidden mt-sm rounded-xl overflow-hidden aspect-video border border-outline-variant/30 bg-surface-container">
+            <img id="cover-preview-img" src="" alt="Cover preview" class="w-full h-full object-cover"/>
+          </div>
+        </div>
+        <!-- Author + Read time -->
+        <div class="grid grid-cols-2 gap-md">
+          <div>
+            <label class="block font-label-sm text-label-sm text-on-surface-variant mb-xs" for="form-author">Author</label>
+            <input id="form-author" type="text" value="Arkan Arabia Team" placeholder="Author name"
+              class="w-full h-12 px-4 rounded-xl border border-outline-variant bg-surface-container-low font-body-md text-body-md text-on-surface focus:outline-none focus:ring-2 focus:ring-primary/40"/>
+          </div>
+          <div>
+            <label class="block font-label-sm text-label-sm text-on-surface-variant mb-xs" for="form-readtime">Read Time</label>
+            <input id="form-readtime" type="text" value="5 min" placeholder="e.g. 5 min"
+              class="w-full h-12 px-4 rounded-xl border border-outline-variant bg-surface-container-low font-body-md text-body-md text-on-surface focus:outline-none focus:ring-2 focus:ring-primary/40"/>
+          </div>
+        </div>
+        <!-- Submit -->
+        <button type="submit" id="form-submit-btn"
+          class="w-full h-14 bg-primary text-on-primary font-label-sm text-label-sm rounded-xl hover:bg-primary-container transition-colors shadow-md flex items-center justify-center gap-sm">
+          <span class="material-symbols-outlined">publish</span>
+          <span id="form-submit-label">Publish Post</span>
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════════
+       DELETE CONFIRM MODAL
+  ════════════════════════════════════════════ -->
+  <div id="delete-confirm-modal" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center hidden">
+    <div class="bg-white rounded-2xl shadow-2xl p-lg w-full max-w-sm mx-4 text-center">
+      <span class="material-symbols-outlined text-error text-5xl mb-md block">delete_forever</span>
+      <h3 class="font-h3 text-h3 text-on-surface mb-sm">Delete Post?</h3>
+      <p class="font-body-md text-body-md text-on-surface-variant mb-lg">This action cannot be undone. The post will be permanently removed.</p>
+      <div class="flex gap-sm">
+        <button onclick="confirmDelete()" class="flex-1 h-12 bg-error text-on-error font-label-sm text-label-sm rounded-xl hover:opacity-90 transition-opacity">Delete</button>
+        <button onclick="cancelDelete()" class="flex-1 h-12 bg-surface-container text-on-surface font-label-sm text-label-sm rounded-xl hover:bg-surface-container-high transition-colors">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════════
+       TOAST NOTIFICATION
+  ════════════════════════════════════════════ -->
+  <div id="blog-toast" class="hidden fixed bottom-24 md:bottom-8 right-4 z-50 flex items-center gap-sm px-md py-sm rounded-xl shadow-xl bg-inverse-surface text-inverse-on-surface font-label-sm text-label-sm max-w-xs">
+    <span id="blog-toast-icon" class="material-symbols-outlined text-[18px]">check_circle</span>
+    <span id="blog-toast-msg">Post published!</span>
+  </div>
+
+  <!-- ════════════════════════════════════════════
+       ADMIN KEY BUTTON (floating)
+  ════════════════════════════════════════════ -->
+  <button id="admin-key-btn" onclick="openAdminLogin()"
+    class="fixed bottom-24 md:bottom-8 right-4 z-40 w-12 h-12 rounded-full bg-tertiary-container text-on-tertiary shadow-lg flex items-center justify-center hover:scale-110 transition-transform"
+    aria-label="Admin login" title="Admin panel">
+    <span class="material-symbols-outlined text-on-tertiary-container text-[22px]">key</span>
+  </button>
+
+  <!-- Admin mode indicator -->
+  <div id="admin-mode-badge" class="hidden fixed bottom-40 md:bottom-20 right-3 z-40">
+    <div class="admin-pulse bg-error text-on-error rounded-full px-sm py-xs font-label-sm text-[12px] shadow-lg flex items-center gap-xs">
+      <span class="material-symbols-outlined text-[14px]">admin_panel_settings</span> Admin
+    </div>
+  </div>
+
+  <script src="../assets/js/script.js"></script>
+  <script src="../assets/js/runtime-config.js"></script>
+  <script>
+  // ════════════════════════════════════════════
+  // BLOG DATA & STATE
+  // ════════════════════════════════════════════
+  const BLOG_SEED = [
+    {
+      id:'b1',
+      title:'Navigating GCC Customs in 2024: What Every Importer Needs to Know',
+      category:'Customs & Compliance',
+      excerpt:'Customs regulations across the GCC are evolving rapidly. Here is your complete guide to staying compliant and avoiding costly delays at every border crossing.',
+      body:'The Gulf Cooperation Council has seen significant shifts in customs regulations over the past two years, driven by Saudi Vision 2030 and UAE\'s digital transformation agenda.\n\nKey Changes in 2024:\n\nElectronic Documentation: All six GCC nations now mandate digital customs declarations. Paper-based submissions are no longer accepted at major ports including Jeddah Islamic Port and Abu Dhabi Khalifa Port.\n\nHS Code Updates: The Harmonized System 2022 update introduced over 350 new commodity codes relevant to logistics and manufacturing. Ensure your team is using the correct HS codes to avoid delays.\n\nVAT on Imports: Saudi Arabia maintains its 15% VAT on most imported goods. Proper documentation including commercial invoices, packing lists, and certificates of origin is mandatory.\n\nBest Practices:\n\n1. Pre-clear your shipments electronically through FASAH in Saudi Arabia or MIRSAL2 in the UAE.\n2. Work with a licensed customs broker who understands GCC-specific regulations.\n3. Maintain a complete document archive for at least 5 years.\n4. Conduct quarterly compliance audits on your import/export procedures.\n\nArkan Arabia\'s customs team handles over 500 clearance cases monthly, with a 99.2% first-pass approval rate.',
+      coverImage:'https://images.unsplash.com/photo-1618946236955-a99d1cf11bb5?w=800&q=80',
+      date:'2024-06-15',
+      readTime:'6 min',
+      author:'Arkan Arabia Team'
+    },
+    {
+      id:'b2',
+      title:'How AI is Transforming Freight Forwarding in the Middle East',
+      category:'Technology',
+      excerpt:'Artificial intelligence is no longer a buzzword in logistics — it is the backbone of next-generation freight forwarding. Discover how Arkan Arabia is leading the digital revolution.',
+      body:'The Middle East logistics sector is undergoing a profound digital transformation, with AI and machine learning at its core.\n\nRoute Optimization:\nOur Arkan-Link AI platform analyzes over 2 million data points daily to recommend optimal shipping routes, reducing transit times by an average of 18% and fuel costs by 12%.\n\nPredictive Maintenance:\nOur fleet of 200+ trucks is equipped with IoT sensors that feed data into predictive maintenance algorithms. This has reduced unplanned breakdowns by 67% since implementation in 2022.\n\nReal-Time Visibility:\nClients can now track their shipments with GPS precision down to 10-meter accuracy. Automated alerts notify stakeholders of any deviation from the planned route or schedule.\n\nDocument Automation:\nAI-powered OCR reads and validates customs documents in seconds, a process that previously took human operators 20-30 minutes per shipment.\n\nThe Future:\nBy 2026, we expect AI to handle 80% of routine logistics decisions autonomously, freeing our human experts to focus on complex problem-solving and client relationships.',
+      coverImage:'https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&q=80',
+      date:'2024-05-28',
+      readTime:'5 min',
+      author:'Dr. Amir Rahman'
+    },
+    {
+      id:'b3',
+      title:'Saudi Vision 2030 and the Logistics Boom: Opportunities for GCC Businesses',
+      category:'GCC Markets',
+      excerpt:'Saudi Arabia\'s Vision 2030 is creating unprecedented demand for logistics services. We explore the key projects driving this growth and how businesses can capitalize.',
+      body:'Saudi Vision 2030 has set ambitious targets that are reshaping the Kingdom\'s logistics landscape from the ground up.\n\nKEOM and NEOM:\nThe NEOM megaproject alone is expected to require 50 million tons of construction materials to be transported over the next decade. This represents a generational opportunity for logistics providers with the right capabilities.\n\nKing Salman Energy Park (SPARK):\nThe 50 km² industrial city in the Eastern Province is attracting manufacturers worldwide. Each new factory creates fresh logistics demand for both inbound materials and outbound finished goods.\n\nRed Sea Development:\nThe Red Sea Project\'s 50 luxury islands and world-class resort facilities require specialized supply chain solutions for remote delivery.\n\nLogistics Infrastructure Investment:\nSaudi Arabia is investing $20 billion in logistics infrastructure through 2030, including new port expansions at Jeddah and Dammam, and a nationwide rail network expansion.\n\nHow to Position Your Business:\n- Build relationships with Vision 2030 program offices early\n- Obtain NUPCO or Aramco vendor certification if relevant to your industry\n- Partner with established local logistics providers who have existing GRO relationships\n\nArkan Arabia has already secured logistics contracts for three major Vision 2030 projects, with combined cargo volumes exceeding 400,000 TEU.',
+      coverImage:'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80',
+      date:'2024-05-10',
+      readTime:'7 min',
+      author:'Arkan Arabia Team'
+    },
+    {
+      id:'b4',
+      title:'Sustainable Logistics: Arkan Arabia\'s Green Fleet Initiative',
+      category:'Sustainability',
+      excerpt:'We are committed to reducing our carbon footprint by 40% before 2030. Here is an inside look at our Green Fleet Initiative and what it means for our clients.',
+      body:'The logistics industry accounts for approximately 8% of global CO2 emissions. At Arkan Arabia, we believe sustainable logistics is not just good for the planet — it is good for business.\n\nOur Green Fleet Initiative:\n\nElectric Vehicles: We have ordered 30 electric trucks for urban last-mile delivery in Riyadh and Jeddah, with delivery scheduled for Q3 2024.\n\nLNG-Powered Long-Haul: Twenty long-haul trucks have been converted to run on liquefied natural gas (LNG), reducing CO2 emissions by 25% per journey compared to diesel equivalents.\n\nSolar Warehouses: Our Riyadh Distribution Hub is now 60% solar-powered, with plans to achieve 100% renewable energy by 2025.\n\nCarbon Offset Program: For clients who need to offset their logistics carbon footprint, we have partnered with a certified Gold Standard carbon offset program planting mangroves in the Red Sea coast.\n\nReporting and Transparency:\nAll clients receive monthly carbon footprint reports for their shipments, enabling accurate Scope 3 emissions reporting for their sustainability disclosures.\n\nTarget: 40% reduction in fleet emissions by 2030, aligned with Saudi Green Initiative goals.',
+      coverImage:'https://images.unsplash.com/photo-1473445730015-841f29a9490b?w=800&q=80',
+      date:'2024-04-22',
+      readTime:'4 min',
+      author:'Sarah Mitchell'
+    },
+    {
+      id:'b5',
+      title:'Project Cargo Handling: Lessons from Our Largest 2024 Operation',
+      category:'Industry News',
+      excerpt:'Moving a 450-tonne petrochemical reactor from Dammam to a remote processing plant required 6 months of planning. Here is what we learned.',
+      body:'In February 2024, Arkan Arabia completed what we consider one of the most complex project cargo operations in the GCC this year: moving a 450-tonne petrochemical reactor 380 kilometers from Dammam Port to a remote processing facility in the Rub\' al Khali desert.\n\nThe Challenge:\nThe reactor measured 8.2 meters in diameter and 42 meters in length — far exceeding standard heavy-haul parameters. The desert route included two mountain passes with gradient challenges and three narrow bridges requiring structural engineering assessment.\n\nPlanning Phase (4 months):\n- Structural assessment of all 47 bridges on the route\n- Coordination with Saudi Electricity Company for 12 power line lifts\n- PDVSA-style critical path analysis with 200+ interdependencies\n- Procurement of 8 specialized Goldhofer modular trailers\n- 24/7 police escort coordination with 3 provincial governments\n\nExecution (12 days, 380km):\nThe convoy moved at 8-12 km/h through desert terrain. Real-time monitoring using satellite telemetry tracked load stress and trailer alignment continuously.\n\nResult:\nThe reactor arrived undamaged, 2 days ahead of schedule. The client reported $2.3M in savings compared to an alternative partial disassembly/sea transport option.\n\nKey Lesson: Meticulous pre-planning eliminates surprises. Every hour in planning saves ten hours in execution.',
+      coverImage:'https://images.unsplash.com/photo-1577368211130-4bbd0181ddf0?w=800&q=80',
+      date:'2024-03-15',
+      readTime:'8 min',
+      author:'Zayed Al-Mansour'
+    },
+    {
+      id:'b6',
+      title:'Arkan Arabia Named Top 10 Freight Forwarder in GCC for 2024',
+      category:'Company News',
+      excerpt:'We are proud to announce that Arkan Arabia has been recognized as a Top 10 Freight Forwarder in the GCC region by the Arabian Logistics Awards 2024.',
+      body:'We are thrilled to share that Arkan Arabia Logistics has been named one of the Top 10 Freight Forwarders in the GCC by the prestigious Arabian Logistics Awards 2024, held in Dubai on March 8, 2024.\n\nThe Award:\nThe Arabian Logistics Awards recognize excellence in supply chain management, customer service, technological innovation, and sustainability across the Gulf Cooperation Council.\n\nWhy We Won:\nThe judging panel highlighted three key factors:\n1. Our 99.2% on-time delivery rate in 2023, the highest in the category\n2. The Arkan-Link AI platform\'s impact on client supply chain efficiency\n3. Our Green Fleet Initiative as a model for sustainable logistics\n\nCEO Statement:\n\'This award belongs to our 1,200 team members across 12 countries who deliver excellence every single day,\' said Omar Al-Farsi, CEO. \'It validates our strategy of combining technology, talent, and sustainability to create logistics solutions that truly move our clients forward.\'\n\nLooking Ahead:\nWith this recognition, we are redoubling our commitment to innovation and excellence. Our 2024 investment plan includes 30 new electric vehicles, two new GCC warehousing facilities, and a major upgrade to Arkan-Link\'s predictive analytics capabilities.\n\nThank you to all our clients, partners, and team members who made this achievement possible.',
+      coverImage:'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800&q=80',
+      date:'2024-03-10',
+      readTime:'3 min',
+      author:'Omar Al-Farsi'
+    }
+  ];
+
+  const CATEGORY_COLORS = {
+    'Industry News':       'bg-blue-100 text-blue-800',
+    'Customs & Compliance':'bg-orange-100 text-orange-800',
+    'Technology':          'bg-purple-100 text-purple-800',
+    'Sustainability':      'bg-green-100 text-green-800',
+    'Company News':        'bg-yellow-100 text-yellow-800',
+    'GCC Markets':         'bg-red-100 text-red-800'
+  };
+
+  const API_BASE_URL = window.ARKAN_API_BASE_URL;
+  const API_BLOG = `${API_BASE_URL}/api/blog`;
+  const API_ADMIN_LOGIN = `${API_BASE_URL}/api/admin/login`;
+  const API_ADMIN_LOGOUT = `${API_BASE_URL}/api/admin/logout`;
+  const ADMIN_TOKEN_KEY = 'arkan_admin_token';
+
+  let allPosts = [];
+  let activeCategory = 'all';
+  let activeSearch = '';
+  let isAdmin = false;
+  let adminToken = sessionStorage.getItem(ADMIN_TOKEN_KEY) || '';
+  let pendingDeleteId = null;
+  let currentImageTab = 'url';
+  let searchDebounceTimer = null;
+
+  // ════════════════════════════════════════════
+  // DATA MANAGEMENT
+  // ════════════════════════════════════════════
+  async function loadPosts() {
+    try {
+      const res = await fetch(API_BLOG);
+      if (!res.ok) throw new Error('Failed to load posts');
+      const data = await res.json();
+      allPosts = Array.isArray(data) && data.length ? data : [...BLOG_SEED];
+    } catch (e) {
+      allPosts = [...BLOG_SEED];
+      showToast('Using fallback blog data. Start backend for live updates.', 'warning');
+    }
+  }
+
+  // ════════════════════════════════════════════
+  // FILTERING & SEARCH
+  // ════════════════════════════════════════════
+  function getFilteredPosts() {
+    let posts = [...allPosts];
+    if (activeCategory !== 'all') {
+      posts = posts.filter(p => p.category === activeCategory);
+    }
+    if (activeSearch.trim()) {
+      const q = activeSearch.toLowerCase();
+      posts = posts.filter(p =>
+        p.title.toLowerCase().includes(q) ||
+        p.excerpt.toLowerCase().includes(q) ||
+        (p.body && p.body.toLowerCase().includes(q))
+      );
+    }
+    return posts;
+  }
+
+  function filterPosts(cat) {
+    activeCategory = cat;
+    renderPosts();
+    // Update pill active states
+    document.querySelectorAll('.filter-pill').forEach(pill => {
+      pill.classList.toggle('bg-primary', pill.dataset.cat === cat);
+      pill.classList.toggle('text-on-primary', pill.dataset.cat === cat);
+      pill.classList.toggle('bg-surface-container-low', pill.dataset.cat !== cat);
+      pill.classList.toggle('text-on-surface-variant', pill.dataset.cat !== cat);
+    });
+  }
+
+  function searchPosts(query) {
+    activeSearch = query;
+    renderPosts();
+  }
+
+  // ════════════════════════════════════════════
+  // UTILITIES
+  // ════════════════════════════════════════════
+  function formatDate(dateStr) {
+    try {
+      const d = new Date(dateStr);
+      return d.toLocaleDateString('en-GB', {day:'numeric', month:'short', year:'numeric'});
+    } catch { return dateStr; }
+  }
+
+  function getInitials(name) {
+    return name.split(' ').map(w => w[0]).join('').toUpperCase().slice(0, 2);
+  }
+
+  function catBadgeHtml(cat) {
+    const cls = CATEGORY_COLORS[cat] || 'bg-gray-100 text-gray-700';
+    return `<span class="inline-block px-2 py-0.5 rounded-full text-xs font-semibold ${cls}">${cat}</span>`;
+  }
+
+  function avatarHtml(author) {
+    const initials = getInitials(author);
+    return `<div class="w-7 h-7 rounded-full bg-primary text-on-primary flex items-center justify-center text-xs font-bold flex-shrink-0">${initials}</div>`;
+  }
+
+  function adminCardButtons(postId) {
+    if (!isAdmin) return '';
+    return `
+      <div class="absolute top-2 left-2 flex gap-1 z-10">
+        <button onclick="event.stopPropagation(); openEditForm('${postId}')"
+          class="w-8 h-8 rounded-lg bg-white/90 backdrop-blur-sm shadow flex items-center justify-center hover:bg-primary hover:text-white transition-colors" title="Edit post">
+          <span class="material-symbols-outlined text-[16px]">edit</span>
+        </button>
+        <button onclick="event.stopPropagation(); initDelete('${postId}')"
+          class="w-8 h-8 rounded-lg bg-white/90 backdrop-blur-sm shadow flex items-center justify-center hover:bg-error hover:text-white transition-colors" title="Delete post">
+          <span class="material-symbols-outlined text-[16px]">delete</span>
+        </button>
+      </div>`;
+  }
+
+  function buildPostCard(post) {
+    const cover = post.coverImage
+      ? `<div class="relative aspect-video overflow-hidden rounded-t-2xl bg-surface-container-high">
+           <img src="${post.coverImage}" alt="${post.title}" class="blog-img w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80'"/>
+           ${adminCardButtons(post.id)}
+         </div>`
+      : `<div class="relative aspect-video rounded-t-2xl bg-gradient-to-br from-primary to-primary-container flex items-center justify-center">
+           <span class="material-symbols-outlined text-white/50 text-[64px]">article</span>
+           ${adminCardButtons(post.id)}
+         </div>`;
+
+    return `
+      <article class="blog-card bg-white rounded-2xl shadow-sm border border-outline-variant/20 overflow-hidden cursor-pointer group flex flex-col" onclick="openPost('${post.id}')">
+        ${cover}
+        <div class="p-md flex flex-col flex-1">
+          <div class="mb-sm">${catBadgeHtml(post.category)}</div>
+          <h3 class="font-semibold text-on-surface text-[16px] leading-snug line-clamp-2 mb-sm flex-1">${post.title}</h3>
+          <p class="text-on-surface-variant text-sm leading-relaxed line-clamp-3 mb-md">${post.excerpt}</p>
+          <div class="flex items-center gap-sm pt-sm border-t border-outline-variant/20">
+            ${avatarHtml(post.author)}
+            <span class="text-xs text-on-surface-variant font-medium truncate flex-1">${post.author}</span>
+            <span class="text-xs text-on-surface-variant flex-shrink-0">${formatDate(post.date)}</span>
+            <span class="flex-shrink-0 px-2 py-0.5 bg-surface-container rounded-full text-xs text-on-surface-variant font-medium">${post.readTime}</span>
+          </div>
+        </div>
+      </article>`;
+  }
+
+  // ════════════════════════════════════════════
+  // RENDER
+  // ════════════════════════════════════════════
+  function renderFilterPills() {
+    const cats = ['all', ...new Set(allPosts.map(p => p.category))];
+    const pillHtml = cats.map(cat => {
+      const isActive = cat === activeCategory;
+      const label = cat === 'all' ? 'All Posts' : cat;
+      return `<button class="filter-pill flex-shrink-0 px-4 py-2 rounded-full font-label-sm text-label-sm border border-outline-variant/30 transition-colors
+        ${isActive ? 'bg-primary text-on-primary border-primary' : 'bg-surface-container-low text-on-surface-variant hover:bg-surface-container'}"
+        data-cat="${cat}" onclick="filterPosts('${cat}')">${label}</button>`;
+    }).join('');
+
+    const mob = document.getElementById('mob-filter-pills');
+    const desk = document.getElementById('desk-filter-pills');
+    if (mob) mob.innerHTML = pillHtml;
+    if (desk) desk.innerHTML = pillHtml;
+  }
+
+  function renderSidebar(filtered) {
+    // Featured post (first of full list)
+    const featuredEl = document.getElementById('desk-featured');
+    if (featuredEl && allPosts.length > 0) {
+      const fp = allPosts[0];
+      featuredEl.innerHTML = `
+        <div class="cursor-pointer group" onclick="openPost('${fp.id}')">
+          <div class="relative aspect-video overflow-hidden">
+            <img src="${fp.coverImage}" alt="${fp.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80'"/>
+            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+            <div class="absolute bottom-0 left-0 right-0 p-md">
+              <div class="mb-xs">${catBadgeHtml(fp.category)}</div>
+              <p class="text-white font-semibold text-sm leading-snug line-clamp-2">${fp.title}</p>
+            </div>
+          </div>
+        </div>`;
+    }
+
+    // Categories count
+    const catEl = document.getElementById('desk-categories');
+    if (catEl) {
+      const counts = {};
+      allPosts.forEach(p => { counts[p.category] = (counts[p.category] || 0) + 1; });
+      catEl.innerHTML = Object.entries(counts).map(([cat, count]) => `
+        <li>
+          <button onclick="filterPosts('${cat}')"
+            class="w-full flex items-center justify-between py-xs hover:text-primary transition-colors group text-left">
+            <span class="font-body-md text-body-md text-on-surface group-hover:text-primary transition-colors">${cat}</span>
+            <span class="text-xs bg-surface-container px-2 py-0.5 rounded-full text-on-surface-variant font-semibold">${count}</span>
+          </button>
+        </li>`).join('');
+    }
+
+    // Recent posts (latest 4)
+    const recentEl = document.getElementById('desk-recent-posts');
+    if (recentEl) {
+      const sorted = [...allPosts].sort((a,b) => new Date(b.date) - new Date(a.date)).slice(0,4);
+      recentEl.innerHTML = sorted.map(p => `
+        <li class="flex gap-sm cursor-pointer group" onclick="openPost('${p.id}')">
+          ${p.coverImage
+            ? `<div class="w-16 h-12 flex-shrink-0 rounded-lg overflow-hidden bg-surface-container">
+                 <img src="${p.coverImage}" alt="${p.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy"/>
+               </div>`
+            : `<div class="w-16 h-12 flex-shrink-0 rounded-lg bg-gradient-to-br from-primary to-primary-container flex items-center justify-center">
+                 <span class="material-symbols-outlined text-white/60 text-[20px]">article</span>
+               </div>`}
+          <div class="flex-1 min-w-0">
+            <p class="text-sm font-semibold text-on-surface group-hover:text-primary transition-colors line-clamp-2 leading-snug">${p.title}</p>
+            <p class="text-xs text-on-surface-variant mt-0.5">${formatDate(p.date)}</p>
+          </div>
+        </li>`).join('');
+    }
+  }
+
+  function renderPosts() {
+    const filtered = getFilteredPosts();
+
+    // Admin button
+    const adminBtnArea = document.getElementById('desk-admin-btn-area');
+    if (adminBtnArea) {
+      if (isAdmin) {
+        adminBtnArea.innerHTML = `
+          <div class="flex items-center justify-between mb-md">
+            <button onclick="openNewPostForm()"
+              class="flex items-center gap-sm px-md py-sm bg-primary text-on-primary font-label-sm text-label-sm rounded-xl hover:bg-primary-container transition-colors shadow-md">
+              <span class="material-symbols-outlined text-[18px]">add</span> New Post
+            </button>
+            <button onclick="logoutAdmin()"
+              class="flex items-center gap-sm px-md py-sm bg-surface-container text-on-surface font-label-sm text-label-sm rounded-xl hover:bg-surface-container-high transition-colors border border-outline-variant/30">
+              <span class="material-symbols-outlined text-[18px]">logout</span> Exit Admin
+            </button>
+          </div>`;
+      } else {
+        adminBtnArea.innerHTML = '';
+      }
+    }
+
+    // Mobile grid
+    const mobGrid = document.getElementById('mob-post-grid');
+    const mobNone = document.getElementById('mob-no-results');
+    if (mobGrid) {
+      if (filtered.length === 0) {
+        mobGrid.innerHTML = '';
+        if (mobNone) mobNone.classList.remove('hidden');
+      } else {
+        if (mobNone) mobNone.classList.add('hidden');
+        mobGrid.innerHTML = filtered.map(buildPostCard).join('');
+      }
+    }
+
+    // Desktop grid
+    const deskGrid = document.getElementById('desk-post-grid');
+    const deskNone = document.getElementById('desk-no-results');
+    if (deskGrid) {
+      if (filtered.length === 0) {
+        deskGrid.innerHTML = '';
+        if (deskNone) deskNone.classList.remove('hidden');
+      } else {
+        if (deskNone) deskNone.classList.add('hidden');
+        deskGrid.innerHTML = filtered.map(buildPostCard).join('');
+      }
+    }
+
+    renderSidebar(filtered);
+  }
+
+  // ════════════════════════════════════════════
+  // POST DETAIL MODAL
+  // ════════════════════════════════════════════
+  function openPost(id) {
+    const post = allPosts.find(p => p.id === id);
+    if (!post) return;
+
+    const bodyHtml = post.body
+      ? post.body.split('\n').filter(l => l.trim()).map(line =>
+          `<p>${line.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}</p>`
+        ).join('')
+      : '<p class="text-on-surface-variant italic">No content available.</p>';
+
+    const modal = document.getElementById('post-modal');
+    const content = document.getElementById('post-modal-content');
+
+    content.innerHTML = `
+      ${post.coverImage
+        ? `<div class="aspect-video w-full overflow-hidden rounded-t-2xl">
+             <img src="${post.coverImage}" alt="${post.title}" class="w-full h-full object-cover" onerror="this.parentElement.style.display='none'"/>
+           </div>`
+        : `<div class="aspect-video w-full rounded-t-2xl bg-gradient-to-br from-primary to-primary-container flex items-center justify-center">
+             <span class="material-symbols-outlined text-white/40 text-[80px]">article</span>
+           </div>`}
+      <div class="p-md md:p-lg">
+        <div class="mb-md">${catBadgeHtml(post.category)}</div>
+        <h1 class="font-h2 text-h2 text-on-surface mb-md leading-tight">${post.title}</h1>
+        <div class="flex flex-wrap items-center gap-md mb-lg pb-md border-b border-outline-variant/30">
+          <div class="flex items-center gap-sm">
+            ${avatarHtml(post.author)}
+            <span class="font-label-sm text-label-sm text-on-surface-variant">${post.author}</span>
+          </div>
+          <div class="flex items-center gap-xs text-on-surface-variant text-sm">
+            <span class="material-symbols-outlined text-[16px]">calendar_month</span>
+            <span>${formatDate(post.date)}</span>
+          </div>
+          <div class="flex items-center gap-xs text-on-surface-variant text-sm">
+            <span class="material-symbols-outlined text-[16px]">schedule</span>
+            <span>${post.readTime} read</span>
+          </div>
+        </div>
+        <div class="blog-prose">${bodyHtml}</div>
+        <div class="mt-lg pt-md border-t border-outline-variant/30 flex flex-wrap items-center gap-sm">
+          <button onclick="sharePost('${id}')"
+            class="flex items-center gap-sm px-md py-sm bg-surface-container text-on-surface font-label-sm text-label-sm rounded-xl hover:bg-surface-container-high transition-colors border border-outline-variant/30">
+            <span class="material-symbols-outlined text-[18px]">share</span> Share
+          </button>
+          <button onclick="closePost()"
+            class="flex items-center gap-sm px-md py-sm bg-primary text-on-primary font-label-sm text-label-sm rounded-xl hover:bg-primary-container transition-colors">
+            <span class="material-symbols-outlined text-[18px]">arrow_back</span> Back to Blog
+          </button>
+        </div>
+      </div>`;
+
+    modal.classList.remove('hidden');
+    document.body.classList.add('modal-open');
+  }
+
+  function closePost() {
+    document.getElementById('post-modal').classList.add('hidden');
+    document.body.classList.remove('modal-open');
+  }
+
+  function sharePost(id) {
+    const post = allPosts.find(p => p.id === id);
+    if (!post) return;
+    if (navigator.share) {
+      navigator.share({ title: post.title, text: post.excerpt, url: window.location.href }).catch(() => {});
+    } else {
+      navigator.clipboard.writeText(window.location.href).then(() => {
+        showToast('Link copied to clipboard!', 'content_copy');
+      }).catch(() => {
+        showToast('Share this page URL.', 'share');
+      });
+    }
+  }
+
+  // ════════════════════════════════════════════
+  // ADMIN AUTH
+  // ════════════════════════════════════════════
+  function openAdminLogin() {
+    if (isAdmin) { logoutAdmin(); return; }
+    document.getElementById('admin-login-modal').classList.remove('hidden');
+    document.body.classList.add('modal-open');
+    document.getElementById('admin-password-input').value = '';
+    document.getElementById('admin-error').classList.add('hidden');
+    setTimeout(() => document.getElementById('admin-password-input').focus(), 100);
+  }
+
+  function closeAdminLogin() {
+    document.getElementById('admin-login-modal').classList.add('hidden');
+    document.body.classList.remove('modal-open');
+  }
+
+  async function adminLoginSubmit() {
+    const pw = document.getElementById('admin-password-input').value;
+    try {
+      const res = await fetch(API_ADMIN_LOGIN, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ password: pw })
+      });
+
+      if (!res.ok) {
+        document.getElementById('admin-error').classList.remove('hidden');
+        document.getElementById('admin-password-input').focus();
+        return;
+      }
+
+      const data = await res.json();
+      adminToken = data.token || '';
+      sessionStorage.setItem(ADMIN_TOKEN_KEY, adminToken);
+      isAdmin = true;
+      closeAdminLogin();
+      document.getElementById('admin-mode-badge').classList.remove('hidden');
+      document.getElementById('admin-key-btn').classList.add('bg-error');
+      document.getElementById('admin-key-btn').classList.remove('bg-tertiary-container');
+      renderPosts();
+      showToast('Admin mode activated', 'admin_panel_settings');
+    } catch (e) {
+      showToast('Backend unavailable. Start server and try again.', 'error');
+    }
+  }
+
+  async function logoutAdmin() {
+    if (adminToken) {
+      try {
+        await fetch(API_ADMIN_LOGOUT, {
+          method: 'POST',
+          headers: { 'x-admin-token': adminToken }
+        });
+      } catch (e) {
+        // Ignore network failures on logout.
+      }
+    }
+
+    adminToken = '';
+    sessionStorage.removeItem(ADMIN_TOKEN_KEY);
+    isAdmin = false;
+    document.getElementById('admin-mode-badge').classList.add('hidden');
+    document.getElementById('admin-key-btn').classList.remove('bg-error');
+    document.getElementById('admin-key-btn').classList.add('bg-tertiary-container');
+    renderPosts();
+    showToast('Logged out of admin', 'logout');
+  }
+
+  function handleAuthExpiry() {
+    adminToken = '';
+    sessionStorage.removeItem(ADMIN_TOKEN_KEY);
+    isAdmin = false;
+    document.getElementById('admin-mode-badge').classList.add('hidden');
+    document.getElementById('admin-key-btn').classList.remove('bg-error');
+    document.getElementById('admin-key-btn').classList.add('bg-tertiary-container');
+    renderPosts();
+  }
+
+  // Enter key for login
+  document.getElementById('admin-password-input').addEventListener('keydown', e => {
+    if (e.key === 'Enter') adminLoginSubmit();
+  });
+
+  // ════════════════════════════════════════════
+  // POST FORM
+  // ════════════════════════════════════════════
+  function openNewPostForm() {
+    document.getElementById('post-form-title').textContent = 'New Post';
+    document.getElementById('form-submit-label').textContent = 'Publish Post';
+    document.getElementById('form-post-id').value = '';
+    document.getElementById('post-form').reset();
+    document.getElementById('form-author').value = 'Arkan Arabia Team';
+    document.getElementById('form-readtime').value = '5 min';
+    document.getElementById('cover-preview').classList.add('hidden');
+    document.getElementById('excerpt-counter').textContent = '0';
+    switchImageTab('url');
+    document.getElementById('post-form-modal').classList.remove('hidden');
+    document.body.classList.add('modal-open');
+  }
+
+  function openEditForm(id) {
+    const post = allPosts.find(p => p.id === id);
+    if (!post) return;
+    document.getElementById('post-form-title').textContent = 'Edit Post';
+    document.getElementById('form-submit-label').textContent = 'Update Post';
+    document.getElementById('form-post-id').value = post.id;
+    document.getElementById('form-title').value = post.title || '';
+    document.getElementById('form-category').value = post.category || '';
+    document.getElementById('form-excerpt').value = post.excerpt || '';
+    document.getElementById('form-body').value = post.body || '';
+    document.getElementById('form-author').value = post.author || 'Arkan Arabia Team';
+    document.getElementById('form-readtime').value = post.readTime || '5 min';
+    document.getElementById('excerpt-counter').textContent = (post.excerpt || '').length;
+    // Image
+    if (post.coverImage && !post.coverImage.startsWith('data:')) {
+      switchImageTab('url');
+      document.getElementById('form-cover-url').value = post.coverImage;
+    } else if (post.coverImage && post.coverImage.startsWith('data:')) {
+      switchImageTab('file');
+    } else {
+      switchImageTab('url');
+      document.getElementById('form-cover-url').value = '';
+    }
+    if (post.coverImage) {
+      document.getElementById('cover-preview').classList.remove('hidden');
+      document.getElementById('cover-preview-img').src = post.coverImage;
+    } else {
+      document.getElementById('cover-preview').classList.add('hidden');
+    }
+    document.getElementById('post-form-modal').classList.remove('hidden');
+    document.body.classList.add('modal-open');
+  }
+
+  function closePostForm() {
+    document.getElementById('post-form-modal').classList.add('hidden');
+    document.body.classList.remove('modal-open');
+  }
+
+  async function savePost(e) {
+    e.preventDefault();
+    const id = document.getElementById('form-post-id').value;
+    const title = document.getElementById('form-title').value.trim();
+    const category = document.getElementById('form-category').value;
+    const excerpt = document.getElementById('form-excerpt').value.trim();
+    const body = document.getElementById('form-body').value.trim();
+    const author = document.getElementById('form-author').value.trim() || 'Arkan Arabia Team';
+    const readTime = document.getElementById('form-readtime').value.trim() || '5 min';
+
+    if (!title || !category) return;
+    if (!adminToken) {
+      showToast('Admin session expired. Please login again.', 'error');
+      return;
+    }
+
+    let coverImage = '';
+    if (currentImageTab === 'url') {
+      coverImage = document.getElementById('form-cover-url').value.trim();
+    } else {
+      coverImage = document.getElementById('cover-preview-img').src || '';
+      if (coverImage === window.location.href) coverImage = '';
+    }
+
+    try {
+      const file = document.getElementById('form-cover-file').files[0];
+      const method = id ? 'PUT' : 'POST';
+      const endpoint = id ? `${API_BLOG}/${id}` : API_BLOG;
+
+      let res;
+      if (currentImageTab === 'file' && file) {
+        const formData = new FormData();
+        formData.append('title', title);
+        formData.append('category', category);
+        formData.append('excerpt', excerpt);
+        formData.append('body', body);
+        formData.append('author', author);
+        formData.append('readTime', readTime);
+        formData.append('coverFile', file);
+
+        res = await fetch(endpoint, {
+          method,
+          headers: { 'x-admin-token': adminToken },
+          body: formData
+        });
+      } else {
+        res = await fetch(endpoint, {
+          method,
+          headers: {
+            'Content-Type': 'application/json',
+            'x-admin-token': adminToken
+          },
+          body: JSON.stringify({ title, category, excerpt, body, author, readTime, coverImage })
+        });
+      }
+
+      if (res.status === 401) {
+        handleAuthExpiry();
+        showToast('Admin session expired. Please login again.', 'error');
+        return;
+      }
+
+      if (!res.ok) {
+        showToast('Failed to save post. Try again.', 'error');
+        return;
+      }
+
+      await loadPosts();
+      renderFilterPills();
+      renderPosts();
+      closePostForm();
+      showToast(id ? 'Post updated!' : 'Post published!', 'check_circle');
+    } catch (e) {
+      showToast('Backend unavailable. Start server and try again.', 'error');
+    }
+  }
+
+  // Excerpt counter
+  document.getElementById('form-excerpt').addEventListener('input', function() {
+    document.getElementById('excerpt-counter').textContent = this.value.length;
+  });
+
+  // Cover URL preview
+  document.getElementById('form-cover-url').addEventListener('input', function() {
+    const url = this.value.trim();
+    if (url) {
+      document.getElementById('cover-preview').classList.remove('hidden');
+      document.getElementById('cover-preview-img').src = url;
+    } else {
+      document.getElementById('cover-preview').classList.add('hidden');
+    }
+  });
+
+  function handleFileUpload(e) {
+    const file = e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = ev => {
+      const dataUrl = ev.target.result;
+      document.getElementById('cover-preview').classList.remove('hidden');
+      document.getElementById('cover-preview-img').src = dataUrl;
+    };
+    reader.readAsDataURL(file);
+  }
+
+  function switchImageTab(tab) {
+    currentImageTab = tab;
+    const urlPanel = document.getElementById('image-tab-url');
+    const filePanel = document.getElementById('image-tab-file');
+    const urlBtn = document.getElementById('tab-url-btn');
+    const fileBtn = document.getElementById('tab-file-btn');
+    if (tab === 'url') {
+      urlPanel.classList.remove('hidden');
+      filePanel.classList.add('hidden');
+      urlBtn.classList.add('active-tab');
+      fileBtn.classList.remove('active-tab');
+      urlBtn.classList.remove('bg-surface-container', 'text-on-surface');
+      fileBtn.classList.add('bg-surface-container', 'text-on-surface');
+    } else {
+      filePanel.classList.remove('hidden');
+      urlPanel.classList.add('hidden');
+      fileBtn.classList.add('active-tab');
+      urlBtn.classList.remove('active-tab');
+      fileBtn.classList.remove('bg-surface-container', 'text-on-surface');
+      urlBtn.classList.add('bg-surface-container', 'text-on-surface');
+    }
+  }
+
+  // ════════════════════════════════════════════
+  // DELETE
+  // ════════════════════════════════════════════
+  function initDelete(id) {
+    pendingDeleteId = id;
+    document.getElementById('delete-confirm-modal').classList.remove('hidden');
+    document.body.classList.add('modal-open');
+  }
+
+  async function confirmDelete() {
+    if (!pendingDeleteId || !adminToken) return;
+
+    try {
+      const res = await fetch(`${API_BLOG}/${pendingDeleteId}`, {
+        method: 'DELETE',
+        headers: { 'x-admin-token': adminToken }
+      });
+
+      if (res.status === 401) {
+        handleAuthExpiry();
+        showToast('Admin session expired. Please login again.', 'error');
+        cancelDelete();
+        return;
+      }
+
+      if (!res.ok) {
+        showToast('Failed to delete post.', 'error');
+        return;
+      }
+
+      await loadPosts();
+      renderFilterPills();
+      renderPosts();
+      pendingDeleteId = null;
+      cancelDelete();
+      showToast('Post deleted.', 'delete');
+    } catch (e) {
+      showToast('Backend unavailable. Start server and try again.', 'error');
+    }
+  }
+
+  function cancelDelete() {
+    pendingDeleteId = null;
+    document.getElementById('delete-confirm-modal').classList.add('hidden');
+    document.body.classList.remove('modal-open');
+  }
+
+  // ════════════════════════════════════════════
+  // TOAST
+  // ════════════════════════════════════════════
+  let toastTimeout = null;
+  function showToast(msg, icon = 'check_circle') {
+    const toast = document.getElementById('blog-toast');
+    document.getElementById('blog-toast-msg').textContent = msg;
+    document.getElementById('blog-toast-icon').textContent = icon;
+    toast.classList.remove('hidden');
+    toast.classList.add('show');
+    if (toastTimeout) clearTimeout(toastTimeout);
+    toastTimeout = setTimeout(() => {
+      toast.classList.remove('show');
+      toast.classList.add('hidden');
+    }, 3000);
+  }
+
+  // ════════════════════════════════════════════
+  // SEARCH DEBOUNCE
+  // ════════════════════════════════════════════
+  function onSearchInput(e) {
+    clearTimeout(searchDebounceTimer);
+    searchDebounceTimer = setTimeout(() => searchPosts(e.target.value), 300);
+  }
+
+  document.getElementById('mob-search').addEventListener('input', onSearchInput);
+  document.getElementById('desk-search').addEventListener('input', onSearchInput);
+
+  // ════════════════════════════════════════════
+  // MODAL BACKDROP CLOSE
+  // ════════════════════════════════════════════
+  document.getElementById('post-modal').addEventListener('click', function(e) {
+    if (e.target === this) closePost();
+  });
+  document.getElementById('post-form-modal').addEventListener('click', function(e) {
+    if (e.target === this) closePostForm();
+  });
+  document.getElementById('admin-login-modal').addEventListener('click', function(e) {
+    if (e.target === this) closeAdminLogin();
+  });
+  document.getElementById('delete-confirm-modal').addEventListener('click', function(e) {
+    if (e.target === this) cancelDelete();
+  });
+
+  // ════════════════════════════════════════════
+  // SCROLL REVEAL
+  // ════════════════════════════════════════════
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  function observeReveal() {
+    document.querySelectorAll('.blg-reveal').forEach(el => revealObserver.observe(el));
+  }
+
+  // ════════════════════════════════════════════
+  // INIT
+  // ════════════════════════════════════════════
+  document.addEventListener('DOMContentLoaded', async () => {
+    await loadPosts();
+    renderFilterPills();
+    renderPosts();
+    observeReveal();
+    if (adminToken) {
+      isAdmin = true;
+      document.getElementById('admin-mode-badge').classList.remove('hidden');
+      document.getElementById('admin-key-btn').classList.add('bg-error');
+      document.getElementById('admin-key-btn').classList.remove('bg-tertiary-container');
+      renderPosts();
+    }
+  });
+  </script>
 </body>
 </html>
