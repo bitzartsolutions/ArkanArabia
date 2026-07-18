@@ -1,0 +1,32 @@
+{
+  "version": 2,
+  "cleanUrls": true,
+  "rewrites": [
+    { "source": "/", "destination": "/index.html" },
+    { "source": "/home", "destination": "/index.html" },
+    { "source": "/about", "destination": "/pages/about.html" },
+    { "source": "/services", "destination": "/pages/services.html" },
+    { "source": "/industries", "destination": "/pages/industries.html" },
+    { "source": "/network", "destination": "/pages/network.html" },
+    { "source": "/solutions", "destination": "/pages/solutions.html" },
+    { "source": "/gallery", "destination": "/pages/gallery.html" },
+    { "source": "/blog", "destination": "/pages/blog.html" },
+    { "source": "/news", "destination": "/pages/news.html" },
+    { "source": "/contact", "destination": "/pages/contact.html" },
+    { "source": "/track", "destination": "/pages/track.html" },
+    { "source": "/customs-clearance", "destination": "/pages/customs-clearance.html" },
+    { "source": "/land-transportation", "destination": "/pages/service-detail.html" },
+    { "source": "/warehousing", "destination": "/pages/service-detail.html" },
+    { "source": "/project-cargo", "destination": "/pages/service-detail.html" },
+    { "source": "/construction-logistics", "destination": "/pages/service-detail.html" },
+    { "source": "/cold-chain", "destination": "/pages/service-detail.html" },
+    { "source": "/retail-distribution", "destination": "/pages/service-detail.html" },
+    { "source": "/terminal-services", "destination": "/pages/service-detail.html" },
+    { "source": "/packing-moving", "destination": "/pages/service-detail.html" },
+    { "source": "/stuffing-lashing", "destination": "/pages/service-detail.html" },
+    { "source": "/cross-border-moving", "destination": "/pages/service-detail.html" },
+    { "source": "/admin", "destination": "/pages/admin.html" },
+    { "source": "/login/admin", "destination": "/login/admin/index.html" },
+    { "source": "/(.*)", "destination": "/$1" }
+  ]
+}
