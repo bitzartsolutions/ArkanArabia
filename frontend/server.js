@@ -42,6 +42,10 @@ Object.entries(routes).forEach(([route, file]) => {
   });
 });
 
-app.listen(PORT, () => {
-  console.log(`Arkan Arabia frontend running on http://localhost:${PORT}`);
-});
+module.exports = app;
+
+if (!process.env.VERCEL) {
+  app.listen(PORT, () => {
+    console.log(`Arkan Arabia frontend running on http://localhost:${PORT}`);
+  });
+}
