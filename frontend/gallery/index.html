@@ -682,20 +682,7 @@
     const API_ADMIN_LOGIN = `${API_BASE_URL}/api/admin/login`;
     const API_ADMIN_LOGOUT = `${API_BASE_URL}/api/admin/logout`;
     const ADMIN_TOKEN_KEY = 'arkan_admin_token';
-    const SEED = [
-      {id:'g1',src:'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=800&q=80',category:'warehouse',title:'Riyadh Distribution Hub'},
-      {id:'g2',src:'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80',category:'fleet',title:'Container Fleet at Jeddah Port'},
-      {id:'g3',src:'https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?w=800&q=80',category:'fleet',title:'Long-Haul Truck Convoy'},
-      {id:'g4',src:'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=800&q=80',category:'operations',title:'Air Freight Operations'},
-      {id:'g5',src:'https://images.unsplash.com/photo-1553775282-20af80779df7?w=800&q=80',category:'warehouse',title:'Automated Storage Racking'},
-      {id:'g6',src:'https://images.unsplash.com/photo-1521737711867-e3b97375f902?w=800&q=80',category:'events',title:'Annual Logistics Summit 2024'},
-      {id:'g7',src:'https://images.unsplash.com/photo-1504893524553-b855bce32c67?w=800&q=80',category:'operations',title:'Port Loading Operations'},
-      {id:'g8',src:'https://images.unsplash.com/photo-1577368211130-4bbd0181ddf0?w=800&q=80',category:'projects',title:'Heavy Lift Project Cargo'},
-      {id:'g9',src:'https://images.unsplash.com/photo-1547962093-8f8b5571d5e0?w=800&q=80',category:'fleet',title:'Refrigerated Fleet Units'},
-      {id:'g10',src:'https://images.unsplash.com/photo-1618946236955-a99d1cf11bb5?w=800&q=80',category:'operations',title:'Customs Clearance Desk'},
-      {id:'g11',src:'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800&q=80',category:'events',title:'GCC Trade Expo 2024'},
-      {id:'g12',src:'https://images.unsplash.com/photo-1565793298595-6a879b1d9492?w=800&q=80',category:'projects',title:'Oversized Cargo Transport'}
-    ];
+    const SEED = [];
 
     // ── State ──────────────────────────────────────────────────────────────────
     let gallery = [];
@@ -712,10 +699,10 @@
         const res = await fetch(API_GALLERY);
         if (!res.ok) throw new Error('Failed to load gallery');
         const data = await res.json();
-        gallery = Array.isArray(data) && data.length ? data : JSON.parse(JSON.stringify(SEED));
+        gallery = Array.isArray(data) ? data : [];
       } catch (e) {
-        gallery = JSON.parse(JSON.stringify(SEED));
-        showToast('Using fallback gallery data. Start backend for live updates.', 'error');
+        gallery = [];
+        showToast('Gallery items could not be loaded.', 'error');
       }
     }
 
