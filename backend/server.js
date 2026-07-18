@@ -64,19 +64,39 @@ const uploadBlog = multer({
 });
 
 app.use(express.json({ limit: '5mb' }));
+
+function isAllowedOrigin(origin) {
+  if (!origin) return true;
+
+  if (!ALLOWED_ORIGINS.length) {
+    return true;
+  }
+
+  if (ALLOWED_ORIGINS.includes(origin)) {
+    return true;
+  }
+
+  // Allow Vercel preview and production subdomains when deploying static frontend on Vercel.
+  try {
+    const hostname = new URL(origin).hostname;
+    if (hostname.endsWith('.vercel.app')) {
+      return true;
+    }
+  } catch {
+    return false;
+  }
+
+  return false;
+}
+
 app.use(cors({
   origin: (origin, cb) => {
-    if (!origin) {
+    if (isAllowedOrigin(origin)) {
       cb(null, true);
       return;
     }
 
-    if (!ALLOWED_ORIGINS.length || ALLOWED_ORIGINS.includes(origin)) {
-      cb(null, true);
-      return;
-    }
-
-    cb(new Error('CORS origin not allowed'));
+    cb(null, false);
   },
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'x-admin-token']
