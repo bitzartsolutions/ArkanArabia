@@ -3,52 +3,94 @@
      Injected via fetch() into #mob-footer on every page.
      {ROOT} is replaced at runtime by loadComponent() in script.js
 ================================================================ -->
-<footer class="md:hidden w-full rounded-t-xl bg-tertiary flex flex-col gap-lg px-md py-xl" style="padding-left:16px;padding-right:16px;padding-top:32px;padding-bottom:32px;gap:24px;">
-  <div class="space-y-lg" style="gap:20px;">
-    <!-- Brand -->
-    <div class="flex flex-col gap-sm" style="gap:8px;">
-      <div class="flex items-center gap-sm">
-        <div class="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center">
-          <span class="material-symbols-outlined text-white" style="font-size:18px;">local_shipping</span>
-        </div>
-        <span class="font-bold text-white text-base uppercase tracking-tighter">ARKAN ARABIA</span>
-      </div>
-      <p class="text-white/60 text-sm leading-relaxed">Your trusted logistics partner for seamless GCC connectivity and beyond.</p>
-      <div class="flex gap-sm" style="gap:8px;">
-        <a href="#" class="w-9 h-9 bg-white/10 rounded-lg flex items-center justify-center border border-white/20 hover:bg-white/20 transition-colors" aria-label="LinkedIn">
-          <svg class="w-4 h-4 fill-white" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+<footer class="md:hidden w-full bg-surface-container-highest text-on-surface pt-10 pb-6 border-t border-outline-variant/30">
+  <div class="px-4 space-y-8">
+    <div>
+      <a href="{ROOT}home" class="inline-block">
+        <img src="/assets/img/arkan-arabia-logo.png" alt="Arkan Arabia Logistics" class="h-12 w-auto"/>
+      </a>
+      <p class="mt-3 text-[14px] leading-[22px] text-on-surface-variant">
+        Architecting the future of GCC logistics with precision, technology, and reliability.
+      </p>
+      <div class="mt-4 flex gap-3">
+        <a class="w-9 h-9 rounded-full border border-outline-variant flex items-center justify-center hover:bg-primary hover:text-white hover:border-primary transition-all" href="#" aria-label="LinkedIn">
+          <span class="material-symbols-outlined text-[18px]">share</span>
         </a>
-        <a href="#" class="w-9 h-9 bg-white/10 rounded-lg flex items-center justify-center border border-white/20 hover:bg-white/20 transition-colors" aria-label="Twitter">
-          <svg class="w-4 h-4 fill-white" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        <a class="w-9 h-9 rounded-full border border-outline-variant flex items-center justify-center hover:bg-primary hover:text-white hover:border-primary transition-all" href="#" aria-label="Twitter / X">
+          <span class="material-symbols-outlined text-[18px]">hub</span>
         </a>
-        <a href="#" class="w-9 h-9 bg-white/10 rounded-lg flex items-center justify-center border border-white/20 hover:bg-white/20 transition-colors" aria-label="Instagram">
-          <svg class="w-4 h-4 fill-white" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
+        <a class="w-9 h-9 rounded-full border border-outline-variant flex items-center justify-center hover:bg-primary hover:text-white hover:border-primary transition-all" href="mailto:info@arkanarabialogistics.com" aria-label="Email">
+          <span class="material-symbols-outlined text-[18px]">mail</span>
         </a>
       </div>
     </div>
-    <!-- Footer Links Grid -->
-    <div class="grid grid-cols-2 gap-md" style="gap:16px;">
-      <div class="space-y-sm" style="gap:8px;">
-        <h5 class="text-white font-semibold text-sm">Services</h5>
-        <a href="{ROOT}services" class="block text-white/60 text-sm hover:text-white transition-colors">Customs Clearance</a>
-        <a href="{ROOT}services" class="block text-white/60 text-sm hover:text-white transition-colors">Land Transportation</a>
-        <a href="{ROOT}services" class="block text-white/60 text-sm hover:text-white transition-colors">Packing and Moving</a>
-        <a href="{ROOT}services" class="block text-white/60 text-sm hover:text-white transition-colors">Warehousing and Distribution</a>
-        <a href="{ROOT}services" class="block text-white/60 text-sm hover:text-white transition-colors">Terminal Services</a>
-        <a href="{ROOT}services" class="block text-white/60 text-sm hover:text-white transition-colors">Cross Boarder Transportation</a>
-        <a href="{ROOT}services" class="block text-white/60 text-sm hover:text-white transition-colors">Project Cargo Handling</a>
-              
+
+    <div class="grid grid-cols-1 gap-8">
+      <div>
+        <h4 class="text-[18px] leading-[24px] font-h3 font-semibold mb-3">Core Services</h4>
+        <ul class="space-y-2">
+          <li><a class="text-[13px] leading-[20px] font-semibold text-on-surface-variant hover:text-primary transition-colors" href="/customs-clearance">Customs Clearance</a></li>
+          <li><a class="text-[13px] leading-[20px] font-semibold text-on-surface-variant hover:text-primary transition-colors" href="/land-transportation">Land Transportation</a></li>
+          <li><a class="text-[13px] leading-[20px] font-semibold text-on-surface-variant hover:text-primary transition-colors" href="/packing-moving">Packing and Moving</a></li>
+          <li><a class="text-[13px] leading-[20px] font-semibold text-on-surface-variant hover:text-primary transition-colors" href="/warehousing">Warehousing and Distribution</a></li>
+          <li><a class="text-[13px] leading-[20px] font-semibold text-on-surface-variant hover:text-primary transition-colors" href="/terminal-services">Terminal Services</a></li>
+          <li><a class="text-[13px] leading-[20px] font-semibold text-on-surface-variant hover:text-primary transition-colors" href="/stuffing-lashing">Stuffing and Lashing</a></li>
+          <li><a class="text-[13px] leading-[20px] font-semibold text-on-surface-variant hover:text-primary transition-colors" href="/cross-border-moving">Cross Boarder Transportation</a></li>
+          <li><a class="text-[13px] leading-[20px] font-semibold text-on-surface-variant hover:text-primary transition-colors" href="/project-cargo">Project Cargo Handling</a></li>
+        </ul>
       </div>
-      <div class="space-y-sm" style="gap:8px;">
-        <h5 class="text-white font-semibold text-sm">Company</h5>
-        <a href="{ROOT}about" class="block text-white/60 text-sm hover:text-white transition-colors">About Us</a>
-        <a href="{ROOT}industries" class="block text-white/60 text-sm hover:text-white transition-colors">Industries</a>
-        <a href="{ROOT}contact" class="block text-white/60 text-sm hover:text-white transition-colors">Contact</a>
+
+      <div>
+        <h4 class="text-[18px] leading-[24px] font-h3 font-semibold mb-3">Company</h4>
+        <ul class="space-y-2">
+          <li><a class="text-[13px] leading-[20px] font-semibold text-on-surface-variant hover:text-primary transition-colors" href="{ROOT}about">About Us</a></li>
+          <li><a class="text-[13px] leading-[20px] font-semibold text-on-surface-variant hover:text-primary transition-colors" href="{ROOT}network">Global Network</a></li>
+          <li><a class="text-[13px] leading-[20px] font-semibold text-on-surface-variant hover:text-primary transition-colors" href="{ROOT}solutions">Sustainability</a></li>
+          <li><a class="text-[13px] leading-[20px] font-semibold text-on-surface-variant hover:text-primary transition-colors" href="{ROOT}gallery">Gallery</a></li>
+          <li><a class="text-[13px] leading-[20px] font-semibold text-on-surface-variant hover:text-primary transition-colors" href="{ROOT}blog">Blog &amp; Insights</a></li>
+          <li><a class="text-[13px] leading-[20px] font-semibold text-on-surface-variant hover:text-primary transition-colors" href="{ROOT}contact#careers">Careers</a></li>
+          <li><a class="text-[13px] leading-[20px] font-semibold text-on-surface-variant hover:text-primary transition-colors" href="{ROOT}news">News &amp; Insights</a></li>
+          <li><a class="text-[13px] leading-[20px] font-semibold text-on-surface-variant hover:text-primary transition-colors" href="#">Privacy Policy</a></li>
+          <li><a class="text-[13px] leading-[20px] font-semibold text-on-surface-variant hover:text-primary transition-colors" href="#">Terms of Service</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="text-[18px] leading-[24px] font-h3 font-semibold mb-3">Get in Touch</h4>
+        <div class="space-y-3 text-[14px] leading-[22px] text-on-surface-variant">
+          <div class="flex items-start gap-2">
+            <span class="material-symbols-outlined text-primary shrink-0 mt-0.5">location_on</span>
+            <span>Al Madin, Al Baghdadiyah, Al Gharbiyah Dist., Jeddah, Saudi Arabia</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="material-symbols-outlined text-primary shrink-0">mail</span>
+            <a class="hover:text-primary transition-colors break-all" href="mailto:info@arkanarabialogistics.com">info@arkanarabialogistics.com</a>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="material-symbols-outlined text-primary shrink-0">call</span>
+            <a class="hover:text-primary transition-colors" href="tel:+966557356175">+966557356175</a>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="material-symbols-outlined text-primary shrink-0">support_agent</span>
+            <span class="text-primary font-semibold">24/7 Emergency Hotline</span>
+          </div>
+        </div>
       </div>
     </div>
   </div>
-  <!-- Bottom bar -->
-  <div class="border-t border-white/10 pt-md text-center" style="padding-top:16px;">
-    <p class="text-white/40 text-xs">&copy; 2025 Arkan Arabia Logistics. All rights reserved.</p>
+
+  <div class="mt-8 px-4 pt-5 border-t border-outline-variant/30">
+    <div class="flex flex-wrap gap-3 items-center text-[11px] font-bold tracking-widest uppercase text-on-surface-variant/70">
+      <span>ISO 9001:2015</span>
+      <span>ISO 14001:2015</span>
+      <span>OHSAS 18001</span>
+      <span>SASO Certified</span>
+    </div>
+    <p class="mt-4 text-[12px] leading-[18px] text-on-surface-variant text-center">© 2026 Arkan Arabia Logistics. All rights reserved.</p>
+    <div class="mt-3 flex justify-center gap-6">
+      <a class="text-[13px] text-on-surface-variant hover:text-primary transition-colors" href="#">Twitter</a>
+      <a class="text-[13px] text-on-surface-variant hover:text-primary transition-colors" href="#">LinkedIn</a>
+      <a class="text-[13px] text-on-surface-variant hover:text-primary transition-colors" href="#">Instagram</a>
+    </div>
   </div>
 </footer>

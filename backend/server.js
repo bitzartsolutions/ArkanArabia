@@ -142,12 +142,8 @@ async function optimizeUploadedImage(filePath, type) {
   const outputPath = path.join(parsed.dir, `${parsed.name}.jpg`);
 
   const transformer = sharp(filePath).rotate();
-  if (type === 'gallery') {
-    // Standardize gallery uploads to Instagram-style square posts.
-    transformer.resize({ width: 1080, height: 1080, fit: 'cover', position: 'center' });
-  } else {
-    transformer.resize({ width: 1600, height: 900, fit: 'cover', position: 'center' });
-  }
+  // Standardize uploads to Instagram-style square posts.
+  transformer.resize({ width: 1080, height: 1080, fit: 'cover', position: 'center' });
 
   await transformer.jpeg({ quality: 82, mozjpeg: true }).toFile(outputPath);
 

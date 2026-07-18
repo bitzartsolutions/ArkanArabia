@@ -169,8 +169,8 @@
     }
     .admin-pulse { animation: admin-pulse 2s infinite; }
 
-    /* Image cover aspect ratio */
-    .aspect-video { aspect-ratio: 16/9; }
+    /* Instagram-style square image ratio */
+    .aspect-video { aspect-ratio: 1/1; }
 
     /* Modal open lock scroll */
     body.modal-open { overflow: hidden; }
@@ -475,15 +475,6 @@
     <span id="blog-toast-icon" class="material-symbols-outlined text-[18px]">check_circle</span>
     <span id="blog-toast-msg">Post published!</span>
   </div>
-
-  <!-- ════════════════════════════════════════════
-       ADMIN KEY BUTTON (floating)
-  ════════════════════════════════════════════ -->
-  <button id="admin-key-btn" onclick="openAdminLogin()"
-    class="fixed bottom-24 md:bottom-8 right-4 z-40 w-12 h-12 rounded-full bg-tertiary-container text-on-tertiary shadow-lg flex items-center justify-center hover:scale-110 transition-transform"
-    aria-label="Admin login" title="Admin panel">
-    <span class="material-symbols-outlined text-on-tertiary-container text-[22px]">key</span>
-  </button>
 
   <!-- Admin mode indicator -->
   <div id="admin-mode-badge" class="hidden fixed bottom-40 md:bottom-20 right-3 z-40">
@@ -949,8 +940,6 @@
       isAdmin = true;
       closeAdminLogin();
       document.getElementById('admin-mode-badge').classList.remove('hidden');
-      document.getElementById('admin-key-btn').classList.add('bg-error');
-      document.getElementById('admin-key-btn').classList.remove('bg-tertiary-container');
       renderPosts();
       showToast('Admin mode activated', 'admin_panel_settings');
     } catch (e) {
@@ -974,8 +963,6 @@
     sessionStorage.removeItem(ADMIN_TOKEN_KEY);
     isAdmin = false;
     document.getElementById('admin-mode-badge').classList.add('hidden');
-    document.getElementById('admin-key-btn').classList.remove('bg-error');
-    document.getElementById('admin-key-btn').classList.add('bg-tertiary-container');
     renderPosts();
     showToast('Logged out of admin', 'logout');
   }
@@ -985,8 +972,6 @@
     sessionStorage.removeItem(ADMIN_TOKEN_KEY);
     isAdmin = false;
     document.getElementById('admin-mode-badge').classList.add('hidden');
-    document.getElementById('admin-key-btn').classList.remove('bg-error');
-    document.getElementById('admin-key-btn').classList.add('bg-tertiary-container');
     renderPosts();
   }
 
@@ -1296,8 +1281,6 @@
     if (adminToken) {
       isAdmin = true;
       document.getElementById('admin-mode-badge').classList.remove('hidden');
-      document.getElementById('admin-key-btn').classList.add('bg-error');
-      document.getElementById('admin-key-btn').classList.remove('bg-tertiary-container');
       renderPosts();
     }
   });

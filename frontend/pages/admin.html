@@ -280,7 +280,7 @@
       body.innerHTML = galleryItems.map(item => {
         return `
           <tr class="border-t border-outline-variant/40">
-            <td class="px-4 py-3"><img src="${item.src}" alt="${item.title}" class="w-20 h-12 rounded object-cover bg-surface-container"/></td>
+            <td class="px-4 py-3"><img src="${item.src}" alt="${item.title}" class="w-14 h-14 rounded object-cover bg-surface-container"/></td>
             <td class="px-4 py-3 text-sm font-semibold">${item.title}</td>
             <td class="px-4 py-3 text-sm capitalize">${item.category}</td>
             <td class="px-4 py-3 text-right">
@@ -310,8 +310,8 @@
 
       body.innerHTML = blogPosts.map(post => {
         const poster = post.coverImage
-          ? `<img src="${post.coverImage}" alt="${post.title}" class="w-20 h-12 rounded object-cover bg-surface-container"/>`
-          : '<div class="w-20 h-12 rounded bg-surface-container flex items-center justify-center text-on-surface-variant text-xs">No Image</div>';
+          ? `<img src="${post.coverImage}" alt="${post.title}" class="w-14 h-14 rounded object-cover bg-surface-container"/>`
+          : '<div class="w-14 h-14 rounded bg-surface-container flex items-center justify-center text-on-surface-variant text-xs">No Image</div>';
 
         return `
           <tr class="border-t border-outline-variant/40">

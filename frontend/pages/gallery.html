@@ -116,6 +116,7 @@
       overflow: hidden;
       position: relative;
       background: #1c1b1b;
+      aspect-ratio: 1 / 1;
     }
     .gallery-card:hover {
       transform: scale(1.03);
@@ -307,11 +308,7 @@
     .gallery-grid-desktop {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      grid-auto-rows: 260px;
       gap: 16px;
-    }
-    .gallery-grid-desktop .span-2 {
-      grid-row: span 2;
     }
 
     /* Gallery grid mobile */
@@ -523,16 +520,6 @@
       </div>
     </div>
   </div>
-
-  <!-- ════════════════════════════════════════════
-       ADMIN: Floating key button
-  ════════════════════════════════════════════ -->
-  <button id="admin-key-btn" onclick="openAdminModal()"
-    title="Admin Login"
-    class="fixed bottom-24 right-4 md:bottom-6 md:right-6 z-50 w-10 h-10 rounded-full bg-surface-container border border-outline-variant/50 text-on-surface-variant hover:bg-surface-container-high hover:border-outline transition-all shadow-md flex items-center justify-center"
-    aria-label="Admin Login">
-    <span class="material-symbols-outlined" style="font-size:18px;">key</span>
-  </button>
 
   <!-- Add Photo FAB -->
   <button id="add-photo-fab" onclick="openAddPhotoModal()" aria-label="Add Photo">
@@ -760,9 +747,8 @@
       if (empty) empty.classList.add('hidden');
 
       items.forEach((item, idx) => {
-        const isSpan = layout === 'desktop' && (idx === 0 || idx === 4 || idx === 8);
         const card = document.createElement('div');
-        card.className = 'gallery-card rounded-xl' + (isSpan ? ' span-2' : '');
+        card.className = 'gallery-card rounded-xl';
         card.setAttribute('data-id', item.id);
         card.style.transitionDelay = (idx * 40) + 'ms';
 
@@ -920,7 +906,6 @@
         document.body.classList.add('admin-mode');
         closeAdminModal();
         showToast('Admin mode activated!', 'success');
-        document.getElementById('admin-key-btn').style.display = 'none';
       } catch (e) {
         showToast('Backend unavailable. Start server and try again.', 'error');
       }
@@ -942,7 +927,6 @@
       sessionStorage.removeItem(ADMIN_TOKEN_KEY);
       isAdmin = false;
       document.body.classList.remove('admin-mode');
-      document.getElementById('admin-key-btn').style.display = '';
       showToast('Logged out of admin mode.', 'success');
     }
 
@@ -1058,7 +1042,6 @@
           sessionStorage.removeItem(ADMIN_TOKEN_KEY);
           isAdmin = false;
           document.body.classList.remove('admin-mode');
-          document.getElementById('admin-key-btn').style.display = '';
           errMsg.textContent = 'Admin session expired. Please login again.';
           errEl.classList.remove('hidden');
           return;
@@ -1098,7 +1081,6 @@
           sessionStorage.removeItem(ADMIN_TOKEN_KEY);
           isAdmin = false;
           document.body.classList.remove('admin-mode');
-          document.getElementById('admin-key-btn').style.display = '';
           showToast('Admin session expired. Please login again.', 'error');
           return;
         }
@@ -1148,7 +1130,6 @@
       if (adminToken) {
         isAdmin = true;
         document.body.classList.add('admin-mode');
-        document.getElementById('admin-key-btn').style.display = 'none';
       }
     });
   </script>
