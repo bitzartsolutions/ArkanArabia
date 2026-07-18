@@ -674,9 +674,10 @@
   <!-- ════════════════════════════════════════════
        JAVASCRIPT
   ════════════════════════════════════════════ -->
+  <script src="../assets/js/runtime-config.js"></script>
   <script>
     // ── Constants ──────────────────────────────────────────────────────────────
-    const API_BASE_URL = `${window.location.protocol}//${window.location.hostname}:4000`;
+    const API_BASE_URL = window.ARKAN_API_BASE_URL;
     const API_GALLERY = `${API_BASE_URL}/api/gallery`;
     const API_ADMIN_LOGIN = `${API_BASE_URL}/api/admin/login`;
     const API_ADMIN_LOGOUT = `${API_BASE_URL}/api/admin/logout`;

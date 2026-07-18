@@ -9,7 +9,10 @@ require('dotenv').config({ path: path.join(__dirname, '.env') });
 
 const app = express();
 const PORT = process.env.PORT || 4000;
-const FRONTEND_ORIGIN = process.env.FRONTEND_ORIGIN || 'http://localhost:3000';
+const FRONTEND_ORIGIN = String(process.env.FRONTEND_ORIGIN || '').trim();
+const ALLOWED_ORIGINS = FRONTEND_ORIGIN
+  ? FRONTEND_ORIGIN.split(',').map((origin) => origin.trim()).filter(Boolean)
+  : [];
 const ADMIN_USERNAME = String(process.env.ADMIN_USERNAME || 'admin').trim();
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'arkan2026';
 const ADMIN_REQUIRE_USERNAME = String(process.env.ADMIN_REQUIRE_USERNAME || 'false').toLowerCase() === 'true';
@@ -62,7 +65,19 @@ const uploadBlog = multer({
 
 app.use(express.json({ limit: '5mb' }));
 app.use(cors({
-  origin: FRONTEND_ORIGIN,
+  origin: (origin, cb) => {
+    if (!origin) {
+      cb(null, true);
+      return;
+    }
+
+    if (!ALLOWED_ORIGINS.length || ALLOWED_ORIGINS.includes(origin)) {
+      cb(null, true);
+      return;
+    }
+
+    cb(new Error('CORS origin not allowed'));
+  },
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'x-admin-token']
 }));
@@ -71,6 +86,16 @@ app.use('/uploads', express.static(UPLOADS_DIR));
 function toPublicUploadPath(req, filePath) {
   const relative = path.relative(UPLOADS_DIR, filePath).replaceAll(path.sep, '/');
   return `${req.protocol}://${req.get('host')}/uploads/${relative}`;
+}
+
+function normalizeLegacyUploadUrl(req, value) {
+  const raw = String(value || '').trim();
+  if (!raw) return raw;
+
+  return raw.replace(
+    /^https?:\/\/(localhost|127\.0\.0\.1):4000\/uploads\//i,
+    `${req.protocol}://${req.get('host')}/uploads/`
+  );
 }
 
 async function ensurePath() {
@@ -156,9 +181,13 @@ app.post('/api/admin/logout', authMiddleware, (req, res) => {
   return res.json({ ok: true });
 });
 
-app.get('/api/gallery', async (_req, res) => {
+app.get('/api/gallery', async (req, res) => {
   const gallery = await readJson(GALLERY_FILE);
-  res.json(gallery);
+  const normalized = gallery.map((item) => ({
+    ...item,
+    src: normalizeLegacyUploadUrl(req, item.src)
+  }));
+  res.json(normalized);
 });
 
 app.post('/api/gallery', authMiddleware, uploadGallery.single('file'), async (req, res) => {
@@ -206,9 +235,13 @@ app.delete('/api/gallery/:id', authMiddleware, async (req, res) => {
   res.json({ ok: true });
 });
 
-app.get('/api/blog', async (_req, res) => {
+app.get('/api/blog', async (req, res) => {
   const posts = await readJson(BLOG_FILE);
-  res.json(posts);
+  const normalized = posts.map((post) => ({
+    ...post,
+    coverImage: normalizeLegacyUploadUrl(req, post.coverImage)
+  }));
+  res.json(normalized);
 });
 
 app.post('/api/blog', authMiddleware, uploadBlog.single('coverFile'), async (req, res) => {
