@@ -73,6 +73,18 @@ body {
 .nav-link.active {
   color: #00337d !important;
   font-weight: 700;
+  position: relative;
+}
+
+.nav-link.active::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background-color: #00337d;
+  border-radius: 2px;
 }
 
 /* ── Hero min-height safety ── */

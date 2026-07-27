@@ -22,6 +22,14 @@
 - `ADMIN_USERNAME=admin`
 - `ADMIN_PASSWORD=your_secure_password`
 - `ADMIN_REQUIRE_USERNAME=false`
+- `INQUIRY_TO_EMAIL=info@arkanarabialogistics.com`
+- `SMTP_HOST=smtp.your-provider.com`
+- `SMTP_PORT=587`
+- `SMTP_SECURE=false`
+- `SMTP_USER=your_smtp_username`
+- `SMTP_PASS=your_smtp_password`
+- `SMTP_FROM_EMAIL=info@arkanarabialogistics.com`
+- `BREVO_API_KEY=your_brevo_v3_api_key` (optional; if set, inquiries are sent via Brevo API before SMTP and avoids SMTP IP allowlist issues)
 
 If `FRONTEND_ORIGIN` is empty, backend CORS allows all origins.
 

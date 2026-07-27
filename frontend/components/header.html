@@ -3,33 +3,35 @@
      {ROOT} is replaced at runtime by rootPath() in script.js
      ══════════════════════════════════════════════════════════ -->
 
-<!-- Top Info Bar -->
-<div class="bg-primary py-2 lg:py-1 px-6 lg:px-12 flex flex-wrap justify-between items-center text-white text-xs font-medium z-[100] relative">
-  <div class="flex gap-6 items-center">
-    <span class="flex items-center gap-1">
-      <span class="material-symbols-outlined text-[16px]">support_agent</span> 24/7 Priority Support
-    </span>
-    <span class="hidden sm:flex items-center gap-1">
-      <span class="material-symbols-outlined text-[16px]">public</span> Full GCC Coverage
-    </span>
-    <span class="hidden md:flex items-center gap-1">
-      <span class="material-symbols-outlined text-[16px]">verified_user</span> Customs Compliance Experts
-    </span>
+<!-- Fixed Header Container (Info Bar + Navigation) -->
+<div class="fixed top-0 w-full z-[100]">
+  <!-- Top Info Bar -->
+  <div class="bg-primary py-2 lg:py-1 px-6 lg:px-12 flex flex-wrap justify-between items-center text-white text-xs font-medium">
+    <div class="flex gap-6 items-center">
+      <span class="flex items-center gap-1">
+        <span class="material-symbols-outlined text-[16px]">support_agent</span> 24/7 Priority Support
+      </span>
+      <span class="hidden sm:flex items-center gap-1">
+        <span class="material-symbols-outlined text-[16px]">public</span> Full GCC Coverage
+      </span>
+      <span class="hidden md:flex items-center gap-1">
+        <span class="material-symbols-outlined text-[16px]">verified_user</span> Customs Compliance Experts
+      </span>
+    </div>
+    <div class="hidden md:flex gap-4">
+      <a class="hover:text-primary-fixed transition-colors" href="https://wa.me/966557356175" target="_blank" rel="noopener noreferrer">KSA: +966 557356175</a>
+      <span class="opacity-30">|</span>
+      <a class="hover:text-primary-fixed transition-colors" href="mailto:info@arkanarabialogistics.com">info@arkanarabialogistics.com</a>
+    </div>
   </div>
-  <div class="hidden md:flex gap-4">
-    <a class="hover:text-primary-fixed transition-colors" href="tel:+966123456789">KSA: +966 12 345 6789</a>
-    <span class="opacity-30">|</span>
-    <a class="hover:text-primary-fixed transition-colors" href="mailto:info@arkanarabia.com">info@arkanarabia.com</a>
-  </div>
-</div>
 
-<!-- Sticky Navigation -->
-<nav class="fixed top-0 w-full z-[90] transition-all duration-300 px-6 lg:px-12 md:bg-white/90 md:backdrop-blur-lg md:shadow-md" id="main-nav">
-  <div class="max-w-7xl mx-auto flex items-center justify-between py-4 lg:py-2.5 transition-all duration-300" data-nav-inner>
+  <!-- Sticky Navigation -->
+  <nav class="w-full transition-all duration-300 px-6 lg:px-12 md:bg-white/90 md:backdrop-blur-lg md:shadow-md" id="main-nav">
+  <div class="max-w-7xl mx-auto flex items-center justify-between py-3 lg:py-2 transition-all duration-300" data-nav-inner>
 
     <!-- Brand -->
     <a href="{ROOT}home" class="flex items-center gap-2">
-      <img src="{ROOT}arkan arabia-01.png" alt="Arkan Arabia Logo" class="nav-logo h-22 lg:h-22 w-28 lg:w-28 object-contain drop-shadow-lg transition-all duration-300" />
+      <img src="{ROOT}arkan arabia-01.png" alt="Arkan Arabia Logo" class="nav-logo h-16 lg:h-20 w-32 lg:w-40 object-contain drop-shadow-lg transition-all duration-300" />
     </a>
 
     <!-- Desktop Links -->
@@ -46,11 +48,11 @@
     <!-- CTA Buttons + Mobile Hamburger -->
     <div class="flex gap-3 items-center">
       <a href="{ROOT}contact#quote"
-        class="bg-primary-fixed text-on-primary-fixed px-6 lg:px-5 py-2.5 lg:py-2 rounded-xl font-bold text-sm shadow-lg hover:scale-105 transition-transform">
+        class="bg-primary-fixed text-on-primary-fixed px-5 lg:px-4 py-2 lg:py-1.5 rounded-xl font-bold text-sm shadow-lg hover:scale-105 transition-transform">
         Get Quote
       </a>
       <a href="{ROOT}track"
-        class="hidden sm:inline-flex bg-white text-primary border border-primary/20 px-6 lg:px-5 py-2.5 lg:py-2 rounded-xl font-bold text-sm shadow-sm hover:bg-surface-container transition-all">
+        class="hidden sm:inline-flex bg-white text-primary border border-primary/20 px-5 lg:px-4 py-2 lg:py-1.5 rounded-xl font-bold text-sm shadow-sm hover:bg-surface-container transition-all">
         Track Shipment
       </a>
       <!-- Hamburger (mobile) -->
@@ -79,4 +81,5 @@
         <a class="nav-link py-3 hover:text-primary transition-colors" href="{ROOT}contact">Contact</a>
       </div>
     </div>
-</nav>
+  </nav>
+</div>

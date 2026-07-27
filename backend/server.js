@@ -5,6 +5,9 @@ const crypto = require('crypto');
 const multer = require('multer');
 const cors = require('cors');
 const sharp = require('sharp');
+const nodemailer = require('nodemailer');
+const cloudinary = require('cloudinary').v2;
+const { CloudinaryStorage } = require('multer-storage-cloudinary');
 require('dotenv').config({ path: path.join(__dirname, '.env') });
 
 const app = express();
@@ -17,6 +20,18 @@ const ADMIN_USERNAME = String(process.env.ADMIN_USERNAME || 'admin').trim();
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'arkan2026';
 const ADMIN_REQUIRE_USERNAME = String(process.env.ADMIN_REQUIRE_USERNAME || 'false').toLowerCase() === 'true';
 const TOKEN_TTL_MS = 8 * 60 * 60 * 1000;
+const INQUIRY_TO_EMAIL = String(process.env.INQUIRY_TO_EMAIL || 'info@arkanarabialogistics.com').trim() || 'info@arkanarabialogistics.com';
+const SMTP_HOST = String(process.env.SMTP_HOST || '').trim();
+const SMTP_PORT = Number.parseInt(String(process.env.SMTP_PORT || '587').trim(), 10) || 587;
+const SMTP_SECURE = String(process.env.SMTP_SECURE || '').trim().toLowerCase() === 'true';
+const SMTP_USER = String(process.env.SMTP_USER || '').trim();
+const SMTP_PASS = String(process.env.SMTP_PASS || '').trim();
+const SMTP_FROM_EMAIL = String(process.env.SMTP_FROM_EMAIL || SMTP_USER || '').trim();
+const BREVO_API_KEY = String(process.env.BREVO_API_KEY || '').trim();
+const USE_CLOUDINARY = String(process.env.USE_CLOUDINARY || 'false').toLowerCase() === 'true';
+const CLOUDINARY_CLOUD_NAME = String(process.env.CLOUDINARY_CLOUD_NAME || '').trim();
+const CLOUDINARY_API_KEY = String(process.env.CLOUDINARY_API_KEY || '').trim();
+const CLOUDINARY_API_SECRET = String(process.env.CLOUDINARY_API_SECRET || '').trim();
 
 const BACKEND_DIR = __dirname;
 const DATA_DIR = path.join(BACKEND_DIR, 'data');
@@ -26,6 +41,19 @@ const BLOG_FILE = path.join(DATA_DIR, 'blog.json');
 
 const activeTokens = new Map();
 const MAX_UPLOAD_SIZE_BYTES = 8 * 1024 * 1024;
+let inquiryTransporter = null;
+
+// Configure Cloudinary if enabled
+if (USE_CLOUDINARY && CLOUDINARY_CLOUD_NAME && CLOUDINARY_API_KEY && CLOUDINARY_API_SECRET) {
+  cloudinary.config({
+    cloud_name: CLOUDINARY_CLOUD_NAME,
+    api_key: CLOUDINARY_API_KEY,
+    api_secret: CLOUDINARY_API_SECRET
+  });
+  console.log('✓ Cloudinary configured successfully');
+} else if (USE_CLOUDINARY) {
+  console.warn('⚠ USE_CLOUDINARY is true but credentials are missing. Falling back to local storage.');
+}
 
 function imageFileFilter(_req, file, cb) {
   if (!file.mimetype || !file.mimetype.startsWith('image/')) {
@@ -35,7 +63,34 @@ function imageFileFilter(_req, file, cb) {
   cb(null, true);
 }
 
-const galleryStorage = multer.diskStorage({
+// Cloudinary storage for gallery
+const galleryCloudinaryStorage = new CloudinaryStorage({
+  cloudinary: cloudinary,
+  params: {
+    folder: 'arkan-arabia/gallery',
+    allowed_formats: ['jpg', 'jpeg', 'png', 'webp', 'gif'],
+    transformation: [
+      { width: 1080, height: 1080, crop: 'fill', gravity: 'auto' },
+      { quality: 'auto:good', fetch_format: 'auto' }
+    ]
+  }
+});
+
+// Cloudinary storage for blog
+const blogCloudinaryStorage = new CloudinaryStorage({
+  cloudinary: cloudinary,
+  params: {
+    folder: 'arkan-arabia/blog',
+    allowed_formats: ['jpg', 'jpeg', 'png', 'webp', 'gif'],
+    transformation: [
+      { width: 1080, height: 1080, crop: 'fill', gravity: 'auto' },
+      { quality: 'auto:good', fetch_format: 'auto' }
+    ]
+  }
+});
+
+// Local disk storage for gallery (fallback)
+const galleryDiskStorage = multer.diskStorage({
   destination: (_req, _file, cb) => cb(null, path.join(UPLOADS_DIR, 'gallery')),
   filename: (_req, file, cb) => {
     const ext = path.extname(file.originalname || '').toLowerCase() || '.jpg';
@@ -43,13 +98,18 @@ const galleryStorage = multer.diskStorage({
   }
 });
 
-const blogStorage = multer.diskStorage({
+// Local disk storage for blog (fallback)
+const blogDiskStorage = multer.diskStorage({
   destination: (_req, _file, cb) => cb(null, path.join(UPLOADS_DIR, 'blog')),
   filename: (_req, file, cb) => {
     const ext = path.extname(file.originalname || '').toLowerCase() || '.jpg';
     cb(null, `blog-${Date.now()}-${crypto.randomUUID()}${ext}`);
   }
 });
+
+// Choose storage based on configuration
+const galleryStorage = USE_CLOUDINARY && CLOUDINARY_CLOUD_NAME ? galleryCloudinaryStorage : galleryDiskStorage;
+const blogStorage = USE_CLOUDINARY && CLOUDINARY_CLOUD_NAME ? blogCloudinaryStorage : blogDiskStorage;
 
 const uploadGallery = multer({
   storage: galleryStorage,
@@ -176,6 +236,78 @@ function authMiddleware(req, res, next) {
   next();
 }
 
+function escapeHtml(value) {
+  return String(value || '')
+    .replaceAll('&', '&amp;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;')
+    .replaceAll('"', '&quot;')
+    .replaceAll("'", '&#39;');
+}
+
+function toSafeValue(value, maxLength = 1000) {
+  const trimmed = String(value || '').trim();
+  if (!trimmed) return 'N/A';
+  if (trimmed.length > maxLength) {
+    return `${trimmed.slice(0, maxLength)}...`;
+  }
+  return trimmed;
+}
+
+function getInquiryTransporter() {
+  if (inquiryTransporter) return inquiryTransporter;
+
+  if (!SMTP_HOST || !SMTP_USER || !SMTP_PASS || !SMTP_FROM_EMAIL) {
+    return null;
+  }
+
+  inquiryTransporter = nodemailer.createTransport({
+    host: SMTP_HOST,
+    port: SMTP_PORT,
+    secure: SMTP_SECURE,
+    auth: {
+      user: SMTP_USER,
+      pass: SMTP_PASS
+    }
+  });
+
+  return inquiryTransporter;
+}
+
+async function sendInquiryWithBrevoApi({ subject, htmlBody, textBody, replyToEmail }) {
+  if (!BREVO_API_KEY) return false;
+
+  if (typeof fetch !== 'function') {
+    throw new Error('Global fetch is unavailable in this Node runtime.');
+  }
+
+  const response = await fetch('https://api.brevo.com/v3/smtp/email', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'api-key': BREVO_API_KEY
+    },
+    body: JSON.stringify({
+      sender: {
+        email: SMTP_FROM_EMAIL,
+        name: 'Arkan Arabia'
+      },
+      to: [{ email: INQUIRY_TO_EMAIL }],
+      replyTo: replyToEmail && replyToEmail !== 'N/A' ? { email: replyToEmail } : undefined,
+      subject,
+      htmlContent: htmlBody,
+      textContent: textBody
+    })
+  });
+
+  if (!response.ok) {
+    const details = await response.text().catch(() => 'Unknown Brevo API error');
+    throw new Error(`Brevo API send failed (${response.status}): ${details}`);
+  }
+
+  return true;
+}
+
 app.post('/api/admin/login', (req, res) => {
   const username = String(req.body?.username || '').trim();
   const password = String(req.body?.password || '');
@@ -218,8 +350,14 @@ app.post('/api/gallery', authMiddleware, uploadGallery.single('file'), async (re
 
   let src = srcFromBody;
   if (req.file) {
-    const optimizedPath = await optimizeUploadedImage(req.file.path, 'gallery');
-    src = toPublicUploadPath(req, optimizedPath);
+    if (USE_CLOUDINARY && req.file.path) {
+      // Cloudinary returns the full URL in req.file.path
+      src = req.file.path;
+    } else {
+      // Local storage - optimize and get public path
+      const optimizedPath = await optimizeUploadedImage(req.file.path, 'gallery');
+      src = toPublicUploadPath(req, optimizedPath);
+    }
   }
 
   if (!src) {
@@ -271,8 +409,14 @@ app.post('/api/blog', authMiddleware, uploadBlog.single('coverFile'), async (req
 
   let coverImage = String(req.body?.coverImage || '').trim();
   if (req.file) {
-    const optimizedPath = await optimizeUploadedImage(req.file.path, 'blog');
-    coverImage = toPublicUploadPath(req, optimizedPath);
+    if (USE_CLOUDINARY && req.file.path) {
+      // Cloudinary returns the full URL in req.file.path
+      coverImage = req.file.path;
+    } else {
+      // Local storage - optimize and get public path
+      const optimizedPath = await optimizeUploadedImage(req.file.path, 'blog');
+      coverImage = toPublicUploadPath(req, optimizedPath);
+    }
   }
 
   const post = {
@@ -304,8 +448,14 @@ app.put('/api/blog/:id', authMiddleware, uploadBlog.single('coverFile'), async (
   let coverImage = String(req.body?.coverImage || '').trim();
 
   if (req.file) {
-    const optimizedPath = await optimizeUploadedImage(req.file.path, 'blog');
-    coverImage = toPublicUploadPath(req, optimizedPath);
+    if (USE_CLOUDINARY && req.file.path) {
+      // Cloudinary returns the full URL in req.file.path
+      coverImage = req.file.path;
+    } else {
+      // Local storage - optimize and get public path
+      const optimizedPath = await optimizeUploadedImage(req.file.path, 'blog');
+      coverImage = toPublicUploadPath(req, optimizedPath);
+    }
   }
 
   const updated = {
@@ -335,6 +485,77 @@ app.delete('/api/blog/:id', authMiddleware, async (req, res) => {
 
   await writeJson(BLOG_FILE, next);
   res.json({ ok: true });
+});
+
+app.post('/api/inquiries', async (req, res) => {
+  const fullName = toSafeValue(req.body?.fullName, 160);
+  const company = toSafeValue(req.body?.company, 160);
+  const email = toSafeValue(req.body?.email, 160);
+  const phone = toSafeValue(req.body?.phone, 80);
+  const country = toSafeValue(req.body?.country, 100);
+  const service = toSafeValue(req.body?.service, 120);
+  const message = toSafeValue(req.body?.message, 4000);
+
+  if (fullName === 'N/A' || email === 'N/A' || message === 'N/A') {
+    return res.status(400).json({ error: 'Full name, email, and message are required.' });
+  }
+
+  const subject = `Website Inquiry${service !== 'N/A' ? ` - ${service}` : ''}`;
+  const textBody = [
+    'New inquiry from Arkan Arabia website',
+    '',
+    `Full Name: ${fullName}`,
+    `Company: ${company}`,
+    `Email: ${email}`,
+    `Phone: ${phone}`,
+    `Country: ${country}`,
+    `Service: ${service}`,
+    '',
+    'Message:',
+    message
+  ].join('\n');
+
+  const htmlBody = `
+    <h2>New inquiry from Arkan Arabia website</h2>
+    <p><strong>Full Name:</strong> ${escapeHtml(fullName)}</p>
+    <p><strong>Company:</strong> ${escapeHtml(company)}</p>
+    <p><strong>Email:</strong> ${escapeHtml(email)}</p>
+    <p><strong>Phone:</strong> ${escapeHtml(phone)}</p>
+    <p><strong>Country:</strong> ${escapeHtml(country)}</p>
+    <p><strong>Service:</strong> ${escapeHtml(service)}</p>
+    <p><strong>Message:</strong></p>
+    <p>${escapeHtml(message).replaceAll('\n', '<br/>')}</p>
+  `;
+
+  try {
+    const sentByBrevoApi = await sendInquiryWithBrevoApi({
+      subject,
+      htmlBody,
+      textBody,
+      replyToEmail: email
+    });
+
+    if (!sentByBrevoApi) {
+      const transporter = getInquiryTransporter();
+      if (!transporter) {
+        return res.status(503).json({ error: 'Inquiry email service is not configured.' });
+      }
+
+      await transporter.sendMail({
+        from: SMTP_FROM_EMAIL,
+        to: INQUIRY_TO_EMAIL,
+        replyTo: email !== 'N/A' ? email : undefined,
+        subject,
+        text: textBody,
+        html: htmlBody
+      });
+    }
+
+    return res.json({ ok: true });
+  } catch (err) {
+    console.error('Failed to send inquiry email:', err);
+    return res.status(500).json({ error: 'Failed to send inquiry email.' });
+  }
 });
 
 app.get('/health', (_req, res) => {

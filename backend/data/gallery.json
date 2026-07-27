@@ -1,26 +1,8 @@
 [
   {
-    "id": "g1784047318069",
-    "src": "http://localhost:4000/uploads/gallery/gallery-1784047318006-f96e34a0-e177-4a95-b111-19040792c367.jpg",
-    "category": "fleet",
-    "title": "ware house"
-  },
-  {
-    "id": "g1784047395351",
-    "src": "http://localhost:4000/uploads/gallery/gallery-1784047395288-6701f6b4-5067-4b61-9845-8d34152d3eb2.jpg",
-    "category": "operations",
-    "title": "event"
-  },
-  {
-    "id": "g1784047427115",
-    "src": "http://localhost:4000/uploads/gallery/gallery-1784047427054-711a8ce8-ba1d-4b91-b99d-bbcf59394830.jpg",
-    "category": "operations",
-    "title": "ware house"
-  },
-  {
-    "id": "g1784047659725",
-    "src": "http://localhost:4000/uploads/gallery/gallery-1784047659660-2848728e-521f-48d7-a5d7-a3975fdff426.jpg",
-    "category": "projects",
+    "id": "g1785171966936",
+    "src": "http://localhost:4000/uploads/gallery/gallery-1785171966830-d68f2dc0-2f5e-48f7-a4f9-45a8c2710212.jpg",
+    "category": "events",
     "title": "event"
   }
 ]
