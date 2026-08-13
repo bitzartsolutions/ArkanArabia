@@ -574,30 +574,37 @@ app.use((err, _req, res, _next) => {
   return res.status(500).json({ error: 'Internal server error.' });
 });
 
-ensurePath()
-  .then(async () => {
-    const [galleryExists, blogExists] = await Promise.all([
-      fs.access(GALLERY_FILE).then(() => true).catch(() => false),
-      fs.access(BLOG_FILE).then(() => true).catch(() => false)
-    ]);
+module.exports = app;
 
-    if (!galleryExists) await writeJson(GALLERY_FILE, []);
-    if (!blogExists) await writeJson(BLOG_FILE, []);
+// fs.mkdir/writeFile below need a writable filesystem, which Vercel's
+// serverless runtime doesn't provide outside /tmp. Only run local
+// bootstrap (and only ever call app.listen()) when NOT running on Vercel.
+if (!process.env.VERCEL) {
+  ensurePath()
+    .then(async () => {
+      const [galleryExists, blogExists] = await Promise.all([
+        fs.access(GALLERY_FILE).then(() => true).catch(() => false),
+        fs.access(BLOG_FILE).then(() => true).catch(() => false)
+      ]);
 
-    const server = app.listen(PORT, () => {
-      console.log(`Arkan Arabia backend running on http://localhost:${PORT}`);
-    });
+      if (!galleryExists) await writeJson(GALLERY_FILE, []);
+      if (!blogExists) await writeJson(BLOG_FILE, []);
 
-    server.on('error', (err) => {
-      if (err && err.code === 'EADDRINUSE') {
-        console.error(`Backend port ${PORT} is already in use. Stop the other process or set PORT.`);
-      } else {
-        console.error('Failed to start backend server:', err);
-      }
+      const server = app.listen(PORT, () => {
+        console.log(`Arkan Arabia backend running on http://localhost:${PORT}`);
+      });
+
+      server.on('error', (err) => {
+        if (err && err.code === 'EADDRINUSE') {
+          console.error(`Backend port ${PORT} is already in use. Stop the other process or set PORT.`);
+        } else {
+          console.error('Failed to start backend server:', err);
+        }
+        process.exit(1);
+      });
+    })
+    .catch((err) => {
+      console.error('Failed to start server:', err);
       process.exit(1);
     });
-  })
-  .catch((err) => {
-    console.error('Failed to start server:', err);
-    process.exit(1);
-  });
+}
