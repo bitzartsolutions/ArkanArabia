@@ -169,8 +169,8 @@
     }
     .admin-pulse { animation: admin-pulse 2s infinite; }
 
-    /* Instagram-style square image ratio */
-    .aspect-video { aspect-ratio: 1/1; }
+    /* Image cover aspect ratio */
+    .aspect-video { aspect-ratio: 16/9; }
 
     /* Modal open lock scroll */
     body.modal-open { overflow: hidden; }
@@ -199,42 +199,8 @@
   <!-- ════════════════════════════════════════════
        MOBILE LAYOUT  (visible < md)
   ════════════════════════════════════════════ -->
-  <main class="md:hidden pt-[64px] pb-16">
-
-    <!-- Mobile Hero -->
-    <section class="relative overflow-hidden" style="background: linear-gradient(160deg, #00337d 0%, #1b4a9f 60%, #0d4297 100%);">
-      <div class="blog-hero-dots absolute inset-0 z-0"></div>
-      <div class="relative z-10 px-md pt-xl pb-lg space-y-md">
-        <span class="inline-block px-sm py-1 bg-white/15 backdrop-blur-md border border-white/20 text-white font-label-sm text-label-sm rounded-full tracking-widest">INSIGHTS & NEWS</span>
-        <h1 class="font-h1 text-[38px] leading-tight text-white">Arkan Arabia Blog</h1>
-        <p class="font-body-lg text-body-lg text-primary-fixed-dim max-w-sm">Industry insights, logistics trends and company news from the GCC's leading freight forwarder.</p>
-        <!-- Mobile Search -->
-        <div class="relative mt-md">
-          <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant text-[20px]">search</span>
-          <input id="mob-search" type="text" placeholder="Search articles..." autocomplete="off"
-            class="blog-search w-full h-12 pl-11 pr-4 bg-white rounded-xl font-body-md text-body-md text-on-surface placeholder:text-on-surface-variant border-0 shadow-lg"/>
-        </div>
-      </div>
-    </section>
-
-    <!-- Mobile: Category filter pills -->
-    <section class="px-md pt-md pb-sm overflow-x-auto">
-      <div id="mob-filter-pills" class="flex gap-sm w-max">
-        <!-- Injected by JS -->
-      </div>
-    </section>
-
-    <!-- Mobile: Post grid -->
-    <section class="px-md pt-sm pb-md">
-      <div id="mob-post-grid" class="space-y-md">
-        <!-- Injected by JS -->
-      </div>
-      <p id="mob-no-results" class="hidden text-center text-on-surface-variant py-xl font-body-md text-body-md">No posts found.</p>
-    </section>
-
-    <!-- Mobile Footer (atomic component) -->
-    <div id="mob-footer"></div>
-  </main>
+  <div id="blog-mobile-content"></div>
+  <!-- END MOBILE MAIN -->
 
   <!-- ══ MOBILE BOTTOM NAV (injected, md:hidden) ══ -->
   <div id="mob-nav"></div>
@@ -243,79 +209,11 @@
        DESKTOP LAYOUT  (visible md +)
   ════════════════════════════════════════════ -->
 
-  <!-- Desktop Hero -->
-  <section class="hidden md:block relative overflow-hidden pt-20" style="background: linear-gradient(135deg, #001945 0%, #00337d 40%, #1b4a9f 75%, #0d4297 100%);">
-    <div class="blog-hero-dots absolute inset-0 z-0"></div>
-    <!-- Decorative glow blobs -->
-    <div class="absolute top-0 right-0 w-[600px] h-[600px] rounded-full opacity-10 z-0" style="background:radial-gradient(circle, #b0c6ff 0%, transparent 70%); transform: translate(30%,-40%);"></div>
-    <div class="absolute bottom-0 left-0 w-[400px] h-[400px] rounded-full opacity-10 z-0" style="background:radial-gradient(circle, #94a2fe 0%, transparent 70%); transform: translate(-20%,30%);"></div>
-    <div class="relative z-10 max-w-container-max mx-auto px-12 py-xl">
-      <div class="max-w-3xl">
-        <span class="inline-block px-4 py-1.5 bg-white/15 backdrop-blur-md border border-white/20 rounded-full text-white font-label-sm text-label-sm mb-6 tracking-widest">INSIGHTS & NEWS</span>
-        <h1 class="font-h1 text-h1 text-white mb-6">Arkan Arabia Blog</h1>
-        <p class="font-body-lg text-body-lg text-primary-fixed-dim max-w-2xl mb-8">Industry insights, logistics trends and company news from the GCC's leading freight forwarder.</p>
-        <!-- Desktop Search -->
-        <div class="relative max-w-xl">
-          <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant text-[22px]">search</span>
-          <input id="desk-search" type="text" placeholder="Search articles..." autocomplete="off"
-            class="blog-search w-full h-14 pl-12 pr-5 bg-white rounded-xl font-body-lg text-body-lg text-on-surface placeholder:text-on-surface-variant border-0 shadow-xl"/>
-        </div>
-      </div>
-    </div>
-  </section>
+  <!-- ══════════════════════════════════════════════════════
+       DESKTOP SECTIONS (md+ only) — loaded from desktop/blog.html
+       ══════════════════════════════════════════════════════ -->
+  <div id="blog-desktop-content"></div>
 
-  <!-- Desktop: Category filter pills -->
-  <section class="hidden md:block bg-surface-container-low border-b border-outline-variant/30 sticky top-[72px] z-30">
-    <div class="max-w-container-max mx-auto px-12 py-sm">
-      <div id="desk-filter-pills" class="flex flex-wrap gap-sm">
-        <!-- Injected by JS -->
-      </div>
-    </div>
-  </section>
-
-  <!-- Desktop: Main content + Sidebar -->
-  <section class="hidden md:block py-xl max-w-container-max mx-auto px-12">
-    <div class="flex gap-xl items-start">
-
-      <!-- Main post grid (2/3) -->
-      <div class="flex-1 min-w-0">
-        <!-- Admin: New Post button injected here by JS -->
-        <div id="desk-admin-btn-area" class="mb-md"></div>
-        <div id="desk-post-grid" class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-md">
-          <!-- Injected by JS -->
-        </div>
-        <p id="desk-no-results" class="hidden text-center text-on-surface-variant py-xl font-body-md text-body-md">No posts found.</p>
-      </div>
-
-      <!-- Sidebar (1/3) -->
-      <aside class="w-80 flex-shrink-0 space-y-md sticky top-36">
-
-        <!-- Featured post -->
-        <div id="desk-featured" class="bg-surface-container-low rounded-2xl overflow-hidden shadow-sm border border-outline-variant/20">
-          <!-- Injected by JS -->
-        </div>
-
-        <!-- Categories -->
-        <div class="bg-surface-container-low rounded-2xl p-md border border-outline-variant/20 shadow-sm">
-          <h3 class="font-h3 text-[18px] font-semibold text-on-surface mb-md border-b border-outline-variant/30 pb-sm">Categories</h3>
-          <ul id="desk-categories" class="space-y-xs">
-            <!-- Injected by JS -->
-          </ul>
-        </div>
-
-        <!-- Recent posts -->
-        <div class="bg-surface-container-low rounded-2xl p-md border border-outline-variant/20 shadow-sm">
-          <h3 class="font-h3 text-[18px] font-semibold text-on-surface mb-md border-b border-outline-variant/30 pb-sm">Recent Posts</h3>
-          <ul id="desk-recent-posts" class="space-y-md">
-            <!-- Injected by JS -->
-          </ul>
-        </div>
-
-      </aside>
-    </div>
-  </section>
-
-  <!-- Desktop Footer -->
   <div id="site-footer"></div>
 
   <!-- ════════════════════════════════════════════
@@ -489,75 +387,6 @@
   // ════════════════════════════════════════════
   // BLOG DATA & STATE
   // ════════════════════════════════════════════
-  const BLOG_SEED = [
-    {
-      id:'b1',
-      title:'Navigating GCC Customs in 2024: What Every Importer Needs to Know',
-      category:'Customs & Compliance',
-      excerpt:'Customs regulations across the GCC are evolving rapidly. Here is your complete guide to staying compliant and avoiding costly delays at every border crossing.',
-      body:'The Gulf Cooperation Council has seen significant shifts in customs regulations over the past two years, driven by Saudi Vision 2030 and UAE\'s digital transformation agenda.\n\nKey Changes in 2024:\n\nElectronic Documentation: All six GCC nations now mandate digital customs declarations. Paper-based submissions are no longer accepted at major ports including Jeddah Islamic Port and Abu Dhabi Khalifa Port.\n\nHS Code Updates: The Harmonized System 2022 update introduced over 350 new commodity codes relevant to logistics and manufacturing. Ensure your team is using the correct HS codes to avoid delays.\n\nVAT on Imports: Saudi Arabia maintains its 15% VAT on most imported goods. Proper documentation including commercial invoices, packing lists, and certificates of origin is mandatory.\n\nBest Practices:\n\n1. Pre-clear your shipments electronically through FASAH in Saudi Arabia or MIRSAL2 in the UAE.\n2. Work with a licensed customs broker who understands GCC-specific regulations.\n3. Maintain a complete document archive for at least 5 years.\n4. Conduct quarterly compliance audits on your import/export procedures.\n\nArkan Arabia\'s customs team handles over 500 clearance cases monthly, with a 99.2% first-pass approval rate.',
-      coverImage:'https://images.unsplash.com/photo-1618946236955-a99d1cf11bb5?w=800&q=80',
-      date:'2024-06-15',
-      readTime:'6 min',
-      author:'Arkan Arabia Team'
-    },
-    {
-      id:'b2',
-      title:'How AI is Transforming Freight Forwarding in the Middle East',
-      category:'Technology',
-      excerpt:'Artificial intelligence is no longer a buzzword in logistics — it is the backbone of next-generation freight forwarding. Discover how Arkan Arabia is leading the digital revolution.',
-      body:'The Middle East logistics sector is undergoing a profound digital transformation, with AI and machine learning at its core.\n\nRoute Optimization:\nOur Arkan-Link AI platform analyzes over 2 million data points daily to recommend optimal shipping routes, reducing transit times by an average of 18% and fuel costs by 12%.\n\nPredictive Maintenance:\nOur fleet of 200+ trucks is equipped with IoT sensors that feed data into predictive maintenance algorithms. This has reduced unplanned breakdowns by 67% since implementation in 2022.\n\nReal-Time Visibility:\nClients can now track their shipments with GPS precision down to 10-meter accuracy. Automated alerts notify stakeholders of any deviation from the planned route or schedule.\n\nDocument Automation:\nAI-powered OCR reads and validates customs documents in seconds, a process that previously took human operators 20-30 minutes per shipment.\n\nThe Future:\nBy 2026, we expect AI to handle 80% of routine logistics decisions autonomously, freeing our human experts to focus on complex problem-solving and client relationships.',
-      coverImage:'https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&q=80',
-      date:'2024-05-28',
-      readTime:'5 min',
-      author:'Dr. Amir Rahman'
-    },
-    {
-      id:'b3',
-      title:'Saudi Vision 2030 and the Logistics Boom: Opportunities for GCC Businesses',
-      category:'GCC Markets',
-      excerpt:'Saudi Arabia\'s Vision 2030 is creating unprecedented demand for logistics services. We explore the key projects driving this growth and how businesses can capitalize.',
-      body:'Saudi Vision 2030 has set ambitious targets that are reshaping the Kingdom\'s logistics landscape from the ground up.\n\nKEOM and NEOM:\nThe NEOM megaproject alone is expected to require 50 million tons of construction materials to be transported over the next decade. This represents a generational opportunity for logistics providers with the right capabilities.\n\nKing Salman Energy Park (SPARK):\nThe 50 km² industrial city in the Eastern Province is attracting manufacturers worldwide. Each new factory creates fresh logistics demand for both inbound materials and outbound finished goods.\n\nRed Sea Development:\nThe Red Sea Project\'s 50 luxury islands and world-class resort facilities require specialized supply chain solutions for remote delivery.\n\nLogistics Infrastructure Investment:\nSaudi Arabia is investing $20 billion in logistics infrastructure through 2030, including new port expansions at Jeddah and Dammam, and a nationwide rail network expansion.\n\nHow to Position Your Business:\n- Build relationships with Vision 2030 program offices early\n- Obtain NUPCO or Aramco vendor certification if relevant to your industry\n- Partner with established local logistics providers who have existing GRO relationships\n\nArkan Arabia has already secured logistics contracts for three major Vision 2030 projects, with combined cargo volumes exceeding 400,000 TEU.',
-      coverImage:'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80',
-      date:'2024-05-10',
-      readTime:'7 min',
-      author:'Arkan Arabia Team'
-    },
-    {
-      id:'b4',
-      title:'Sustainable Logistics: Arkan Arabia\'s Green Fleet Initiative',
-      category:'Sustainability',
-      excerpt:'We are committed to reducing our carbon footprint by 40% before 2030. Here is an inside look at our Green Fleet Initiative and what it means for our clients.',
-      body:'The logistics industry accounts for approximately 8% of global CO2 emissions. At Arkan Arabia, we believe sustainable logistics is not just good for the planet — it is good for business.\n\nOur Green Fleet Initiative:\n\nElectric Vehicles: We have ordered 30 electric trucks for urban last-mile delivery in Riyadh and Jeddah, with delivery scheduled for Q3 2024.\n\nLNG-Powered Long-Haul: Twenty long-haul trucks have been converted to run on liquefied natural gas (LNG), reducing CO2 emissions by 25% per journey compared to diesel equivalents.\n\nSolar Warehouses: Our Riyadh Distribution Hub is now 60% solar-powered, with plans to achieve 100% renewable energy by 2025.\n\nCarbon Offset Program: For clients who need to offset their logistics carbon footprint, we have partnered with a certified Gold Standard carbon offset program planting mangroves in the Red Sea coast.\n\nReporting and Transparency:\nAll clients receive monthly carbon footprint reports for their shipments, enabling accurate Scope 3 emissions reporting for their sustainability disclosures.\n\nTarget: 40% reduction in fleet emissions by 2030, aligned with Saudi Green Initiative goals.',
-      coverImage:'https://images.unsplash.com/photo-1473445730015-841f29a9490b?w=800&q=80',
-      date:'2024-04-22',
-      readTime:'4 min',
-      author:'Sarah Mitchell'
-    },
-    {
-      id:'b5',
-      title:'Project Cargo Handling: Lessons from Our Largest 2024 Operation',
-      category:'Industry News',
-      excerpt:'Moving a 450-tonne petrochemical reactor from Dammam to a remote processing plant required 6 months of planning. Here is what we learned.',
-      body:'In February 2024, Arkan Arabia completed what we consider one of the most complex project cargo operations in the GCC this year: moving a 450-tonne petrochemical reactor 380 kilometers from Dammam Port to a remote processing facility in the Rub\' al Khali desert.\n\nThe Challenge:\nThe reactor measured 8.2 meters in diameter and 42 meters in length — far exceeding standard heavy-haul parameters. The desert route included two mountain passes with gradient challenges and three narrow bridges requiring structural engineering assessment.\n\nPlanning Phase (4 months):\n- Structural assessment of all 47 bridges on the route\n- Coordination with Saudi Electricity Company for 12 power line lifts\n- PDVSA-style critical path analysis with 200+ interdependencies\n- Procurement of 8 specialized Goldhofer modular trailers\n- 24/7 police escort coordination with 3 provincial governments\n\nExecution (12 days, 380km):\nThe convoy moved at 8-12 km/h through desert terrain. Real-time monitoring using satellite telemetry tracked load stress and trailer alignment continuously.\n\nResult:\nThe reactor arrived undamaged, 2 days ahead of schedule. The client reported $2.3M in savings compared to an alternative partial disassembly/sea transport option.\n\nKey Lesson: Meticulous pre-planning eliminates surprises. Every hour in planning saves ten hours in execution.',
-      coverImage:'https://images.unsplash.com/photo-1577368211130-4bbd0181ddf0?w=800&q=80',
-      date:'2024-03-15',
-      readTime:'8 min',
-      author:'Zayed Al-Mansour'
-    },
-    {
-      id:'b6',
-      title:'Arkan Arabia Named Top 10 Freight Forwarder in GCC for 2024',
-      category:'Company News',
-      excerpt:'We are proud to announce that Arkan Arabia has been recognized as a Top 10 Freight Forwarder in the GCC region by the Arabian Logistics Awards 2024.',
-      body:'We are thrilled to share that Arkan Arabia Logistics has been named one of the Top 10 Freight Forwarders in the GCC by the prestigious Arabian Logistics Awards 2024, held in Dubai on March 8, 2024.\n\nThe Award:\nThe Arabian Logistics Awards recognize excellence in supply chain management, customer service, technological innovation, and sustainability across the Gulf Cooperation Council.\n\nWhy We Won:\nThe judging panel highlighted three key factors:\n1. Our 99.2% on-time delivery rate in 2023, the highest in the category\n2. The Arkan-Link AI platform\'s impact on client supply chain efficiency\n3. Our Green Fleet Initiative as a model for sustainable logistics\n\nCEO Statement:\n\'This award belongs to our 1,200 team members across 12 countries who deliver excellence every single day,\' said Omar Al-Farsi, CEO. \'It validates our strategy of combining technology, talent, and sustainability to create logistics solutions that truly move our clients forward.\'\n\nLooking Ahead:\nWith this recognition, we are redoubling our commitment to innovation and excellence. Our 2024 investment plan includes 30 new electric vehicles, two new GCC warehousing facilities, and a major upgrade to Arkan-Link\'s predictive analytics capabilities.\n\nThank you to all our clients, partners, and team members who made this achievement possible.',
-      coverImage:'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800&q=80',
-      date:'2024-03-10',
-      readTime:'3 min',
-      author:'Omar Al-Farsi'
-    }
-  ];
-
   const CATEGORY_COLORS = {
     'Industry News':       'bg-blue-100 text-blue-800',
     'Customs & Compliance':'bg-orange-100 text-orange-800',
@@ -590,10 +419,10 @@
       const res = await fetch(API_BLOG);
       if (!res.ok) throw new Error('Failed to load posts');
       const data = await res.json();
-      allPosts = Array.isArray(data) && data.length ? data : [...BLOG_SEED];
+      allPosts = Array.isArray(data) ? data : [];
     } catch (e) {
-      allPosts = [...BLOG_SEED];
-      showToast('Using fallback blog data. Start backend for live updates.', 'warning');
+      allPosts = [];
+      showToast('Could not load blog posts. Please try again later.', 'error');
     }
   }
 
@@ -1235,9 +1064,6 @@
     searchDebounceTimer = setTimeout(() => searchPosts(e.target.value), 300);
   }
 
-  document.getElementById('mob-search').addEventListener('input', onSearchInput);
-  document.getElementById('desk-search').addEventListener('input', onSearchInput);
-
   // ════════════════════════════════════════════
   // MODAL BACKDROP CLOSE
   // ════════════════════════════════════════════
@@ -1274,6 +1100,18 @@
   // INIT
   // ════════════════════════════════════════════
   document.addEventListener('DOMContentLoaded', async () => {
+    // Load the Blog page's desktop/mobile content partials from the shared
+    // desktop/ and mobile/ folders first — everything below (search inputs,
+    // post grids, admin button area) lives inside them, so it must resolve
+    // before any of the render/search wiring below runs.
+    await Promise.all([
+      loadComponent('#blog-mobile-content', rootPath() + 'mobile/blog.html'),
+      loadComponent('#blog-desktop-content', rootPath() + 'desktop/blog.html'),
+    ]);
+
+    document.getElementById('mob-search').addEventListener('input', onSearchInput);
+    document.getElementById('desk-search').addEventListener('input', onSearchInput);
+
     await loadPosts();
     renderFilterPills();
     renderPosts();

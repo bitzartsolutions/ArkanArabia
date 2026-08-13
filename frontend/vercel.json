@@ -2,8 +2,8 @@
   "version": 2,
   "cleanUrls": true,
   "rewrites": [
-    { "source": "/", "destination": "/index.html" },
-    { "source": "/home", "destination": "/index.html" },
+    { "source": "/", "destination": "/pages/home.html" },
+    { "source": "/home", "destination": "/pages/home.html" },
     { "source": "/about", "destination": "/pages/about.html" },
     { "source": "/services", "destination": "/pages/services.html" },
     { "source": "/industries", "destination": "/pages/industries.html" },

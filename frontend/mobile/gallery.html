@@ -1,0 +1,53 @@
+<main class="md:hidden pt-[64px] pb-16">
+
+    <!-- Mobile Hero -->
+    <section class="relative bg-gradient-to-b from-primary to-primary-container overflow-hidden">
+      <div class="absolute inset-0 opacity-10" style="background-image: url('https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=1200&q=60'); background-size: cover; background-position: center;"></div>
+      <div class="relative z-10 px-md pt-xl pb-lg">
+        <span class="inline-block px-sm py-1 bg-white/15 backdrop-blur-sm border border-white/20 text-white font-label-sm text-label-sm rounded-full tracking-widest mb-md">GALLERY</span>
+        <h1 class="font-h1 text-[36px] leading-tight text-white text-shadow-sm mb-sm">Our Work<br/>in Focus</h1>
+        <p class="font-body-md text-body-md text-white/80 max-w-xs">Showcasing our fleet, warehouses, and operations across the GCC — 15+ years of logistics excellence captured in every frame.</p>
+        <!-- Stats bar -->
+        <div class="grid grid-cols-3 gap-sm mt-lg">
+          <div class="text-center bg-white/10 backdrop-blur-sm rounded-xl p-sm border border-white/15">
+            <div class="text-white font-bold text-xl">500+</div>
+            <div class="text-white/70 font-label-sm text-[11px] leading-tight mt-xs">Photos</div>
+          </div>
+          <div class="text-center bg-white/10 backdrop-blur-sm rounded-xl p-sm border border-white/15">
+            <div class="text-white font-bold text-xl">6</div>
+            <div class="text-white/70 font-label-sm text-[11px] leading-tight mt-xs">Categories</div>
+          </div>
+          <div class="text-center bg-white/10 backdrop-blur-sm rounded-xl p-sm border border-white/15">
+            <div class="text-white font-bold text-xl">15+</div>
+            <div class="text-white/70 font-label-sm text-[11px] leading-tight mt-xs">Years Ops</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Mobile Category Filter -->
+    <section class="bg-surface-container-low border-b border-outline-variant/30 sticky top-[64px] z-30">
+      <div class="flex gap-sm px-md py-sm overflow-x-auto hide-scrollbar" id="mobile-filter-tabs">
+        <button class="cat-pill active flex-shrink-0 px-md py-xs rounded-full font-label-sm text-label-sm whitespace-nowrap" onclick="filterGallery('all', this, 'mobile')">All</button>
+        <button class="cat-pill flex-shrink-0 px-md py-xs rounded-full font-label-sm text-label-sm whitespace-nowrap" onclick="filterGallery('fleet', this, 'mobile')">Fleet</button>
+        <button class="cat-pill flex-shrink-0 px-md py-xs rounded-full font-label-sm text-label-sm whitespace-nowrap" onclick="filterGallery('warehouse', this, 'mobile')">Warehouse</button>
+        <button class="cat-pill flex-shrink-0 px-md py-xs rounded-full font-label-sm text-label-sm whitespace-nowrap" onclick="filterGallery('operations', this, 'mobile')">Operations</button>
+        <button class="cat-pill flex-shrink-0 px-md py-xs rounded-full font-label-sm text-label-sm whitespace-nowrap" onclick="filterGallery('events', this, 'mobile')">Events</button>
+        <button class="cat-pill flex-shrink-0 px-md py-xs rounded-full font-label-sm text-label-sm whitespace-nowrap" onclick="filterGallery('projects', this, 'mobile')">Projects</button>
+      </div>
+    </section>
+
+    <!-- Mobile Gallery Grid -->
+    <section class="px-md py-lg">
+      <div class="gallery-grid-mobile" id="gallery-grid-mobile">
+        <!-- Rendered by JS -->
+      </div>
+      <div id="gallery-empty-mobile" class="hidden text-center py-xl text-on-surface-variant font-body-md">
+        <span class="material-symbols-outlined text-5xl block mb-sm opacity-40">photo_library</span>
+        No photos in this category yet.
+      </div>
+    </section>
+
+    <!-- Mobile Footer -->
+    <div id="mob-footer"></div>
+</main>

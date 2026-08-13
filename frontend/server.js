@@ -12,14 +12,14 @@ function resolveStaticRoot() {
     path.join(process.cwd(), 'frontend')
   ];
 
-  return candidates.find((dir) => fs.existsSync(path.join(dir, 'index.html'))) || __dirname;
+  return candidates.find((dir) => fs.existsSync(path.join(dir, 'pages', 'home.html'))) || __dirname;
 }
 
 const ROOT = resolveStaticRoot();
 
 const routes = {
-  '/': 'index.html',
-  '/home': 'index.html',
+  '/': 'pages/home.html',
+  '/home': 'pages/home.html',
   '/about': 'pages/about.html',
   '/services': 'pages/services.html',
   '/industries': 'pages/industries.html',

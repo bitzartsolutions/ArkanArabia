@@ -118,6 +118,7 @@
                 <option value="events">Events</option>
                 <option value="projects">Projects</option>
               </select>
+              <textarea id="gallery-description" rows="2" class="w-full rounded-lg border border-outline-variant px-3 py-2 resize-none" placeholder="Description (optional)"></textarea>
               <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
                 <input id="gallery-src" type="url" class="w-full h-11 rounded-lg border border-outline-variant px-3" placeholder="Image URL (optional if file)"/>
                 <input id="gallery-file" type="file" accept="image/*" class="w-full h-11 rounded-lg border border-outline-variant px-2 py-1 bg-surface-container-low"/>
@@ -357,6 +358,7 @@
 
       const title = document.getElementById('gallery-title').value.trim();
       const category = document.getElementById('gallery-category').value;
+      const description = document.getElementById('gallery-description').value.trim();
       const src = document.getElementById('gallery-src').value.trim();
       const file = document.getElementById('gallery-file').files[0];
 
@@ -370,6 +372,7 @@
         const formData = new FormData();
         formData.append('title', title);
         formData.append('category', category);
+        formData.append('description', description);
         formData.append('file', file);
         res = await fetch(API_GALLERY, {
           method: 'POST',
@@ -380,7 +383,7 @@
         res = await fetch(API_GALLERY, {
           method: 'POST',
           headers: { ...authHeaders(), 'Content-Type': 'application/json' },
-          body: JSON.stringify({ title, category, src })
+          body: JSON.stringify({ title, category, description, src })
         });
       }
 

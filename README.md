@@ -3,7 +3,7 @@
 ## Folder structure
 
 - `frontend/`
-- `frontend/index.html`
+- `frontend/pages/home.html`
 - `frontend/assets/`
 - `frontend/components/`
 - `frontend/pages/`

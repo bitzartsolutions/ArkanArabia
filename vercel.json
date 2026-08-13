@@ -2,8 +2,8 @@
   "version": 2,
   "cleanUrls": true,
   "rewrites": [
-    { "source": "/", "destination": "/frontend/index.html" },
-    { "source": "/home", "destination": "/frontend/index.html" },
+    { "source": "/", "destination": "/frontend/pages/home.html" },
+    { "source": "/home", "destination": "/frontend/pages/home.html" },
     { "source": "/about", "destination": "/frontend/pages/about.html" },
     { "source": "/services", "destination": "/frontend/pages/services.html" },
     { "source": "/industries", "destination": "/frontend/pages/industries.html" },
@@ -30,6 +30,8 @@
     { "source": "/assets/(.*)", "destination": "/frontend/assets/$1" },
     { "source": "/components/(.*)", "destination": "/frontend/components/$1" },
     { "source": "/pages/(.*)", "destination": "/frontend/pages/$1" },
+    { "source": "/desktop/(.*)", "destination": "/frontend/desktop/$1" },
+    { "source": "/mobile/(.*)", "destination": "/frontend/mobile/$1" },
     { "source": "/login/(.*)", "destination": "/frontend/login/$1" },
     { "source": "/favicon.ico", "destination": "/frontend/favicon.ico" }
   ]

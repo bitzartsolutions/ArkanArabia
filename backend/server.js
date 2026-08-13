@@ -342,6 +342,7 @@ app.post('/api/gallery', authMiddleware, uploadGallery.single('file'), async (re
   const gallery = await readJson(GALLERY_FILE);
   const title = String(req.body?.title || '').trim();
   const category = String(req.body?.category || '').trim();
+  const description = String(req.body?.description || '').trim();
   const srcFromBody = String(req.body?.src || '').trim();
 
   if (!title || !category) {
@@ -368,7 +369,8 @@ app.post('/api/gallery', authMiddleware, uploadGallery.single('file'), async (re
     id: `g${Date.now()}`,
     src,
     category,
-    title
+    title,
+    description
   };
 
   gallery.push(item);
