@@ -10,6 +10,7 @@ const jwt = require('jsonwebtoken');
 const cloudinary = require('cloudinary').v2;
 const { CloudinaryStorage } = require('multer-storage-cloudinary');
 require('dotenv').config({ path: path.join(__dirname, '.env') });
+const db = require('./db');
 
 const app = express();
 const PORT = process.env.PORT || 4000;
@@ -40,17 +41,10 @@ const CLOUDINARY_API_SECRET = String(process.env.CLOUDINARY_API_SECRET || '').tr
 const BACKEND_DIR = __dirname;
 const IS_VERCEL = Boolean(process.env.VERCEL);
 // The deployed bundle is read-only on Vercel (writes there hang rather than
-// erroring). /tmp is the only writable path, so redirect data/uploads there
-// when running on Vercel. NOTE: /tmp is wiped between cold starts and isn't
-// shared across instances, so this is a stopgap to stop requests from
-// hanging/timing out — it does not make admin edits durably persistent.
-// The bundled files under BACKEND_DIR/data still ship with the deployment
-// and are used to seed /tmp on first read/write of a given instance.
-const SOURCE_DATA_DIR = path.join(BACKEND_DIR, 'data');
-const DATA_DIR = IS_VERCEL ? '/tmp/data' : SOURCE_DATA_DIR;
+// erroring), so local disk can only be used for scratch space, never as the
+// source of truth. Gallery/blog records live in Postgres (see db.js) so they
+// persist reliably across cold starts and across Vercel's many instances.
 const UPLOADS_DIR = IS_VERCEL ? '/tmp/uploads' : path.join(BACKEND_DIR, 'uploads');
-const GALLERY_FILE = path.join(DATA_DIR, 'gallery.json');
-const BLOG_FILE = path.join(DATA_DIR, 'blog.json');
 
 const MAX_UPLOAD_SIZE_BYTES = 8 * 1024 * 1024;
 let inquiryTransporter = null;
@@ -197,46 +191,8 @@ function normalizeLegacyUploadUrl(req, value) {
 }
 
 async function ensurePath() {
-  await fs.mkdir(DATA_DIR, { recursive: true });
   await fs.mkdir(path.join(UPLOADS_DIR, 'gallery'), { recursive: true });
   await fs.mkdir(path.join(UPLOADS_DIR, 'blog'), { recursive: true });
-}
-
-async function ensureTmpSeed(filePath) {
-  if (!IS_VERCEL) return;
-
-  try {
-    await fs.access(filePath);
-    return;
-  } catch {
-    // Not yet present in this instance's /tmp — seed it from the bundled
-    // read-only copy that shipped with the deployment, if any.
-  }
-
-  await fs.mkdir(path.dirname(filePath), { recursive: true });
-
-  const seedPath = path.join(SOURCE_DATA_DIR, path.basename(filePath));
-  try {
-    const seed = await fs.readFile(seedPath, 'utf-8');
-    await fs.writeFile(filePath, seed);
-  } catch {
-    await fs.writeFile(filePath, '[]');
-  }
-}
-
-async function readJson(filePath) {
-  await ensureTmpSeed(filePath);
-  try {
-    const raw = await fs.readFile(filePath, 'utf-8');
-    return JSON.parse(raw);
-  } catch {
-    return [];
-  }
-}
-
-async function writeJson(filePath, data) {
-  await ensureTmpSeed(filePath);
-  await fs.writeFile(filePath, JSON.stringify(data, null, 2));
 }
 
 async function optimizeUploadedImage(filePath, type) {
@@ -368,7 +324,7 @@ app.post('/api/admin/logout', authMiddleware, (req, res) => {
 });
 
 app.get('/api/gallery', async (req, res) => {
-  const gallery = await readJson(GALLERY_FILE);
+  const gallery = await db.getAllGallery();
   const normalized = gallery.map((item) => ({
     ...item,
     src: normalizeLegacyUploadUrl(req, item.src)
@@ -377,7 +333,6 @@ app.get('/api/gallery', async (req, res) => {
 });
 
 app.post('/api/gallery', authMiddleware, uploadGallery.single('file'), async (req, res) => {
-  const gallery = await readJson(GALLERY_FILE);
   const title = String(req.body?.title || '').trim();
   const category = String(req.body?.category || '').trim();
   const description = String(req.body?.description || '').trim();
@@ -411,26 +366,22 @@ app.post('/api/gallery', authMiddleware, uploadGallery.single('file'), async (re
     description
   };
 
-  gallery.push(item);
-  await writeJson(GALLERY_FILE, gallery);
+  await db.insertGallery(item);
   res.status(201).json(item);
 });
 
 app.delete('/api/gallery/:id', authMiddleware, async (req, res) => {
-  const gallery = await readJson(GALLERY_FILE);
-  const before = gallery.length;
-  const next = gallery.filter((item) => item.id !== req.params.id);
+  const deleted = await db.deleteGallery(req.params.id);
 
-  if (next.length === before) {
+  if (!deleted) {
     return res.status(404).json({ error: 'Photo not found' });
   }
 
-  await writeJson(GALLERY_FILE, next);
   res.json({ ok: true });
 });
 
 app.get('/api/blog', async (req, res) => {
-  const posts = await readJson(BLOG_FILE);
+  const posts = await db.getAllBlog();
   const normalized = posts.map((post) => ({
     ...post,
     coverImage: normalizeLegacyUploadUrl(req, post.coverImage)
@@ -439,7 +390,6 @@ app.get('/api/blog', async (req, res) => {
 });
 
 app.post('/api/blog', authMiddleware, uploadBlog.single('coverFile'), async (req, res) => {
-  const posts = await readJson(BLOG_FILE);
   const title = String(req.body?.title || '').trim();
   const category = String(req.body?.category || '').trim();
 
@@ -471,20 +421,17 @@ app.post('/api/blog', authMiddleware, uploadBlog.single('coverFile'), async (req
     date: new Date().toISOString().split('T')[0]
   };
 
-  posts.unshift(post);
-  await writeJson(BLOG_FILE, posts);
+  await db.insertBlog(post);
   res.status(201).json(post);
 });
 
 app.put('/api/blog/:id', authMiddleware, uploadBlog.single('coverFile'), async (req, res) => {
-  const posts = await readJson(BLOG_FILE);
-  const idx = posts.findIndex((p) => p.id === req.params.id);
+  const current = await db.getBlogById(req.params.id);
 
-  if (idx === -1) {
+  if (!current) {
     return res.status(404).json({ error: 'Post not found' });
   }
 
-  const current = posts[idx];
   let coverImage = String(req.body?.coverImage || '').trim();
 
   if (req.file) {
@@ -509,21 +456,17 @@ app.put('/api/blog/:id', authMiddleware, uploadBlog.single('coverFile'), async (
     coverImage: coverImage || current.coverImage
   };
 
-  posts[idx] = updated;
-  await writeJson(BLOG_FILE, posts);
+  await db.updateBlog(req.params.id, updated);
   res.json(updated);
 });
 
 app.delete('/api/blog/:id', authMiddleware, async (req, res) => {
-  const posts = await readJson(BLOG_FILE);
-  const before = posts.length;
-  const next = posts.filter((p) => p.id !== req.params.id);
+  const deleted = await db.deleteBlog(req.params.id);
 
-  if (next.length === before) {
+  if (!deleted) {
     return res.status(404).json({ error: 'Post not found' });
   }
 
-  await writeJson(BLOG_FILE, next);
   res.json({ ok: true });
 });
 
@@ -620,14 +563,6 @@ module.exports = app;
 if (!process.env.VERCEL) {
   ensurePath()
     .then(async () => {
-      const [galleryExists, blogExists] = await Promise.all([
-        fs.access(GALLERY_FILE).then(() => true).catch(() => false),
-        fs.access(BLOG_FILE).then(() => true).catch(() => false)
-      ]);
-
-      if (!galleryExists) await writeJson(GALLERY_FILE, []);
-      if (!blogExists) await writeJson(BLOG_FILE, []);
-
       const server = app.listen(PORT, () => {
         console.log(`Arkan Arabia backend running on http://localhost:${PORT}`);
       });
