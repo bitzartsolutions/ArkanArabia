@@ -123,7 +123,7 @@
                 <input id="gallery-src" type="url" class="w-full h-11 rounded-lg border border-outline-variant px-3" placeholder="Image URL (optional if file)"/>
                 <input id="gallery-file" type="file" accept="image/*" class="w-full h-11 rounded-lg border border-outline-variant px-2 py-1 bg-surface-container-low"/>
               </div>
-              <button type="submit" class="h-11 px-4 rounded-lg bg-success text-white font-semibold">Add Photo</button>
+              <button id="gallery-save-btn" type="submit" class="h-11 px-4 rounded-lg bg-success text-white font-semibold">Add Photo</button>
             </form>
 
             <div class="bg-white rounded-xl border border-outline-variant/60 p-4">
@@ -367,40 +367,52 @@
         return;
       }
 
-      let res;
-      if (file) {
-        const formData = new FormData();
-        formData.append('title', title);
-        formData.append('category', category);
-        formData.append('description', description);
-        formData.append('file', file);
-        res = await fetch(API_GALLERY, {
-          method: 'POST',
-          headers: authHeaders(),
-          body: formData
-        });
-      } else {
-        res = await fetch(API_GALLERY, {
-          method: 'POST',
-          headers: { ...authHeaders(), 'Content-Type': 'application/json' },
-          body: JSON.stringify({ title, category, description, src })
-        });
-      }
+      const btn = document.getElementById('gallery-save-btn');
+      const originalText = btn.textContent;
+      btn.disabled = true;
+      btn.textContent = 'Adding...';
 
-      if (res.status === 401) {
-        await logoutAdmin();
-        setMessage('Session expired. Please login again.', true);
-        return;
-      }
+      try {
+        let res;
+        if (file) {
+          const formData = new FormData();
+          formData.append('title', title);
+          formData.append('category', category);
+          formData.append('description', description);
+          formData.append('file', file);
+          res = await fetch(API_GALLERY, {
+            method: 'POST',
+            headers: authHeaders(),
+            body: formData
+          });
+        } else {
+          res = await fetch(API_GALLERY, {
+            method: 'POST',
+            headers: { ...authHeaders(), 'Content-Type': 'application/json' },
+            body: JSON.stringify({ title, category, description, src })
+          });
+        }
 
-      if (!res.ok) {
-        setMessage('Could not add gallery item.', true);
-        return;
-      }
+        if (res.status === 401) {
+          await logoutAdmin();
+          setMessage('Session expired. Please login again.', true);
+          return;
+        }
 
-      document.getElementById('gallery-form').reset();
-      await loadData();
-      setMessage('Gallery photo added.', false);
+        if (!res.ok) {
+          setMessage('Could not add gallery item.', true);
+          return;
+        }
+
+        document.getElementById('gallery-form').reset();
+        await loadData();
+        setMessage('Gallery photo added.', false);
+      } catch (err) {
+        setMessage('Could not add gallery item. Check your connection.', true);
+      } finally {
+        btn.disabled = false;
+        btn.textContent = originalText;
+      }
     }
 
     async function submitBlogForm(e) {
@@ -428,43 +440,57 @@
       const endpoint = id ? `${API_BLOG}/${id}` : API_BLOG;
       const method = id ? 'PUT' : 'POST';
 
-      let res;
-      if (coverFile) {
-        const formData = new FormData();
-        formData.append('title', title);
-        formData.append('category', category);
-        formData.append('excerpt', excerpt);
-        formData.append('body', body);
-        formData.append('author', author);
-        formData.append('readTime', readTime);
-        formData.append('coverFile', coverFile);
-        res = await fetch(endpoint, {
-          method,
-          headers: authHeaders(),
-          body: formData
-        });
-      } else {
-        res = await fetch(endpoint, {
-          method,
-          headers: { ...authHeaders(), 'Content-Type': 'application/json' },
-          body: JSON.stringify({ title, category, excerpt, body, author, readTime, coverImage })
-        });
-      }
+      const btn = document.getElementById('blog-save-btn');
+      const originalText = btn.textContent;
+      btn.disabled = true;
+      btn.textContent = id ? 'Updating...' : 'Publishing...';
+      let saved = false;
 
-      if (res.status === 401) {
-        await logoutAdmin();
-        setMessage('Session expired. Please login again.', true);
-        return;
-      }
+      try {
+        let res;
+        if (coverFile) {
+          const formData = new FormData();
+          formData.append('title', title);
+          formData.append('category', category);
+          formData.append('excerpt', excerpt);
+          formData.append('body', body);
+          formData.append('author', author);
+          formData.append('readTime', readTime);
+          formData.append('coverFile', coverFile);
+          res = await fetch(endpoint, {
+            method,
+            headers: authHeaders(),
+            body: formData
+          });
+        } else {
+          res = await fetch(endpoint, {
+            method,
+            headers: { ...authHeaders(), 'Content-Type': 'application/json' },
+            body: JSON.stringify({ title, category, excerpt, body, author, readTime, coverImage })
+          });
+        }
 
-      if (!res.ok) {
-        setMessage('Could not save blog post.', true);
-        return;
-      }
+        if (res.status === 401) {
+          await logoutAdmin();
+          setMessage('Session expired. Please login again.', true);
+          return;
+        }
 
-      resetBlogForm();
-      await loadData();
-      setMessage(id ? 'Blog post updated.' : 'Blog post published.', false);
+        if (!res.ok) {
+          setMessage('Could not save blog post.', true);
+          return;
+        }
+
+        resetBlogForm();
+        await loadData();
+        setMessage(id ? 'Blog post updated.' : 'Blog post published.', false);
+        saved = true;
+      } catch (err) {
+        setMessage('Could not save blog post. Check your connection.', true);
+      } finally {
+        btn.disabled = false;
+        if (!saved) btn.textContent = originalText;
+      }
     }
 
     async function deleteGallery(id) {

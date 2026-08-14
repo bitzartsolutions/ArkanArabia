@@ -900,6 +900,11 @@
         return;
       }
 
+      const btn = document.getElementById('add-photo-btn');
+      const originalText = btn.textContent;
+      btn.disabled = true;
+      btn.textContent = 'Adding...';
+
       try {
         let res;
         if (currentImgTab === 'url') {
@@ -962,6 +967,9 @@
       } catch (e) {
         errMsg.textContent = 'Backend unavailable. Start server and try again.';
         errEl.classList.remove('hidden');
+      } finally {
+        btn.disabled = false;
+        btn.textContent = originalText;
       }
     }
 
