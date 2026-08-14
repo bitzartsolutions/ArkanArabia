@@ -34,8 +34,17 @@ const CLOUDINARY_API_KEY = String(process.env.CLOUDINARY_API_KEY || '').trim();
 const CLOUDINARY_API_SECRET = String(process.env.CLOUDINARY_API_SECRET || '').trim();
 
 const BACKEND_DIR = __dirname;
-const DATA_DIR = path.join(BACKEND_DIR, 'data');
-const UPLOADS_DIR = path.join(BACKEND_DIR, 'uploads');
+const IS_VERCEL = Boolean(process.env.VERCEL);
+// The deployed bundle is read-only on Vercel (writes there hang rather than
+// erroring). /tmp is the only writable path, so redirect data/uploads there
+// when running on Vercel. NOTE: /tmp is wiped between cold starts and isn't
+// shared across instances, so this is a stopgap to stop requests from
+// hanging/timing out — it does not make admin edits durably persistent.
+// The bundled files under BACKEND_DIR/data still ship with the deployment
+// and are used to seed /tmp on first read/write of a given instance.
+const SOURCE_DATA_DIR = path.join(BACKEND_DIR, 'data');
+const DATA_DIR = IS_VERCEL ? '/tmp/data' : SOURCE_DATA_DIR;
+const UPLOADS_DIR = IS_VERCEL ? '/tmp/uploads' : path.join(BACKEND_DIR, 'uploads');
 const GALLERY_FILE = path.join(DATA_DIR, 'gallery.json');
 const BLOG_FILE = path.join(DATA_DIR, 'blog.json');
 
@@ -91,7 +100,10 @@ const blogCloudinaryStorage = new CloudinaryStorage({
 
 // Local disk storage for gallery (fallback)
 const galleryDiskStorage = multer.diskStorage({
-  destination: (_req, _file, cb) => cb(null, path.join(UPLOADS_DIR, 'gallery')),
+  destination: (_req, _file, cb) => {
+    const dir = path.join(UPLOADS_DIR, 'gallery');
+    fs.mkdir(dir, { recursive: true }).then(() => cb(null, dir)).catch((err) => cb(err));
+  },
   filename: (_req, file, cb) => {
     const ext = path.extname(file.originalname || '').toLowerCase() || '.jpg';
     cb(null, `gallery-${Date.now()}-${crypto.randomUUID()}${ext}`);
@@ -100,7 +112,10 @@ const galleryDiskStorage = multer.diskStorage({
 
 // Local disk storage for blog (fallback)
 const blogDiskStorage = multer.diskStorage({
-  destination: (_req, _file, cb) => cb(null, path.join(UPLOADS_DIR, 'blog')),
+  destination: (_req, _file, cb) => {
+    const dir = path.join(UPLOADS_DIR, 'blog');
+    fs.mkdir(dir, { recursive: true }).then(() => cb(null, dir)).catch((err) => cb(err));
+  },
   filename: (_req, file, cb) => {
     const ext = path.extname(file.originalname || '').toLowerCase() || '.jpg';
     cb(null, `blog-${Date.now()}-${crypto.randomUUID()}${ext}`);
@@ -184,7 +199,30 @@ async function ensurePath() {
   await fs.mkdir(path.join(UPLOADS_DIR, 'blog'), { recursive: true });
 }
 
+async function ensureTmpSeed(filePath) {
+  if (!IS_VERCEL) return;
+
+  try {
+    await fs.access(filePath);
+    return;
+  } catch {
+    // Not yet present in this instance's /tmp — seed it from the bundled
+    // read-only copy that shipped with the deployment, if any.
+  }
+
+  await fs.mkdir(path.dirname(filePath), { recursive: true });
+
+  const seedPath = path.join(SOURCE_DATA_DIR, path.basename(filePath));
+  try {
+    const seed = await fs.readFile(seedPath, 'utf-8');
+    await fs.writeFile(filePath, seed);
+  } catch {
+    await fs.writeFile(filePath, '[]');
+  }
+}
+
 async function readJson(filePath) {
+  await ensureTmpSeed(filePath);
   try {
     const raw = await fs.readFile(filePath, 'utf-8');
     return JSON.parse(raw);
@@ -194,6 +232,7 @@ async function readJson(filePath) {
 }
 
 async function writeJson(filePath, data) {
+  await ensureTmpSeed(filePath);
   await fs.writeFile(filePath, JSON.stringify(data, null, 2));
 }
 
