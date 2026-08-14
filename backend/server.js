@@ -8,7 +8,6 @@ const sharp = require('sharp');
 const nodemailer = require('nodemailer');
 const jwt = require('jsonwebtoken');
 const cloudinary = require('cloudinary').v2;
-const { CloudinaryStorage } = require('multer-storage-cloudinary');
 require('dotenv').config({ path: path.join(__dirname, '.env') });
 const db = require('./db');
 
@@ -69,31 +68,31 @@ function imageFileFilter(_req, file, cb) {
   cb(null, true);
 }
 
-// Cloudinary storage for gallery
-const galleryCloudinaryStorage = new CloudinaryStorage({
-  cloudinary: cloudinary,
-  params: {
-    folder: 'arkan-arabia/gallery',
-    allowed_formats: ['jpg', 'jpeg', 'png', 'webp', 'gif'],
-    transformation: [
-      { width: 1080, height: 1080, crop: 'fill', gravity: 'auto' },
-      { quality: 'auto:good', fetch_format: 'auto' }
-    ]
-  }
-});
+// Uploads a buffer to Cloudinary directly (bypassing multer-storage-cloudinary,
+// whose internal stream handling has produced unhandled promise rejections that
+// crash the whole serverless function instead of surfacing a normal error).
+function uploadBufferToCloudinary(buffer, folder) {
+  return new Promise((resolve, reject) => {
+    const stream = cloudinary.uploader.upload_stream(
+      {
+        folder,
+        allowed_formats: ['jpg', 'jpeg', 'png', 'webp', 'gif'],
+        transformation: [
+          { width: 1080, height: 1080, crop: 'fill', gravity: 'auto' },
+          { quality: 'auto:good', fetch_format: 'auto' }
+        ]
+      },
+      (err, result) => {
+        if (err) reject(err);
+        else resolve(result);
+      }
+    );
+    stream.end(buffer);
+  });
+}
 
-// Cloudinary storage for blog
-const blogCloudinaryStorage = new CloudinaryStorage({
-  cloudinary: cloudinary,
-  params: {
-    folder: 'arkan-arabia/blog',
-    allowed_formats: ['jpg', 'jpeg', 'png', 'webp', 'gif'],
-    transformation: [
-      { width: 1080, height: 1080, crop: 'fill', gravity: 'auto' },
-      { quality: 'auto:good', fetch_format: 'auto' }
-    ]
-  }
-});
+const galleryMemoryStorage = multer.memoryStorage();
+const blogMemoryStorage = multer.memoryStorage();
 
 // Local disk storage for gallery (fallback)
 const galleryDiskStorage = multer.diskStorage({
@@ -120,8 +119,8 @@ const blogDiskStorage = multer.diskStorage({
 });
 
 // Choose storage based on configuration
-const galleryStorage = USE_CLOUDINARY && CLOUDINARY_CLOUD_NAME ? galleryCloudinaryStorage : galleryDiskStorage;
-const blogStorage = USE_CLOUDINARY && CLOUDINARY_CLOUD_NAME ? blogCloudinaryStorage : blogDiskStorage;
+const galleryStorage = USE_CLOUDINARY && CLOUDINARY_CLOUD_NAME ? galleryMemoryStorage : galleryDiskStorage;
+const blogStorage = USE_CLOUDINARY && CLOUDINARY_CLOUD_NAME ? blogMemoryStorage : blogDiskStorage;
 
 const uploadGallery = multer({
   storage: galleryStorage,
@@ -324,150 +323,185 @@ app.post('/api/admin/logout', authMiddleware, (req, res) => {
 });
 
 app.get('/api/gallery', async (req, res) => {
-  const gallery = await db.getAllGallery();
-  const normalized = gallery.map((item) => ({
-    ...item,
-    src: normalizeLegacyUploadUrl(req, item.src)
-  }));
-  res.json(normalized);
+  try {
+    const gallery = await db.getAllGallery();
+    const normalized = gallery.map((item) => ({
+      ...item,
+      src: normalizeLegacyUploadUrl(req, item.src)
+    }));
+    res.json(normalized);
+  } catch (err) {
+    console.error('Failed to load gallery:', err);
+    res.status(500).json({ error: 'Could not load gallery.' });
+  }
 });
 
 app.post('/api/gallery', authMiddleware, uploadGallery.single('file'), async (req, res) => {
-  const title = String(req.body?.title || '').trim();
-  const category = String(req.body?.category || '').trim();
-  const description = String(req.body?.description || '').trim();
-  const srcFromBody = String(req.body?.src || '').trim();
+  try {
+    const title = String(req.body?.title || '').trim();
+    const category = String(req.body?.category || '').trim();
+    const description = String(req.body?.description || '').trim();
+    const srcFromBody = String(req.body?.src || '').trim();
 
-  if (!title || !category) {
-    return res.status(400).json({ error: 'Title and category are required' });
-  }
-
-  let src = srcFromBody;
-  if (req.file) {
-    if (USE_CLOUDINARY && req.file.path) {
-      // Cloudinary returns the full URL in req.file.path
-      src = req.file.path;
-    } else {
-      // Local storage - optimize and get public path
-      const optimizedPath = await optimizeUploadedImage(req.file.path, 'gallery');
-      src = toPublicUploadPath(req, optimizedPath);
+    if (!title || !category) {
+      return res.status(400).json({ error: 'Title and category are required' });
     }
+
+    let src = srcFromBody;
+    if (req.file) {
+      if (USE_CLOUDINARY && CLOUDINARY_CLOUD_NAME) {
+        const uploaded = await uploadBufferToCloudinary(req.file.buffer, 'arkan-arabia/gallery');
+        src = uploaded.secure_url;
+      } else {
+        // Local storage - optimize and get public path
+        const optimizedPath = await optimizeUploadedImage(req.file.path, 'gallery');
+        src = toPublicUploadPath(req, optimizedPath);
+      }
+    }
+
+    if (!src) {
+      return res.status(400).json({ error: 'Image source is required' });
+    }
+
+    const item = {
+      id: `g${Date.now()}`,
+      src,
+      category,
+      title,
+      description
+    };
+
+    await db.insertGallery(item);
+    res.status(201).json(item);
+  } catch (err) {
+    console.error('Failed to add gallery item:', err);
+    res.status(500).json({ error: 'Could not add gallery item.' });
   }
-
-  if (!src) {
-    return res.status(400).json({ error: 'Image source is required' });
-  }
-
-  const item = {
-    id: `g${Date.now()}`,
-    src,
-    category,
-    title,
-    description
-  };
-
-  await db.insertGallery(item);
-  res.status(201).json(item);
 });
 
 app.delete('/api/gallery/:id', authMiddleware, async (req, res) => {
-  const deleted = await db.deleteGallery(req.params.id);
+  try {
+    const deleted = await db.deleteGallery(req.params.id);
 
-  if (!deleted) {
-    return res.status(404).json({ error: 'Photo not found' });
+    if (!deleted) {
+      return res.status(404).json({ error: 'Photo not found' });
+    }
+
+    res.json({ ok: true });
+  } catch (err) {
+    console.error('Failed to delete gallery item:', err);
+    res.status(500).json({ error: 'Could not delete gallery item.' });
   }
-
-  res.json({ ok: true });
 });
 
 app.get('/api/blog', async (req, res) => {
-  const posts = await db.getAllBlog();
-  const normalized = posts.map((post) => ({
-    ...post,
-    coverImage: normalizeLegacyUploadUrl(req, post.coverImage)
-  }));
-  res.json(normalized);
+  try {
+    const posts = await db.getAllBlog();
+    const normalized = posts.map((post) => ({
+      ...post,
+      coverImage: normalizeLegacyUploadUrl(req, post.coverImage)
+    }));
+    res.json(normalized);
+  } catch (err) {
+    console.error('Failed to load blog posts:', err);
+    res.status(500).json({ error: 'Could not load blog posts.' });
+  }
 });
 
 app.post('/api/blog', authMiddleware, uploadBlog.single('coverFile'), async (req, res) => {
-  const title = String(req.body?.title || '').trim();
-  const category = String(req.body?.category || '').trim();
+  try {
+    const title = String(req.body?.title || '').trim();
+    const category = String(req.body?.category || '').trim();
 
-  if (!title || !category) {
-    return res.status(400).json({ error: 'Title and category are required' });
-  }
-
-  let coverImage = String(req.body?.coverImage || '').trim();
-  if (req.file) {
-    if (USE_CLOUDINARY && req.file.path) {
-      // Cloudinary returns the full URL in req.file.path
-      coverImage = req.file.path;
-    } else {
-      // Local storage - optimize and get public path
-      const optimizedPath = await optimizeUploadedImage(req.file.path, 'blog');
-      coverImage = toPublicUploadPath(req, optimizedPath);
+    if (!title || !category) {
+      return res.status(400).json({ error: 'Title and category are required' });
     }
+
+    let coverImage = String(req.body?.coverImage || '').trim();
+    if (req.file) {
+      if (USE_CLOUDINARY && CLOUDINARY_CLOUD_NAME) {
+        const uploaded = await uploadBufferToCloudinary(req.file.buffer, 'arkan-arabia/blog');
+        coverImage = uploaded.secure_url;
+      } else {
+        // Local storage - optimize and get public path
+        const optimizedPath = await optimizeUploadedImage(req.file.path, 'blog');
+        coverImage = toPublicUploadPath(req, optimizedPath);
+      }
+    }
+
+    const post = {
+      id: `b${Date.now()}`,
+      title,
+      category,
+      excerpt: String(req.body?.excerpt || '').trim(),
+      body: String(req.body?.body || '').trim(),
+      author: String(req.body?.author || 'Arkan Arabia Team').trim() || 'Arkan Arabia Team',
+      readTime: String(req.body?.readTime || '5 min').trim() || '5 min',
+      coverImage,
+      date: new Date().toISOString().split('T')[0]
+    };
+
+    await db.insertBlog(post);
+    res.status(201).json(post);
+  } catch (err) {
+    console.error('Failed to add blog post:', err);
+    res.status(500).json({ error: 'Could not add blog post.' });
   }
-
-  const post = {
-    id: `b${Date.now()}`,
-    title,
-    category,
-    excerpt: String(req.body?.excerpt || '').trim(),
-    body: String(req.body?.body || '').trim(),
-    author: String(req.body?.author || 'Arkan Arabia Team').trim() || 'Arkan Arabia Team',
-    readTime: String(req.body?.readTime || '5 min').trim() || '5 min',
-    coverImage,
-    date: new Date().toISOString().split('T')[0]
-  };
-
-  await db.insertBlog(post);
-  res.status(201).json(post);
 });
 
 app.put('/api/blog/:id', authMiddleware, uploadBlog.single('coverFile'), async (req, res) => {
-  const current = await db.getBlogById(req.params.id);
+  try {
+    const current = await db.getBlogById(req.params.id);
 
-  if (!current) {
-    return res.status(404).json({ error: 'Post not found' });
-  }
-
-  let coverImage = String(req.body?.coverImage || '').trim();
-
-  if (req.file) {
-    if (USE_CLOUDINARY && req.file.path) {
-      // Cloudinary returns the full URL in req.file.path
-      coverImage = req.file.path;
-    } else {
-      // Local storage - optimize and get public path
-      const optimizedPath = await optimizeUploadedImage(req.file.path, 'blog');
-      coverImage = toPublicUploadPath(req, optimizedPath);
+    if (!current) {
+      return res.status(404).json({ error: 'Post not found' });
     }
+
+    let coverImage = String(req.body?.coverImage || '').trim();
+
+    if (req.file) {
+      if (USE_CLOUDINARY && CLOUDINARY_CLOUD_NAME) {
+        const uploaded = await uploadBufferToCloudinary(req.file.buffer, 'arkan-arabia/blog');
+        coverImage = uploaded.secure_url;
+      } else {
+        // Local storage - optimize and get public path
+        const optimizedPath = await optimizeUploadedImage(req.file.path, 'blog');
+        coverImage = toPublicUploadPath(req, optimizedPath);
+      }
+    }
+
+    const updated = {
+      ...current,
+      title: String(req.body?.title || current.title).trim(),
+      category: String(req.body?.category || current.category).trim(),
+      excerpt: String(req.body?.excerpt || '').trim(),
+      body: String(req.body?.body || '').trim(),
+      author: String(req.body?.author || current.author || 'Arkan Arabia Team').trim() || 'Arkan Arabia Team',
+      readTime: String(req.body?.readTime || current.readTime || '5 min').trim() || '5 min',
+      coverImage: coverImage || current.coverImage
+    };
+
+    await db.updateBlog(req.params.id, updated);
+    res.json(updated);
+  } catch (err) {
+    console.error('Failed to update blog post:', err);
+    res.status(500).json({ error: 'Could not update blog post.' });
   }
-
-  const updated = {
-    ...current,
-    title: String(req.body?.title || current.title).trim(),
-    category: String(req.body?.category || current.category).trim(),
-    excerpt: String(req.body?.excerpt || '').trim(),
-    body: String(req.body?.body || '').trim(),
-    author: String(req.body?.author || current.author || 'Arkan Arabia Team').trim() || 'Arkan Arabia Team',
-    readTime: String(req.body?.readTime || current.readTime || '5 min').trim() || '5 min',
-    coverImage: coverImage || current.coverImage
-  };
-
-  await db.updateBlog(req.params.id, updated);
-  res.json(updated);
 });
 
 app.delete('/api/blog/:id', authMiddleware, async (req, res) => {
-  const deleted = await db.deleteBlog(req.params.id);
+  try {
+    const deleted = await db.deleteBlog(req.params.id);
 
-  if (!deleted) {
-    return res.status(404).json({ error: 'Post not found' });
+    if (!deleted) {
+      return res.status(404).json({ error: 'Post not found' });
+    }
+
+    res.json({ ok: true });
+  } catch (err) {
+    console.error('Failed to delete blog post:', err);
+    res.status(500).json({ error: 'Could not delete blog post.' });
   }
-
-  res.json({ ok: true });
 });
 
 app.post('/api/inquiries', async (req, res) => {
