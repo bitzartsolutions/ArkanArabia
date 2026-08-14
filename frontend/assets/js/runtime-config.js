@@ -22,7 +22,7 @@
     }
 
     if (isVercelHost) {
-      return 'https://arkanarabia.onrender.com';
+      return 'https://arkan-arabia-backend.vercel.app';
     }
 
     // In production, default to same-origin so /api can be reverse-proxied.
