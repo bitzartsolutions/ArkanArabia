@@ -6,6 +6,7 @@ const multer = require('multer');
 const cors = require('cors');
 const sharp = require('sharp');
 const nodemailer = require('nodemailer');
+const jwt = require('jsonwebtoken');
 const cloudinary = require('cloudinary').v2;
 const { CloudinaryStorage } = require('multer-storage-cloudinary');
 require('dotenv').config({ path: path.join(__dirname, '.env') });
@@ -20,6 +21,9 @@ const ADMIN_USERNAME = String(process.env.ADMIN_USERNAME || 'admin').trim();
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'arkan2026';
 const ADMIN_REQUIRE_USERNAME = String(process.env.ADMIN_REQUIRE_USERNAME || 'false').toLowerCase() === 'true';
 const TOKEN_TTL_MS = 8 * 60 * 60 * 1000;
+// Falls back to ADMIN_PASSWORD if JWT_SECRET isn't set so this works without
+// extra config, but set a dedicated JWT_SECRET env var for real deployments.
+const JWT_SECRET = String(process.env.JWT_SECRET || ADMIN_PASSWORD || 'arkan-arabia-dev-secret').trim();
 const INQUIRY_TO_EMAIL = String(process.env.INQUIRY_TO_EMAIL || 'info@arkanarabialogistics.com').trim() || 'info@arkanarabialogistics.com';
 const SMTP_HOST = String(process.env.SMTP_HOST || '').trim();
 const SMTP_PORT = Number.parseInt(String(process.env.SMTP_PORT || '587').trim(), 10) || 587;
@@ -48,7 +52,6 @@ const UPLOADS_DIR = IS_VERCEL ? '/tmp/uploads' : path.join(BACKEND_DIR, 'uploads
 const GALLERY_FILE = path.join(DATA_DIR, 'gallery.json');
 const BLOG_FILE = path.join(DATA_DIR, 'blog.json');
 
-const activeTokens = new Map();
 const MAX_UPLOAD_SIZE_BYTES = 8 * 1024 * 1024;
 let inquiryTransporter = null;
 
@@ -254,24 +257,22 @@ async function optimizeUploadedImage(filePath, type) {
 }
 
 function issueToken() {
-  const token = crypto.randomUUID();
-  activeTokens.set(token, Date.now() + TOKEN_TTL_MS);
-  return token;
+  return jwt.sign({ role: 'admin' }, JWT_SECRET, { expiresIn: Math.floor(TOKEN_TTL_MS / 1000) });
 }
 
 function authMiddleware(req, res, next) {
   const token = req.header('x-admin-token');
-  if (!token || !activeTokens.has(token)) {
+  if (!token) {
     return res.status(401).json({ error: 'Unauthorized' });
   }
 
-  const expiry = activeTokens.get(token);
-  if (Date.now() > expiry) {
-    activeTokens.delete(token);
-    return res.status(401).json({ error: 'Session expired' });
+  try {
+    jwt.verify(token, JWT_SECRET);
+  } catch (err) {
+    const message = err.name === 'TokenExpiredError' ? 'Session expired' : 'Unauthorized';
+    return res.status(401).json({ error: message });
   }
 
-  activeTokens.set(token, Date.now() + TOKEN_TTL_MS);
   next();
 }
 
@@ -363,8 +364,6 @@ app.post('/api/admin/login', (req, res) => {
 });
 
 app.post('/api/admin/logout', authMiddleware, (req, res) => {
-  const token = req.header('x-admin-token');
-  activeTokens.delete(token);
   return res.json({ ok: true });
 });
 
