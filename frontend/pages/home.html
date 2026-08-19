@@ -177,7 +177,58 @@
 
   <!-- ══ Scripts ══ -->
   <script src="../assets/js/script.js"></script>
+  <script src="../assets/js/runtime-config.js"></script>
   <script>
+    function escAttr(value) {
+      return String(value || '')
+        .replace(/&/g, '&amp;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;');
+    }
+
+    async function loadFleetGallery() {
+      const desktopSection = document.getElementById('fleet-gallery-desktop');
+      const mobileSection = document.getElementById('fleet-gallery-mobile');
+      const desktopRail = document.getElementById('fleet-rail');
+      const mobileRail = document.getElementById('fleet-rail-mobile');
+
+      let items = [];
+      try {
+        const res = await fetch(`${window.ARKAN_API_BASE_URL}/api/gallery`);
+        if (res.ok) {
+          const data = await res.json();
+          // Backend returns oldest-first; show the 7 most recently added, newest first.
+          items = Array.isArray(data) ? data.slice(-7).reverse() : [];
+        }
+      } catch (e) {
+        items = [];
+      }
+
+      if (!items.length) {
+        if (desktopSection) desktopSection.classList.add('hidden');
+        if (mobileSection) mobileSection.classList.add('hidden');
+        return;
+      }
+
+      if (desktopRail) {
+        desktopRail.innerHTML = items.map((item) => `
+          <div class="fleet-card min-w-[400px] h-64 rounded-3xl overflow-hidden shadow-lg shrink-0">
+            <div class="w-full h-full bg-cover bg-center" style="background-image:url('${escAttr(item.src)}')" role="img" aria-label="${escAttr(item.title || 'Gallery photo')}"></div>
+          </div>
+        `).join('');
+      }
+
+      if (mobileRail) {
+        mobileRail.innerHTML = items.map((item) => `
+          <div class="w-80 h-64 flex-shrink-0 rounded-2xl overflow-hidden shadow-md" style="min-width:320px;height:256px;">
+            <img src="${escAttr(item.src)}" alt="${escAttr(item.title || 'Gallery photo')}" class="w-full h-full object-cover" loading="lazy">
+          </div>
+        `).join('');
+      }
+    }
+
     (async () => {
       // Load the Home page's desktop/mobile content partials from the
       // shared desktop/ and mobile/ folders so each layout can be edited
@@ -186,6 +237,8 @@
         loadComponent('#home-mobile-content', rootPath() + 'mobile/home.html'),
         loadComponent('#home-desktop-content', rootPath() + 'desktop/home.html'),
       ]);
+
+      await loadFleetGallery();
 
       // ── Mobile scroll-reveal ──
       const mobObserver = new IntersectionObserver((entries) => {
