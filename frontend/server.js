@@ -32,6 +32,8 @@ const routes = {
   '/track': 'pages/track.html',
   '/customs-clearance': 'pages/customs-clearance.html',
   '/customs-clearance.html': 'pages/customs-clearance.html',
+  '/air-freight': 'pages/service-detail.html',
+  '/sea-freight': 'pages/service-detail.html',
   '/land-transportation': 'pages/service-detail.html',
   '/warehousing': 'pages/service-detail.html',
   '/project-cargo': 'pages/service-detail.html',

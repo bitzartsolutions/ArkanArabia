@@ -15,6 +15,8 @@
     { "source": "/contact", "destination": "/frontend/pages/contact" },
     { "source": "/track", "destination": "/frontend/pages/track" },
     { "source": "/customs-clearance", "destination": "/frontend/pages/customs-clearance" },
+    { "source": "/air-freight", "destination": "/frontend/pages/service-detail" },
+    { "source": "/sea-freight", "destination": "/frontend/pages/service-detail" },
     { "source": "/land-transportation", "destination": "/frontend/pages/service-detail" },
     { "source": "/warehousing", "destination": "/frontend/pages/service-detail" },
     { "source": "/project-cargo", "destination": "/frontend/pages/service-detail" },

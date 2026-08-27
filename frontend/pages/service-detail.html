@@ -177,12 +177,50 @@
   <script src="../assets/js/script.js"></script>
   <script>
     const serviceData = {
+      "air-freight": {
+        title: "Air Freight",
+        kicker: "Air Freight",
+        icon: "flight",
+        heroImage: "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=1600&q=80",
+        heroDescription: "Fast, reliable air cargo with trusted carrier partnerships for time-critical and high-value shipments worldwide.",
+        metric1: ["24-48h", "Priority transit windows"],
+        metric2: ["Global", "Carrier network"],
+        overviewTitle: "Speed and reliability for time-critical cargo.",
+        overviewText: "From urgent documents to high-value freight, our air cargo team coordinates booking, customs pre-clearance, and last-mile handoff to keep your shipments moving on schedule.",
+        points: [
+          ["Priority booking", "Direct access to carrier capacity for urgent and time-sensitive shipments."],
+          ["Customs pre-clearance", "Documentation prepared in advance to minimize airport dwell time."],
+          ["Real-time visibility", "Milestone tracking from pickup through final delivery."]
+        ],
+        panelTitle: "Trusted global carrier network",
+        panelText: "Established partnerships with major airlines keep your cargo moving on the fastest available routes.",
+        overviewImage: "https://images.unsplash.com/photo-1517400508447-f8dd518b86db?w=1200&q=80"
+      },
+      "sea-freight": {
+        title: "Sea Freight",
+        kicker: "Sea Freight",
+        icon: "directions_boat",
+        heroImage: "https://images.unsplash.com/photo-1494412651409-8963ce7935a7?w=1600&q=80",
+        heroDescription: "FCL and LCL ocean freight with container tracking and dependable transit schedules across major shipping lanes.",
+        metric1: ["FCL & LCL", "Flexible container options"],
+        metric2: ["Global", "Shipping lane coverage"],
+        overviewTitle: "Dependable ocean freight, door to door.",
+        overviewText: "Our sea freight team manages booking, documentation, and port coordination to keep full and part container loads moving reliably from origin to destination.",
+        points: [
+          ["Flexible bookings", "FCL and LCL options matched to cargo volume and budget."],
+          ["Container tracking", "Visibility from vessel departure through port discharge."],
+          ["Port coordination", "Managed handoff with terminal and customs teams at both ends."]
+        ],
+        panelTitle: "Major shipping lane coverage",
+        panelText: "Established carrier relationships keep freight moving across the world's busiest ocean routes.",
+        overviewImage: "https://images.unsplash.com/photo-1578575437130-527eed3abbec?w=1200&q=80"
+      },
       "land-transportation": {
         title: "Land Transportation",
         kicker: "Land Transportation",
         icon: "local_shipping",
         heroImage: "../assets/img/Arkan_land_transport.png",
-        heroDescription: "FTL and LTL solutions across the GCC with optimized routing, fleet visibility, and dependable delivery windows.",
+        heroDescription: "FTL and LTL solutions across the globe with optimized routing, fleet visibility, and dependable delivery windows.",
         metric1: ["1,200+", "Monthly road movements"],
         metric2: ["24/7", "Dispatch monitoring"],
         overviewTitle: "Road logistics with speed and control.",
@@ -193,7 +231,7 @@
           ["Live tracking", "Continuous shipment visibility and proactive status updates."]
         ],
         panelTitle: "Cross-border ready operations",
-        panelText: "Experienced teams at key GCC corridors help maintain smooth cross-border movements.",
+        panelText: "Experienced teams at key global corridors help maintain smooth cross-border movements.",
         overviewImage: "../assets/img/Truck.png"
       },
       "warehousing": {
@@ -335,7 +373,7 @@
         icon: "sync_alt",
         heroImage: "https://images.unsplash.com/photo-1489515217757-5fd1be406fef?w=1600&q=80&auto=format&fit=crop",
         heroDescription: "Cross-border transportation operations supported by route planning, checkpoint readiness, and documentation alignment.",
-        metric1: ["GCC lanes", "Border expertise"],
+        metric1: ["Global lanes", "Border expertise"],
         metric2: ["Faster", "Checkpoint processing"],
         overviewTitle: "Border movement with fewer delays.",
         overviewText: "We coordinate route permits, customs-ready documents, and timing windows to keep cross-border shipments moving smoothly across key corridors.",
