@@ -118,9 +118,51 @@ const blogDiskStorage = multer.diskStorage({
   }
 });
 
+function resumeFileFilter(_req, file, cb) {
+  const allowed = [
+    'application/pdf',
+    'application/msword',
+    'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+  ];
+  if (!allowed.includes(file.mimetype)) {
+    cb(new multer.MulterError('LIMIT_UNEXPECTED_FILE', 'Only PDF or Word documents are allowed'));
+    return;
+  }
+  cb(null, true);
+}
+
+const resumeMemoryStorage = multer.memoryStorage();
+
+// Local disk storage for resumes (fallback)
+const resumeDiskStorage = multer.diskStorage({
+  destination: (_req, _file, cb) => {
+    const dir = path.join(UPLOADS_DIR, 'resumes');
+    fs.mkdir(dir, { recursive: true }).then(() => cb(null, dir)).catch((err) => cb(err));
+  },
+  filename: (_req, file, cb) => {
+    const ext = path.extname(file.originalname || '').toLowerCase() || '.pdf';
+    cb(null, `resume-${Date.now()}-${crypto.randomUUID()}${ext}`);
+  }
+});
+
+// Uploads a raw (non-image) buffer to Cloudinary, for resumes/documents.
+function uploadRawBufferToCloudinary(buffer, folder, filename) {
+  return new Promise((resolve, reject) => {
+    const stream = cloudinary.uploader.upload_stream(
+      { folder, resource_type: 'raw', public_id: filename },
+      (err, result) => {
+        if (err) reject(err);
+        else resolve(result);
+      }
+    );
+    stream.end(buffer);
+  });
+}
+
 // Choose storage based on configuration
 const galleryStorage = USE_CLOUDINARY && CLOUDINARY_CLOUD_NAME ? galleryMemoryStorage : galleryDiskStorage;
 const blogStorage = USE_CLOUDINARY && CLOUDINARY_CLOUD_NAME ? blogMemoryStorage : blogDiskStorage;
+const resumeStorage = USE_CLOUDINARY && CLOUDINARY_CLOUD_NAME ? resumeMemoryStorage : resumeDiskStorage;
 
 const uploadGallery = multer({
   storage: galleryStorage,
@@ -132,6 +174,12 @@ const uploadBlog = multer({
   storage: blogStorage,
   limits: { fileSize: MAX_UPLOAD_SIZE_BYTES },
   fileFilter: imageFileFilter
+});
+
+const uploadResume = multer({
+  storage: resumeStorage,
+  limits: { fileSize: MAX_UPLOAD_SIZE_BYTES },
+  fileFilter: resumeFileFilter
 });
 
 app.use(express.json({ limit: '5mb' }));
@@ -192,6 +240,7 @@ function normalizeLegacyUploadUrl(req, value) {
 async function ensurePath() {
   await fs.mkdir(path.join(UPLOADS_DIR, 'gallery'), { recursive: true });
   await fs.mkdir(path.join(UPLOADS_DIR, 'blog'), { recursive: true });
+  await fs.mkdir(path.join(UPLOADS_DIR, 'resumes'), { recursive: true });
 }
 
 async function optimizeUploadedImage(filePath, type) {
@@ -301,6 +350,27 @@ async function sendInquiryWithBrevoApi({ subject, htmlBody, textBody, replyToEma
   }
 
   return true;
+}
+
+// Shared by /api/inquiries and /api/careers/:id/apply — tries the Brevo API
+// first, falling back to raw SMTP if no Brevo key is configured.
+async function sendNotificationEmail({ subject, htmlBody, textBody, replyToEmail }) {
+  const sentByBrevoApi = await sendInquiryWithBrevoApi({ subject, htmlBody, textBody, replyToEmail });
+  if (sentByBrevoApi) return;
+
+  const transporter = getInquiryTransporter();
+  if (!transporter) {
+    throw new Error('Email service is not configured.');
+  }
+
+  await transporter.sendMail({
+    from: SMTP_FROM_EMAIL,
+    to: INQUIRY_TO_EMAIL,
+    replyTo: replyToEmail && replyToEmail !== 'N/A' ? replyToEmail : undefined,
+    subject,
+    text: textBody,
+    html: htmlBody
+  });
 }
 
 app.post('/api/admin/login', (req, res) => {
@@ -545,33 +615,216 @@ app.post('/api/inquiries', async (req, res) => {
   `;
 
   try {
-    const sentByBrevoApi = await sendInquiryWithBrevoApi({
-      subject,
-      htmlBody,
-      textBody,
-      replyToEmail: email
-    });
-
-    if (!sentByBrevoApi) {
-      const transporter = getInquiryTransporter();
-      if (!transporter) {
-        return res.status(503).json({ error: 'Inquiry email service is not configured.' });
-      }
-
-      await transporter.sendMail({
-        from: SMTP_FROM_EMAIL,
-        to: INQUIRY_TO_EMAIL,
-        replyTo: email !== 'N/A' ? email : undefined,
-        subject,
-        text: textBody,
-        html: htmlBody
-      });
-    }
-
+    await sendNotificationEmail({ subject, htmlBody, textBody, replyToEmail: email });
     return res.json({ ok: true });
   } catch (err) {
     console.error('Failed to send inquiry email:', err);
     return res.status(500).json({ error: 'Failed to send inquiry email.' });
+  }
+});
+
+// ════════════════════════════════════════════
+// CAREERS — Job Postings
+// ════════════════════════════════════════════
+app.get('/api/careers', async (_req, res) => {
+  try {
+    const jobs = await db.getAllJobs();
+    res.json(jobs);
+  } catch (err) {
+    console.error('Failed to load job postings:', err);
+    res.status(500).json({ error: 'Could not load job postings.' });
+  }
+});
+
+app.post('/api/careers', authMiddleware, async (req, res) => {
+  try {
+    const title = String(req.body?.title || '').trim();
+    const department = String(req.body?.department || '').trim();
+    const location = String(req.body?.location || '').trim();
+    const employmentType = String(req.body?.employmentType || '').trim();
+    const description = String(req.body?.description || '').trim();
+    const requirements = String(req.body?.requirements || '').trim();
+    const deadline = String(req.body?.deadline || '').trim();
+
+    if (!title || !department || !location || !employmentType || !deadline) {
+      return res.status(400).json({ error: 'Title, department, location, employment type, and deadline are required' });
+    }
+
+    if (Number.isNaN(Date.parse(deadline))) {
+      return res.status(400).json({ error: 'Deadline must be a valid date' });
+    }
+
+    const job = {
+      id: `j${Date.now()}`,
+      title,
+      department,
+      location,
+      employmentType,
+      description,
+      requirements,
+      deadline,
+      postedDate: new Date().toISOString().split('T')[0]
+    };
+
+    await db.insertJob(job);
+    res.status(201).json(job);
+  } catch (err) {
+    console.error('Failed to add job posting:', err);
+    res.status(500).json({ error: 'Could not add job posting.' });
+  }
+});
+
+app.put('/api/careers/:id', authMiddleware, async (req, res) => {
+  try {
+    const current = await db.getJobById(req.params.id);
+    if (!current) {
+      return res.status(404).json({ error: 'Job posting not found' });
+    }
+
+    const deadline = String(req.body?.deadline || current.deadline || '').trim();
+    if (deadline && Number.isNaN(Date.parse(deadline))) {
+      return res.status(400).json({ error: 'Deadline must be a valid date' });
+    }
+
+    const updated = {
+      ...current,
+      title: String(req.body?.title || current.title).trim(),
+      department: String(req.body?.department || current.department).trim(),
+      location: String(req.body?.location || current.location).trim(),
+      employmentType: String(req.body?.employmentType || current.employmentType).trim(),
+      description: String(req.body?.description ?? current.description).trim(),
+      requirements: String(req.body?.requirements ?? current.requirements).trim(),
+      deadline
+    };
+
+    await db.updateJob(req.params.id, updated);
+    res.json(updated);
+  } catch (err) {
+    console.error('Failed to update job posting:', err);
+    res.status(500).json({ error: 'Could not update job posting.' });
+  }
+});
+
+app.delete('/api/careers/:id', authMiddleware, async (req, res) => {
+  try {
+    const deleted = await db.deleteJob(req.params.id);
+    if (!deleted) {
+      return res.status(404).json({ error: 'Job posting not found' });
+    }
+    await db.deleteApplicationsForJob(req.params.id);
+    res.json({ ok: true });
+  } catch (err) {
+    console.error('Failed to delete job posting:', err);
+    res.status(500).json({ error: 'Could not delete job posting.' });
+  }
+});
+
+// ════════════════════════════════════════════
+// CAREERS — Applications
+// ════════════════════════════════════════════
+app.get('/api/careers/applications', authMiddleware, async (req, res) => {
+  try {
+    const jobId = req.query.jobId ? String(req.query.jobId) : null;
+    const applications = jobId ? await db.getApplicationsForJob(jobId) : await db.getAllApplications();
+    res.json(applications);
+  } catch (err) {
+    console.error('Failed to load applications:', err);
+    res.status(500).json({ error: 'Could not load applications.' });
+  }
+});
+
+app.post('/api/careers/:id/apply', uploadResume.single('resume'), async (req, res) => {
+  try {
+    const job = await db.getJobById(req.params.id);
+    if (!job) {
+      return res.status(404).json({ error: 'Job posting not found' });
+    }
+
+    const fullName = toSafeValue(req.body?.fullName, 160);
+    const email = toSafeValue(req.body?.email, 160);
+    const phone = toSafeValue(req.body?.phone, 80);
+    const linkedIn = toSafeValue(req.body?.linkedIn, 200);
+    const coverLetter = toSafeValue(req.body?.coverLetter, 4000);
+
+    if (fullName === 'N/A' || email === 'N/A') {
+      return res.status(400).json({ error: 'Full name and email are required.' });
+    }
+
+    if (!req.file) {
+      return res.status(400).json({ error: 'Resume is required.' });
+    }
+
+    let resumeUrl;
+    if (USE_CLOUDINARY && CLOUDINARY_CLOUD_NAME) {
+      const safeName = `resume-${Date.now()}-${crypto.randomUUID()}`;
+      const uploaded = await uploadRawBufferToCloudinary(req.file.buffer, 'arkan-arabia/resumes', safeName);
+      resumeUrl = uploaded.secure_url;
+    } else {
+      resumeUrl = toPublicUploadPath(req, req.file.path);
+    }
+
+    const application = {
+      id: `a${Date.now()}`,
+      jobId: job.id,
+      jobTitle: job.title,
+      fullName,
+      email,
+      phone,
+      linkedIn,
+      coverLetter,
+      resumeUrl,
+      appliedDate: new Date().toISOString()
+    };
+
+    await db.insertApplication(application);
+
+    // Best-effort notification — the application is already saved even if this fails.
+    try {
+      const subject = `New Job Application - ${job.title}`;
+      const textBody = [
+        `New application for: ${job.title}`,
+        '',
+        `Full Name: ${fullName}`,
+        `Email: ${email}`,
+        `Phone: ${phone}`,
+        `LinkedIn: ${linkedIn}`,
+        `Resume: ${resumeUrl}`,
+        '',
+        'Cover Letter:',
+        coverLetter
+      ].join('\n');
+      const htmlBody = `
+        <h2>New application for: ${escapeHtml(job.title)}</h2>
+        <p><strong>Full Name:</strong> ${escapeHtml(fullName)}</p>
+        <p><strong>Email:</strong> ${escapeHtml(email)}</p>
+        <p><strong>Phone:</strong> ${escapeHtml(phone)}</p>
+        <p><strong>LinkedIn:</strong> ${escapeHtml(linkedIn)}</p>
+        <p><strong>Resume:</strong> <a href="${resumeUrl}">${escapeHtml(resumeUrl)}</a></p>
+        <p><strong>Cover Letter:</strong></p>
+        <p>${escapeHtml(coverLetter).replaceAll('\n', '<br/>')}</p>
+      `;
+      await sendNotificationEmail({ subject, htmlBody, textBody, replyToEmail: email });
+    } catch (emailErr) {
+      console.error('Failed to send application notification email:', emailErr);
+    }
+
+    res.status(201).json({ ok: true });
+  } catch (err) {
+    console.error('Failed to submit application:', err);
+    res.status(500).json({ error: 'Could not submit application.' });
+  }
+});
+
+app.delete('/api/careers/applications/:id', authMiddleware, async (req, res) => {
+  try {
+    const deleted = await db.deleteApplication(req.params.id);
+    if (!deleted) {
+      return res.status(404).json({ error: 'Application not found' });
+    }
+    res.json({ ok: true });
+  } catch (err) {
+    console.error('Failed to delete application:', err);
+    res.status(500).json({ error: 'Could not delete application.' });
   }
 });
 

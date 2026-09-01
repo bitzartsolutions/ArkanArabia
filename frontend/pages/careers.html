@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html class="scroll-smooth" lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>Careers | Arkan Arabia Logistics</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="../assets/img/favicon/favicon-32x32.png"/>
+  <link rel="icon" type="image/png" sizes="16x16" href="../assets/img/favicon/favicon-16x16.png"/>
+  <link rel="icon" href="../assets/img/favicon/favicon.ico"/>
+  <link rel="apple-touch-icon" sizes="180x180" href="../assets/img/favicon/apple-touch-icon.png"/>
+  <meta name="description" content="Join the Arkan Arabia Logistics team — explore open positions and apply online."/>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "background": "#fcf9f8",
+            "surface-variant": "#e5e2e1",
+            "primary-fixed-dim": "#b0c6ff",
+            "on-surface": "#1c1b1b",
+            "tertiary": "#31383f",
+            "error-container": "#ffdad6",
+            "on-error-container": "#93000a",
+            "surface-bright": "#fcf9f8",
+            "on-secondary-container": "#26348a",
+            "secondary": "#4957ad",
+            "secondary-fixed": "#dee0ff",
+            "tertiary-fixed": "#dce3eb",
+            "surface-container-lowest": "#ffffff",
+            "primary": "#00337d",
+            "on-secondary": "#ffffff",
+            "surface-container-low": "#f6f3f2",
+            "secondary-container": "#94a2fe",
+            "primary-container": "#1b4a9f",
+            "on-tertiary-fixed-variant": "#40484e",
+            "inverse-primary": "#b0c6ff",
+            "on-secondary-fixed": "#000e5e",
+            "error": "#ba1a1a",
+            "surface-container-high": "#eae7e7",
+            "surface": "#fcf9f8",
+            "surface-container-highest": "#e5e2e1",
+            "on-primary": "#ffffff",
+            "surface-dim": "#dcd9d9",
+            "outline": "#747783",
+            "on-background": "#1c1b1b",
+            "tertiary-container": "#484f56",
+            "on-secondary-fixed-variant": "#303e94",
+            "on-primary-fixed": "#001945",
+            "inverse-surface": "#313030",
+            "surface-tint": "#315bb0",
+            "on-tertiary-container": "#bac1c8",
+            "on-error": "#ffffff",
+            "secondary-fixed-dim": "#bbc3ff",
+            "on-tertiary": "#ffffff",
+            "on-primary-fixed-variant": "#0d4297",
+            "surface-container": "#f0edec",
+            "inverse-on-surface": "#f3f0ef",
+            "on-surface-variant": "#434652",
+            "on-tertiary-fixed": "#151c22",
+            "outline-variant": "#c3c6d4",
+            "tertiary-fixed-dim": "#c0c7cf",
+            "on-primary-container": "#a6bfff",
+            "primary-fixed": "#d9e2ff"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "2xl": "20px",
+            "full": "9999px"
+          },
+          "spacing": {
+            "md": "24px",
+            "lg": "48px",
+            "sm": "12px",
+            "xs": "4px",
+            "gutter": "24px",
+            "container-max": "1440px",
+            "xl": "80px",
+            "base": "8px"
+          },
+          "fontFamily": {
+            "h2": ["Manrope"],
+            "label-sm": ["Inter"],
+            "body-md": ["Inter"],
+            "h1": ["Manrope"],
+            "display-xl": ["Manrope"],
+            "body-lg": ["Inter"],
+            "h3": ["Manrope"]
+          },
+          "fontSize": {
+            "h2": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+            "label-sm": ["14px", {"lineHeight": "20px", "letterSpacing": "0.02em", "fontWeight": "600"}],
+            "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+            "h1": ["56px", {"lineHeight": "64px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+            "display-xl": ["72px", {"lineHeight": "84px", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+            "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+            "h3": ["24px", {"lineHeight": "32px", "fontWeight": "600"}]
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+
+    /* Hero dot-grid overlay */
+    .blog-hero-dots {
+      background-image: radial-gradient(circle, rgba(176,198,255,0.18) 1px, transparent 1px);
+      background-size: 28px 28px;
+    }
+
+    /* Job card hover lift */
+    .job-card {
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+    .job-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 48px rgba(0,51,125,0.13);
+    }
+
+    .line-clamp-3 {
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    /* Job description prose */
+    .blog-prose p {
+      margin-bottom: 1.1em;
+      color: #434652;
+      line-height: 1.75;
+      font-size: 16px;
+    }
+    .blog-prose p:last-child { margin-bottom: 0; }
+
+    /* Toast */
+    #career-toast {
+      transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+    #career-toast.hidden { opacity:0; pointer-events:none; transform: translateY(16px); }
+    #career-toast.show { opacity:1; pointer-events:auto; transform: translateY(0); }
+
+    /* Modal open lock scroll */
+    body.modal-open { overflow: hidden; }
+  </style>
+  <link rel="stylesheet" href="../assets/css/styles.css"/>
+</head>
+<body class="bg-background text-on-background font-body-md selection:bg-primary-container selection:text-on-primary-container overflow-x-hidden">
+
+  <!-- ══ MOBILE HEADER + DRAWER (injected, md:hidden) ══ -->
+  <div id="mob-header"></div>
+
+  <!-- Desktop shared header (hidden on mobile) -->
+  <div id="site-header" class="hidden md:block"></div>
+
+  <!-- ════════════════════════════════════════════
+       MOBILE LAYOUT  (visible < md)
+  ════════════════════════════════════════════ -->
+  <div id="careers-mobile-content"></div>
+
+  <!-- ══ MOBILE BOTTOM NAV (injected, md:hidden) ══ -->
+  <div id="mob-nav"></div>
+
+  <!-- ════════════════════════════════════════════
+       DESKTOP LAYOUT  (visible md +)
+  ════════════════════════════════════════════ -->
+  <div id="careers-desktop-content"></div>
+
+  <!-- ════════════════════════════════════════════
+       JOB DETAIL PAGE (shown when ?job= is present)
+  ════════════════════════════════════════════ -->
+  <main id="job-detail-view" class="hidden pt-[88px] md:pt-36 pb-16 px-4 max-w-3xl mx-auto">
+    <a href="/careers" class="inline-flex items-center gap-xs text-primary font-label-sm text-label-sm mt-md mb-md hover:underline">
+      <span class="material-symbols-outlined text-[18px]">arrow_back</span> Back to Careers
+    </a>
+    <div id="job-detail-content" class="bg-white rounded-2xl shadow-sm border border-outline-variant/20 overflow-hidden">
+      <!-- Injected by JS -->
+    </div>
+  </main>
+
+  <div id="site-footer"></div>
+
+  <!-- ════════════════════════════════════════════
+       APPLY MODAL
+  ════════════════════════════════════════════ -->
+  <div id="apply-modal" class="fixed inset-0 z-40 bg-black/50 backdrop-blur-sm flex items-start justify-center pt-24 md:pt-36 pb-8 px-4 hidden" role="dialog" aria-modal="true" aria-label="Apply for this job">
+    <div class="bg-white w-full max-w-lg rounded-2xl shadow-2xl overflow-y-auto max-h-[80vh]">
+      <div class="flex items-center justify-between px-lg pt-lg pb-md border-b border-outline-variant/30">
+        <div>
+          <h2 class="font-h3 text-h3 text-on-surface">Apply Now</h2>
+          <p id="apply-job-title" class="text-sm text-on-surface-variant"></p>
+        </div>
+        <button type="button" onclick="closeApplyModal()" aria-label="Close" class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center hover:bg-surface-container-high transition-colors">
+          <span class="material-symbols-outlined text-on-surface">close</span>
+        </button>
+      </div>
+      <form id="apply-form" onsubmit="submitApplication(event)" class="p-lg space-y-md">
+        <input type="hidden" id="apply-job-id"/>
+        <div>
+          <label class="block font-label-sm text-label-sm text-on-surface-variant mb-xs" for="apply-full-name">Full Name <span class="text-error">*</span></label>
+          <input id="apply-full-name" type="text" required
+            class="w-full h-12 px-4 rounded-xl border border-outline-variant bg-surface-container-low font-body-md text-body-md text-on-surface focus:outline-none focus:ring-2 focus:ring-primary/40"/>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-md">
+          <div>
+            <label class="block font-label-sm text-label-sm text-on-surface-variant mb-xs" for="apply-email">Email <span class="text-error">*</span></label>
+            <input id="apply-email" type="email" required
+              class="w-full h-12 px-4 rounded-xl border border-outline-variant bg-surface-container-low font-body-md text-body-md text-on-surface focus:outline-none focus:ring-2 focus:ring-primary/40"/>
+          </div>
+          <div>
+            <label class="block font-label-sm text-label-sm text-on-surface-variant mb-xs" for="apply-phone">Phone</label>
+            <input id="apply-phone" type="tel"
+              class="w-full h-12 px-4 rounded-xl border border-outline-variant bg-surface-container-low font-body-md text-body-md text-on-surface focus:outline-none focus:ring-2 focus:ring-primary/40"/>
+          </div>
+        </div>
+        <div>
+          <label class="block font-label-sm text-label-sm text-on-surface-variant mb-xs" for="apply-linkedin">LinkedIn Profile</label>
+          <input id="apply-linkedin" type="url" placeholder="https://linkedin.com/in/..."
+            class="w-full h-12 px-4 rounded-xl border border-outline-variant bg-surface-container-low font-body-md text-body-md text-on-surface focus:outline-none focus:ring-2 focus:ring-primary/40"/>
+        </div>
+        <div>
+          <label class="block font-label-sm text-label-sm text-on-surface-variant mb-xs" for="apply-cover-letter">Cover Letter</label>
+          <textarea id="apply-cover-letter" rows="4" placeholder="Tell us why you're a great fit..."
+            class="w-full px-4 py-3 rounded-xl border border-outline-variant bg-surface-container-low font-body-md text-body-md text-on-surface focus:outline-none focus:ring-2 focus:ring-primary/40 resize-y"></textarea>
+        </div>
+        <div>
+          <label class="block font-label-sm text-label-sm text-on-surface-variant mb-xs" for="apply-resume">Resume / CV <span class="text-error">*</span> <span class="text-on-surface-variant font-normal">(PDF or Word)</span></label>
+          <input id="apply-resume" type="file" accept=".pdf,.doc,.docx" required
+            class="w-full text-sm text-on-surface-variant file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:font-label-sm file:bg-primary file:text-on-primary hover:file:bg-primary-container cursor-pointer"/>
+        </div>
+        <p id="apply-error" class="hidden text-sm text-error"></p>
+        <button type="submit" id="apply-submit-btn"
+          class="w-full h-14 bg-primary text-on-primary font-label-sm text-label-sm rounded-xl hover:bg-primary-container transition-colors shadow-md flex items-center justify-center gap-sm">
+          <span class="material-symbols-outlined">send</span>
+          <span id="apply-submit-label">Submit Application</span>
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════════
+       SHARE MENU (positioned dynamically near trigger)
+  ════════════════════════════════════════════ -->
+  <div id="share-menu" class="hidden fixed z-50 bg-white rounded-xl shadow-2xl border border-outline-variant/30 py-2 w-56">
+    <button type="button" onclick="shareVia('whatsapp')" class="w-full flex items-center gap-sm px-4 py-2.5 hover:bg-surface-container-low text-sm text-on-surface font-medium text-left">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="#25D366"><path d="M17.6 6.32A8.86 8.86 0 0 0 12.05 4C7.4 4 3.6 7.8 3.6 12.44c0 1.48.39 2.93 1.13 4.2L3.5 20.5l3.95-1.2a8.87 8.87 0 0 0 4.6 1.28h.01c4.65 0 8.44-3.8 8.44-8.44a8.4 8.4 0 0 0-2.9-6.32zm-5.55 12.98h-.01a7.4 7.4 0 0 1-3.77-1.03l-.27-.16-2.8.85.85-2.73-.18-.28a7.36 7.36 0 0 1-1.14-3.9c0-4.07 3.32-7.38 7.4-7.38 1.98 0 3.83.77 5.23 2.17a7.32 7.32 0 0 1 2.16 5.22c0 4.07-3.32 7.24-7.47 7.24zm4.06-5.5c-.22-.11-1.31-.65-1.52-.72-.2-.08-.35-.11-.5.11-.15.22-.58.72-.71.87-.13.15-.26.17-.48.06-.22-.11-.94-.35-1.79-1.1-.66-.6-1.11-1.33-1.24-1.55-.13-.22-.01-.34.1-.45.1-.1.22-.26.33-.39.11-.13.15-.22.22-.37.07-.15.04-.28-.02-.39-.06-.11-.5-1.2-.68-1.65-.18-.43-.36-.37-.5-.38h-.43c-.15 0-.39.06-.59.28-.2.22-.78.76-.78 1.86s.8 2.16.91 2.31c.11.15 1.57 2.4 3.81 3.36.53.23.95.37 1.27.47.53.17 1.02.15 1.4.09.43-.06 1.31-.53 1.49-1.05.19-.51.19-.95.13-1.04-.06-.09-.2-.15-.42-.26z"/></svg>
+      WhatsApp
+    </button>
+    <button type="button" onclick="shareVia('linkedin')" class="w-full flex items-center gap-sm px-4 py-2.5 hover:bg-surface-container-low text-sm text-on-surface font-medium text-left">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="#0A66C2"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.15 1.45-2.15 2.94v5.67H9.34V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.38-1.85 3.61 0 4.28 2.38 4.28 5.47v6.27zM5.34 7.43a2.07 2.07 0 1 1 0-4.13 2.07 2.07 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45z"/></svg>
+      LinkedIn
+    </button>
+    <button type="button" onclick="shareVia('instagram')" class="w-full flex items-center gap-sm px-4 py-2.5 hover:bg-surface-container-low text-sm text-on-surface font-medium text-left">
+      <svg viewBox="0 0 24 24" width="20" height="20"><defs><linearGradient id="ig-grad" x1="0%" y1="100%" x2="100%" y2="0%"><stop offset="0%" stop-color="#FFDC80"/><stop offset="25%" stop-color="#FCAF45"/><stop offset="50%" stop-color="#E1306C"/><stop offset="75%" stop-color="#C13584"/><stop offset="100%" stop-color="#833AB4"/></linearGradient></defs><path fill="url(#ig-grad)" d="M12 2.16c2.67 0 2.99.01 4.04.06 1.05.05 1.77.21 2.4.46.65.25 1.2.6 1.75 1.14.54.55.9 1.1 1.15 1.75.24.62.4 1.34.46 2.4.05 1.04.06 1.36.06 4.03s-.01 2.99-.06 4.04c-.05 1.05-.22 1.77-.46 2.4-.25.65-.6 1.2-1.15 1.75-.55.54-1.1.9-1.75 1.15-.62.24-1.34.4-2.4.46-1.04.05-1.36.06-4.03.06s-2.99-.01-4.04-.06c-1.05-.05-1.77-.22-2.4-.46-.65-.25-1.2-.6-1.75-1.15-.54-.55-.9-1.1-1.15-1.75-.24-.62-.4-1.34-.46-2.4-.05-1.04-.06-1.36-.06-4.03s.01-2.99.06-4.04c.05-1.05.22-1.77.46-2.4.25-.65.6-1.2 1.15-1.75.55-.54 1.1-.9 1.75-1.15.62-.24 1.34-.4 2.4-.46 1.04-.05 1.36-.06 4.03-.06zM12 0C9.28 0 8.94.01 7.87.06c-1.06.05-1.79.22-2.43.47-.66.26-1.21.6-1.77 1.16-.55.55-.9 1.1-1.16 1.76-.25.64-.42 1.37-.47 2.43C2.01 6.94 2 7.28 2 10s.01 3.06.06 4.13c.05 1.06.22 1.79.47 2.43.26.66.6 1.21 1.16 1.77.55.55 1.1.9 1.76 1.16.64.25 1.37.42 2.43.47C8.94 19.99 9.28 20 12 20s3.06-.01 4.13-.06c1.06-.05 1.79-.22 2.43-.47.66-.26 1.21-.6 1.77-1.16.55-.55.9-1.1 1.16-1.76.25-.64.42-1.37.47-2.43.05-1.07.06-1.41.06-4.13s-.01-3.06-.06-4.13c-.05-1.06-.22-1.79-.47-2.43a4.95 4.95 0 0 0-1.16-1.77 4.95 4.95 0 0 0-1.76-1.16c-.64-.25-1.37-.42-2.43-.47C15.06.01 14.72 0 12 0z"/><path fill="url(#ig-grad)" d="M12 4.87A5.13 5.13 0 1 0 12 15.13 5.13 5.13 0 0 0 12 4.87zm0 8.46a3.33 3.33 0 1 1 0-6.66 3.33 3.33 0 0 1 0 6.66zM17.34 4.68a1.2 1.2 0 1 1-2.4 0 1.2 1.2 0 0 1 2.4 0z"/></svg>
+      Instagram
+    </button>
+    <button type="button" onclick="shareVia('copy')" class="w-full flex items-center gap-sm px-4 py-2.5 hover:bg-surface-container-low text-sm text-on-surface font-medium text-left border-t border-outline-variant/20 mt-1 pt-2.5">
+      <span class="material-symbols-outlined text-[20px] text-on-surface-variant">content_copy</span>
+      Copy Link
+    </button>
+  </div>
+
+  <!-- ════════════════════════════════════════════
+       TOAST NOTIFICATION
+  ════════════════════════════════════════════ -->
+  <div id="career-toast" class="hidden fixed bottom-24 md:bottom-8 right-4 z-50 flex items-center gap-sm px-md py-sm rounded-xl shadow-xl bg-inverse-surface text-inverse-on-surface font-label-sm text-label-sm max-w-xs">
+    <span id="career-toast-icon" class="material-symbols-outlined text-[18px]">check_circle</span>
+    <span id="career-toast-msg">Application submitted!</span>
+  </div>
+
+  <script src="../assets/js/script.js"></script>
+  <script src="../assets/js/runtime-config.js"></script>
+  <script>
+    const API_BASE_URL = window.ARKAN_API_BASE_URL;
+    const API_CAREERS = `${API_BASE_URL}/api/careers`;
+
+    let allJobs = [];
+    let toastTimer = null;
+
+    function escapeHtml(value) {
+      return String(value || '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    }
+
+    // Renders **bold** and *italic* markers written from the admin panel's formatting toolbar.
+    function formatInlineMarkdown(text) {
+      return escapeHtml(text)
+        .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+        .replace(/\*(.+?)\*/g, '<em>$1</em>');
+    }
+
+    // Lines starting with "- " (added via the admin panel's bullet toggle) render as list items;
+    // other lines render as plain paragraphs. If no line uses "- ", every line bullets (legacy behavior).
+    function renderRequirements(text) {
+      const lines = String(text || '').split('\n').filter(l => l.trim());
+      if (!lines.length) return '';
+      const hasExplicitBullets = lines.some(l => l.trim().startsWith('- '));
+
+      if (!hasExplicitBullets) {
+        return `<ul class="list-disc pl-5 space-y-1">${lines.map(l => `<li>${formatInlineMarkdown(l)}</li>`).join('')}</ul>`;
+      }
+
+      let html = '';
+      let ulOpen = false;
+      lines.forEach(line => {
+        const trimmed = line.trim();
+        if (trimmed.startsWith('- ')) {
+          if (!ulOpen) { html += '<ul class="list-disc pl-5 space-y-1">'; ulOpen = true; }
+          html += `<li>${formatInlineMarkdown(trimmed.slice(2))}</li>`;
+        } else {
+          if (ulOpen) { html += '</ul>'; ulOpen = false; }
+          html += `<p class="mb-1">${formatInlineMarkdown(trimmed)}</p>`;
+        }
+      });
+      if (ulOpen) html += '</ul>';
+      return html;
+    }
+
+    async function loadJobs() {
+      try {
+        const res = await fetch(API_CAREERS);
+        if (!res.ok) throw new Error('Failed to load jobs');
+        const data = await res.json();
+        allJobs = Array.isArray(data) ? data : [];
+      } catch (e) {
+        allJobs = [];
+        showToast('Could not load job postings.', 'error');
+      }
+    }
+
+    function showToast(msg, icon) {
+      const toast = document.getElementById('career-toast');
+      document.getElementById('career-toast-msg').textContent = msg;
+      document.getElementById('career-toast-icon').textContent = icon || 'check_circle';
+      toast.classList.remove('hidden');
+      requestAnimationFrame(() => toast.classList.add('show'));
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => {
+        toast.classList.remove('show');
+        setTimeout(() => toast.classList.add('hidden'), 400);
+      }, 3500);
+    }
+
+    function isJobExpired(job) {
+      if (!job.deadline) return false;
+      return new Date(job.deadline) < new Date(new Date().toDateString());
+    }
+
+    // Jobs stay visible (but inactive) once the deadline passes, then drop off
+    // the careers page entirely 24 hours after that.
+    function isJobHidden(job) {
+      if (!job.deadline) return false;
+      const hideThreshold = new Date(job.deadline);
+      hideThreshold.setDate(hideThreshold.getDate() + 1);
+      hideThreshold.setTime(hideThreshold.getTime() + 24 * 60 * 60 * 1000);
+      return new Date() >= hideThreshold;
+    }
+
+    function formatDeadline(deadline) {
+      try {
+        return new Date(deadline).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+      } catch {
+        return deadline;
+      }
+    }
+
+    function jobCardHtml(job) {
+      const expired = isJobExpired(job);
+      return `
+        <div class="job-card bg-white rounded-2xl shadow-sm border border-outline-variant/20 overflow-hidden cursor-pointer group flex flex-col p-lg" onclick="location.href='/careers?job=${encodeURIComponent(job.id)}'">
+          <div class="flex items-center justify-between mb-sm">
+            <span class="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-primary/10 text-primary w-fit">${escapeHtml(job.employmentType)}</span>
+            ${expired ? '<span class="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-error-container text-on-error-container w-fit">Closed</span>' : ''}
+          </div>
+          <h3 class="font-h3 text-[20px] font-bold text-on-surface mb-xs">${escapeHtml(job.title)}</h3>
+          <div class="flex flex-wrap items-center gap-md text-sm text-on-surface-variant mb-md">
+            <span class="flex items-center gap-xs"><span class="material-symbols-outlined text-[16px]">business_center</span>${escapeHtml(job.department)}</span>
+            <span class="flex items-center gap-xs"><span class="material-symbols-outlined text-[16px]">location_on</span>${escapeHtml(job.location)}</span>
+          </div>
+          ${job.deadline ? `<div class="flex items-center gap-xs text-sm ${expired ? 'text-error' : 'text-on-surface-variant'} mb-md"><span class="material-symbols-outlined text-[16px]">event_busy</span>${expired ? 'Closed on' : 'Apply by'} ${formatDeadline(job.deadline)}</div>` : ''}
+          <p class="text-sm text-on-surface-variant line-clamp-3 mb-md flex-grow">${escapeHtml(job.description)}</p>
+          <div class="flex gap-sm mt-auto pt-md border-t border-outline-variant/20">
+            <button type="button" ${expired ? 'disabled' : `onclick="event.stopPropagation(); openApplyModal('${job.id}')"`} class="flex-1 h-11 font-semibold rounded-xl text-sm transition-colors ${expired ? 'bg-surface-container text-on-surface-variant cursor-not-allowed' : 'bg-primary text-on-primary hover:bg-primary-container'}">${expired ? 'Applications Closed' : 'Apply Now'}</button>
+            <button type="button" data-share-trigger onclick="event.stopPropagation(); shareJob('${job.id}', event)" aria-label="Share this job" class="w-11 h-11 rounded-xl border border-outline-variant flex items-center justify-center hover:bg-surface-container-low transition-colors">
+              <span class="material-symbols-outlined text-[18px]">share</span>
+            </button>
+          </div>
+        </div>`;
+    }
+
+    function renderJobGrid() {
+      const deskGrid = document.getElementById('desk-job-grid');
+      const mobGrid = document.getElementById('mob-job-grid');
+      const deskEmpty = document.getElementById('desk-job-empty');
+      const mobEmpty = document.getElementById('mob-job-empty');
+      const visibleJobs = allJobs.filter(job => !isJobHidden(job));
+      const html = visibleJobs.map(jobCardHtml).join('');
+
+      if (deskGrid) deskGrid.innerHTML = html;
+      if (mobGrid) mobGrid.innerHTML = html;
+      if (deskEmpty) deskEmpty.classList.toggle('hidden', visibleJobs.length > 0);
+      if (mobEmpty) mobEmpty.classList.toggle('hidden', visibleJobs.length > 0);
+    }
+
+    let shareMenuUrl = '';
+    let shareMenuText = '';
+
+    function shareJob(id, event) {
+      const job = allJobs.find(j => j.id === id);
+      if (!job) return;
+      if (event) event.stopPropagation();
+
+      shareMenuUrl = `${window.location.origin}/careers?job=${encodeURIComponent(id)}`;
+      shareMenuText = `Job opening: ${job.title} at Arkan Arabia Logistics`;
+
+      const menu = document.getElementById('share-menu');
+      const btn = event ? event.currentTarget : null;
+
+      if (btn) {
+        const rect = btn.getBoundingClientRect();
+        const menuWidth = 224;
+        let left = rect.right - menuWidth;
+        left = Math.max(8, Math.min(left, window.innerWidth - menuWidth - 8));
+        menu.style.left = `${left}px`;
+        menu.style.top = `${rect.bottom + 8}px`;
+      }
+
+      menu.classList.remove('hidden');
+    }
+
+    function closeShareMenu() {
+      document.getElementById('share-menu').classList.add('hidden');
+    }
+
+    function shareVia(platform) {
+      const url = shareMenuUrl;
+      const text = shareMenuText;
+      closeShareMenu();
+
+      if (platform === 'whatsapp') {
+        window.open(`https://wa.me/?text=${encodeURIComponent(`${text} ${url}`)}`, '_blank', 'noopener');
+        return;
+      }
+      if (platform === 'linkedin') {
+        window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`, '_blank', 'noopener');
+        return;
+      }
+      if (platform === 'instagram') {
+        navigator.clipboard.writeText(url).then(() => {
+          showToast('Link copied — paste it in your Instagram bio or story.', 'photo_camera');
+        }).catch(() => {
+          showToast('Copy this link to share on Instagram.', 'photo_camera');
+        });
+        return;
+      }
+      // copy
+      navigator.clipboard.writeText(url).then(() => {
+        showToast('Link copied to clipboard!', 'content_copy');
+      }).catch(() => {
+        showToast('Share this page URL.', 'share');
+      });
+    }
+
+    document.addEventListener('click', (e) => {
+      const menu = document.getElementById('share-menu');
+      if (menu.classList.contains('hidden')) return;
+      if (menu.contains(e.target) || e.target.closest('[data-share-trigger]')) return;
+      closeShareMenu();
+    });
+
+    function openApplyModal(id) {
+      const job = allJobs.find(j => j.id === id);
+      if (!job) return;
+      if (isJobExpired(job)) {
+        showToast('Applications for this position are closed.', 'event_busy');
+        return;
+      }
+      document.getElementById('apply-form').reset();
+      document.getElementById('apply-job-id').value = id;
+      document.getElementById('apply-job-title').textContent = `${job.title} — ${job.department}`;
+      document.getElementById('apply-error').classList.add('hidden');
+      document.getElementById('apply-modal').classList.remove('hidden');
+      document.body.classList.add('modal-open');
+    }
+
+    function closeApplyModal() {
+      document.getElementById('apply-modal').classList.add('hidden');
+      document.body.classList.remove('modal-open');
+    }
+
+    document.getElementById('apply-modal').addEventListener('click', function (e) {
+      if (e.target === this) closeApplyModal();
+    });
+
+    async function submitApplication(e) {
+      e.preventDefault();
+      const jobId = document.getElementById('apply-job-id').value;
+      const fullName = document.getElementById('apply-full-name').value.trim();
+      const email = document.getElementById('apply-email').value.trim();
+      const phone = document.getElementById('apply-phone').value.trim();
+      const linkedIn = document.getElementById('apply-linkedin').value.trim();
+      const coverLetter = document.getElementById('apply-cover-letter').value.trim();
+      const resumeFile = document.getElementById('apply-resume').files[0];
+      const errorEl = document.getElementById('apply-error');
+
+      if (!fullName || !email) {
+        errorEl.textContent = 'Full name and email are required.';
+        errorEl.classList.remove('hidden');
+        return;
+      }
+      if (!resumeFile) {
+        errorEl.textContent = 'Please attach your resume.';
+        errorEl.classList.remove('hidden');
+        return;
+      }
+
+      const btn = document.getElementById('apply-submit-btn');
+      const label = document.getElementById('apply-submit-label');
+      const originalLabel = label.textContent;
+      btn.disabled = true;
+      label.textContent = 'Submitting...';
+      errorEl.classList.add('hidden');
+
+      try {
+        const formData = new FormData();
+        formData.append('fullName', fullName);
+        formData.append('email', email);
+        formData.append('phone', phone);
+        formData.append('linkedIn', linkedIn);
+        formData.append('coverLetter', coverLetter);
+        formData.append('resume', resumeFile);
+
+        const res = await fetch(`${API_CAREERS}/${jobId}/apply`, {
+          method: 'POST',
+          body: formData
+        });
+
+        if (!res.ok) {
+          const data = await res.json().catch(() => ({}));
+          errorEl.textContent = data.error || 'Could not submit application. Please try again.';
+          errorEl.classList.remove('hidden');
+          return;
+        }
+
+        closeApplyModal();
+        showToast('Application submitted successfully!', 'check_circle');
+      } catch (err) {
+        errorEl.textContent = 'Could not submit application. Check your connection.';
+        errorEl.classList.remove('hidden');
+      } finally {
+        btn.disabled = false;
+        label.textContent = originalLabel;
+      }
+    }
+
+    function showJobDetail(id) {
+      const container = document.getElementById('job-detail-content');
+      const job = allJobs.find(j => j.id === id);
+
+      if (!job || isJobHidden(job)) {
+        document.title = 'Job Not Found | Arkan Arabia Logistics';
+        container.innerHTML = `
+          <div class="p-xl text-center">
+            <span class="material-symbols-outlined text-6xl text-on-surface-variant mb-md block">search_off</span>
+            <h1 class="font-h2 text-h2 text-on-surface mb-sm">Job Not Found</h1>
+            <p class="text-on-surface-variant mb-lg">This position may no longer be available.</p>
+            <a href="/careers" class="inline-flex items-center gap-sm px-lg py-sm bg-primary text-on-primary font-label-sm text-label-sm rounded-xl hover:bg-primary-container transition-colors">
+              <span class="material-symbols-outlined text-[18px]">arrow_back</span> Back to Careers
+            </a>
+          </div>`;
+        return;
+      }
+
+      document.title = `${job.title} | Arkan Arabia Logistics`;
+
+      const descHtml = job.description
+        ? job.description.split('\n').filter(l => l.trim()).map(line => `<p>${escapeHtml(line)}</p>`).join('')
+        : '<p class="text-on-surface-variant italic">No description available.</p>';
+
+      const reqHtml = renderRequirements(job.requirements);
+
+      const expired = isJobExpired(job);
+      const applyBtnClass = expired
+        ? 'bg-surface-container text-on-surface-variant cursor-not-allowed'
+        : 'bg-primary text-on-primary hover:bg-primary-container';
+      const applyBtnAttrs = expired ? 'disabled' : `onclick="openApplyModal('${job.id}')"`;
+      const applyLabel = expired ? 'Applications Closed' : 'Apply Now';
+
+      container.innerHTML = `
+        <div class="bg-gradient-to-br from-primary to-primary-container text-white p-lg md:p-xl">
+          <div class="flex items-center gap-sm mb-md">
+            <span class="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-white/20 w-fit">${escapeHtml(job.employmentType)}</span>
+            ${expired ? '<span class="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-error-container text-on-error-container w-fit">Closed</span>' : ''}
+          </div>
+          <h1 class="font-h2 text-h2 mb-md leading-tight">${escapeHtml(job.title)}</h1>
+          <div class="flex flex-wrap items-center gap-md text-white/80 text-sm">
+            <span class="flex items-center gap-xs"><span class="material-symbols-outlined text-[18px]">business_center</span>${escapeHtml(job.department)}</span>
+            <span class="flex items-center gap-xs"><span class="material-symbols-outlined text-[18px]">location_on</span>${escapeHtml(job.location)}</span>
+            <span class="flex items-center gap-xs"><span class="material-symbols-outlined text-[18px]">calendar_month</span>Posted ${escapeHtml(job.postedDate || '')}</span>
+            ${job.deadline ? `<span class="flex items-center gap-xs"><span class="material-symbols-outlined text-[18px]">event_busy</span>${expired ? 'Closed on' : 'Apply by'} ${formatDeadline(job.deadline)}</span>` : ''}
+          </div>
+        </div>
+        <div class="p-md md:p-lg">
+          <div class="flex flex-wrap gap-sm mb-lg">
+            <button type="button" ${applyBtnAttrs} class="flex items-center gap-sm px-lg py-sm font-label-sm text-label-sm rounded-xl transition-colors ${applyBtnClass}">
+              <span class="material-symbols-outlined text-[18px]">send</span> ${applyLabel}
+            </button>
+            <button type="button" data-share-trigger onclick="shareJob('${job.id}', event)" class="flex items-center gap-sm px-md py-sm bg-surface-container text-on-surface font-label-sm text-label-sm rounded-xl hover:bg-surface-container-high transition-colors border border-outline-variant/30">
+              <span class="material-symbols-outlined text-[18px]">share</span> Share
+            </button>
+          </div>
+          <h2 class="font-h3 text-h3 text-on-surface mb-sm">Job Description</h2>
+          <div class="blog-prose mb-lg">${descHtml}</div>
+          ${job.requirements ? `<h2 class="font-h3 text-h3 text-on-surface mb-sm">Requirements</h2><div class="text-on-surface-variant leading-relaxed mb-lg">${reqHtml}</div>` : ''}
+          <div class="pt-md border-t border-outline-variant/30">
+            <button type="button" ${applyBtnAttrs} class="w-full md:w-auto flex items-center justify-center gap-sm px-lg py-sm font-label-sm text-label-sm rounded-xl transition-colors ${applyBtnClass}">
+              <span class="material-symbols-outlined text-[18px]">send</span> ${expired ? 'Applications Closed' : 'Apply for this Position'}
+            </button>
+          </div>
+        </div>`;
+    }
+
+    document.addEventListener('DOMContentLoaded', async () => {
+      const jobId = new URLSearchParams(location.search).get('job');
+
+      // A ?job= param means someone followed a direct link to a single posting —
+      // show that as its own page instead of the listing, skipping the listing
+      // partials entirely since nothing in them is needed here.
+      if (jobId) {
+        document.getElementById('job-detail-view').classList.remove('hidden');
+        await loadJobs();
+        showJobDetail(jobId);
+        return;
+      }
+
+      await Promise.all([
+        loadComponent('#careers-mobile-content', rootPath() + 'mobile/careers.html'),
+        loadComponent('#careers-desktop-content', rootPath() + 'desktop/careers.html'),
+      ]);
+
+      await loadJobs();
+      renderJobGrid();
+    });
+  </script>
+</body>
+</html>

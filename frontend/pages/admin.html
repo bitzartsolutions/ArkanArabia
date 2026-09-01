@@ -106,6 +106,7 @@
         <div class="flex flex-wrap gap-2 mb-5">
           <button id="tab-gallery" class="h-11 px-5 rounded-xl border border-outline-variant bg-surface-container-low font-semibold tab-active" type="button">Gallery</button>
           <button id="tab-blog" class="h-11 px-5 rounded-xl border border-outline-variant bg-surface-container-low font-semibold" type="button">Blog</button>
+          <button id="tab-careers" class="h-11 px-5 rounded-xl border border-outline-variant bg-surface-container-low font-semibold" type="button">Careers</button>
         </div>
 
         <div id="dashboard-message" class="mb-4 text-sm text-on-surface-variant">Load data to view the latest content.</div>
@@ -204,6 +205,102 @@
             </table>
           </div>
         </div>
+
+        <div id="panel-careers" class="space-y-6 hidden">
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <form id="career-form" class="bg-white rounded-xl border border-outline-variant/60 p-4 space-y-3">
+              <h3 id="career-form-title" class="font-h text-lg font-bold">New Job Posting</h3>
+              <input id="career-id" type="hidden"/>
+              <input id="career-title" type="text" class="w-full h-11 rounded-lg border border-outline-variant px-3" placeholder="Job title" required/>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                <input id="career-department" type="text" class="w-full h-11 rounded-lg border border-outline-variant px-3" placeholder="Department" required/>
+                <input id="career-location" type="text" class="w-full h-11 rounded-lg border border-outline-variant px-3" placeholder="Location" required/>
+              </div>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                <div>
+                  <label for="career-employment-type" class="block text-xs font-semibold text-on-surface-variant mb-1">Employment Type</label>
+                  <select id="career-employment-type" class="w-full h-11 rounded-lg border border-outline-variant px-3 bg-white" required>
+                    <option value="Full-time">Full-time</option>
+                    <option value="Part-time">Part-time</option>
+                    <option value="Contract">Contract</option>
+                    <option value="Internship">Internship</option>
+                  </select>
+                </div>
+                <div>
+                  <label for="career-deadline" class="block text-xs font-semibold text-on-surface-variant mb-1">Application Deadline</label>
+                  <input id="career-deadline" type="date" class="w-full h-11 rounded-lg border border-outline-variant px-3 bg-white" required/>
+                </div>
+              </div>
+              <textarea id="career-description" rows="4" class="w-full rounded-lg border border-outline-variant px-3 py-2" placeholder="Job description. Use blank lines to separate paragraphs."></textarea>
+              <div>
+                <div class="flex gap-1 mb-1">
+                  <button type="button" onclick="wrapReqSelection('**')" title="Bold" class="w-8 h-8 rounded border border-outline-variant bg-surface-container-low hover:bg-surface-container font-bold text-sm">B</button>
+                  <button type="button" onclick="wrapReqSelection('*')" title="Italic" class="w-8 h-8 rounded border border-outline-variant bg-surface-container-low hover:bg-surface-container italic text-sm">I</button>
+                  <button type="button" onclick="toggleReqBullet()" title="Bullet point" class="w-8 h-8 rounded border border-outline-variant bg-surface-container-low hover:bg-surface-container text-sm">&bull;</button>
+                </div>
+                <textarea id="career-requirements" rows="4" class="w-full rounded-lg border border-outline-variant px-3 py-2" placeholder="Requirements. One per line. Select text and use B/I, or click &bull; to bullet the current line."></textarea>
+                <div class="mt-1 border border-dashed border-outline-variant rounded-lg px-3 py-2 bg-surface-container-lowest">
+                  <div class="text-[11px] font-semibold uppercase tracking-wide text-on-surface-variant mb-1">Preview (how it appears on the Careers page)</div>
+                  <div id="career-requirements-preview" class="text-sm text-on-surface-variant"></div>
+                </div>
+              </div>
+              <div class="flex gap-2">
+                <button id="career-save-btn" type="submit" class="h-11 px-4 rounded-lg bg-primary text-on-primary font-semibold">Publish</button>
+                <button id="career-reset-btn" type="button" class="h-11 px-4 rounded-lg border border-outline-variant bg-surface-container-low hidden">Cancel Edit</button>
+              </div>
+            </form>
+
+            <div class="bg-white rounded-xl border border-outline-variant/60 p-4">
+              <h3 class="font-h text-lg font-bold">Careers Overview</h3>
+              <p class="text-sm text-on-surface-variant mt-1">Edit or delete job postings directly from the list.</p>
+              <div id="career-count" class="mt-3 text-sm font-semibold">0 job postings</div>
+            </div>
+          </div>
+
+          <div class="overflow-auto border border-outline-variant/60 rounded-xl bg-white">
+            <table class="min-w-full">
+              <thead>
+                <tr class="table-head">
+                  <th class="text-left px-4 py-3">Title</th>
+                  <th class="text-left px-4 py-3">Department</th>
+                  <th class="text-left px-4 py-3">Location</th>
+                  <th class="text-left px-4 py-3">Type</th>
+                  <th class="text-left px-4 py-3">Posted</th>
+                  <th class="text-left px-4 py-3">Deadline</th>
+                  <th class="text-right px-4 py-3">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="career-table"></tbody>
+            </table>
+          </div>
+
+          <div class="bg-white rounded-xl border border-outline-variant/60 p-4">
+            <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3 mb-4">
+              <div>
+                <h3 class="font-h text-lg font-bold">Applications</h3>
+                <p class="text-sm text-on-surface-variant mt-1">Candidates who applied through the careers page.</p>
+              </div>
+              <select id="application-job-filter" class="h-11 rounded-lg border border-outline-variant px-3 bg-white">
+                <option value="">All Jobs</option>
+              </select>
+            </div>
+            <div class="overflow-auto border border-outline-variant/60 rounded-xl">
+              <table class="min-w-full">
+                <thead>
+                  <tr class="table-head">
+                    <th class="text-left px-4 py-3">Applicant</th>
+                    <th class="text-left px-4 py-3">Job</th>
+                    <th class="text-left px-4 py-3">Contact</th>
+                    <th class="text-left px-4 py-3">Resume</th>
+                    <th class="text-left px-4 py-3">Applied</th>
+                    <th class="text-right px-4 py-3">Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="application-table"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   </main>
@@ -219,11 +316,15 @@
     const API_ADMIN_LOGOUT = `${API_BASE_URL}/api/admin/logout`;
     const API_GALLERY = `${API_BASE_URL}/api/gallery`;
     const API_BLOG = `${API_BASE_URL}/api/blog`;
+    const API_CAREERS = `${API_BASE_URL}/api/careers`;
+    const API_APPLICATIONS = `${API_BASE_URL}/api/careers/applications`;
     const ADMIN_TOKEN_KEY = 'arkan_admin_token';
 
     let adminToken = sessionStorage.getItem(ADMIN_TOKEN_KEY) || '';
     let galleryItems = [];
     let blogPosts = [];
+    let careerJobs = [];
+    let applications = [];
 
     function setMessage(text, isError) {
       const el = document.getElementById('dashboard-message');
@@ -240,16 +341,13 @@
     }
 
     function switchTab(tab) {
-      const galleryPanel = document.getElementById('panel-gallery');
-      const blogPanel = document.getElementById('panel-blog');
-      const tabGallery = document.getElementById('tab-gallery');
-      const tabBlog = document.getElementById('tab-blog');
+      const panels = { gallery: 'panel-gallery', blog: 'panel-blog', careers: 'panel-careers' };
+      const tabs = { gallery: 'tab-gallery', blog: 'tab-blog', careers: 'tab-careers' };
 
-      const showGallery = tab === 'gallery';
-      galleryPanel.classList.toggle('hidden', !showGallery);
-      blogPanel.classList.toggle('hidden', showGallery);
-      tabGallery.classList.toggle('tab-active', showGallery);
-      tabBlog.classList.toggle('tab-active', !showGallery);
+      Object.keys(panels).forEach((key) => {
+        document.getElementById(panels[key]).classList.toggle('hidden', key !== tab);
+        document.getElementById(tabs[key]).classList.toggle('tab-active', key === tab);
+      });
     }
 
     async function fetchJson(url) {
@@ -258,16 +356,33 @@
       return res.json();
     }
 
+    async function fetchJsonAuthed(url) {
+      const res = await fetch(url, { headers: authHeaders() });
+      if (res.status === 401) {
+        await logoutAdmin();
+        throw new Error('Session expired');
+      }
+      if (!res.ok) throw new Error('Request failed');
+      return res.json();
+    }
+
     async function loadData() {
       try {
-        const [gallery, blog] = await Promise.all([
+        const [gallery, blog, careers, apps] = await Promise.all([
           fetchJson(API_GALLERY),
-          fetchJson(API_BLOG)
+          fetchJson(API_BLOG),
+          fetchJson(API_CAREERS),
+          adminToken ? fetchJsonAuthed(API_APPLICATIONS) : Promise.resolve([])
         ]);
         galleryItems = Array.isArray(gallery) ? gallery : [];
         blogPosts = Array.isArray(blog) ? blog : [];
+        careerJobs = Array.isArray(careers) ? careers : [];
+        applications = Array.isArray(apps) ? apps : [];
         renderGallery();
         renderBlog();
+        renderCareers();
+        renderApplicationJobFilter();
+        renderApplications();
         setMessage('Data loaded successfully.', false);
       } catch (e) {
         setMessage('Could not load data. Start backend server to use admin dashboard.', true);
@@ -330,6 +445,160 @@
             </td>
           </tr>`;
       }).join('');
+    }
+
+    function reqEscapeHtml(value) {
+      return String(value || '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    }
+
+    // Mirrors formatInlineMarkdown()/renderRequirements() in pages/careers.html so the
+    // preview matches exactly what applicants will see. Keep both in sync if you change one.
+    function reqFormatInline(text) {
+      return reqEscapeHtml(text)
+        .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+        .replace(/\*(.+?)\*/g, '<em>$1</em>');
+    }
+
+    function reqRenderPreviewHtml(text) {
+      const lines = String(text || '').split('\n').filter(l => l.trim());
+      if (!lines.length) return '<span class="italic opacity-60">Nothing typed yet.</span>';
+      const hasExplicitBullets = lines.some(l => l.trim().startsWith('- '));
+
+      if (!hasExplicitBullets) {
+        return `<ul class="list-disc pl-5 space-y-1">${lines.map(l => `<li>${reqFormatInline(l)}</li>`).join('')}</ul>`;
+      }
+
+      let html = '';
+      let ulOpen = false;
+      lines.forEach(line => {
+        const trimmed = line.trim();
+        if (trimmed.startsWith('- ')) {
+          if (!ulOpen) { html += '<ul class="list-disc pl-5 space-y-1">'; ulOpen = true; }
+          html += `<li>${reqFormatInline(trimmed.slice(2))}</li>`;
+        } else {
+          if (ulOpen) { html += '</ul>'; ulOpen = false; }
+          html += `<p class="mb-1">${reqFormatInline(trimmed)}</p>`;
+        }
+      });
+      if (ulOpen) html += '</ul>';
+      return html;
+    }
+
+    function renderReqPreview() {
+      const text = document.getElementById('career-requirements').value;
+      document.getElementById('career-requirements-preview').innerHTML = reqRenderPreviewHtml(text);
+    }
+
+    function wrapReqSelection(marker) {
+      const textarea = document.getElementById('career-requirements');
+      const start = textarea.selectionStart;
+      const end = textarea.selectionEnd;
+      const value = textarea.value;
+      const selected = value.slice(start, end) || 'text';
+
+      textarea.value = value.slice(0, start) + marker + selected + marker + value.slice(end);
+      textarea.focus();
+      textarea.setSelectionRange(start + marker.length, start + marker.length + selected.length);
+      renderReqPreview();
+    }
+
+    function toggleReqBullet() {
+      const textarea = document.getElementById('career-requirements');
+      const start = textarea.selectionStart;
+      const end = textarea.selectionEnd;
+      const value = textarea.value;
+
+      const lineStart = value.lastIndexOf('\n', start - 1) + 1;
+      let lineEnd = value.indexOf('\n', end);
+      if (lineEnd === -1) lineEnd = value.length;
+
+      const block = value.slice(lineStart, lineEnd);
+      const lines = block.split('\n');
+      const allBulleted = lines.every(line => !line.trim() || line.startsWith('- '));
+      const newLines = lines.map(line => {
+        if (!line.trim()) return line;
+        if (allBulleted) return line.replace(/^- /, '');
+        return line.startsWith('- ') ? line : `- ${line}`;
+      });
+      const newBlock = newLines.join('\n');
+
+      textarea.value = value.slice(0, lineStart) + newBlock + value.slice(lineEnd);
+      textarea.focus();
+      textarea.setSelectionRange(lineStart, lineStart + newBlock.length);
+      renderReqPreview();
+    }
+
+    function resetCareerForm() {
+      document.getElementById('career-form').reset();
+      document.getElementById('career-id').value = '';
+      document.getElementById('career-form-title').textContent = 'New Job Posting';
+      document.getElementById('career-save-btn').textContent = 'Publish';
+      document.getElementById('career-reset-btn').classList.add('hidden');
+      renderReqPreview();
+    }
+
+    function renderCareers() {
+      document.getElementById('career-count').textContent = `${careerJobs.length} job postings`;
+      const body = document.getElementById('career-table');
+      if (!careerJobs.length) {
+        body.innerHTML = '<tr><td colspan="7" class="px-4 py-6 text-sm text-on-surface-variant text-center">No job postings found.</td></tr>';
+        return;
+      }
+
+      body.innerHTML = careerJobs.map(job => {
+        const isExpired = job.deadline && new Date(job.deadline) < new Date(new Date().toDateString());
+        return `
+        <tr class="border-t border-outline-variant/40">
+          <td class="px-4 py-3 text-sm font-semibold">${job.title}</td>
+          <td class="px-4 py-3 text-sm">${job.department}</td>
+          <td class="px-4 py-3 text-sm">${job.location}</td>
+          <td class="px-4 py-3 text-sm">${job.employmentType}</td>
+          <td class="px-4 py-3 text-sm">${job.postedDate || '-'}</td>
+          <td class="px-4 py-3 text-sm ${isExpired ? 'text-error font-semibold' : ''}">${job.deadline || '-'}${isExpired ? ' (closed)' : ''}</td>
+          <td class="px-4 py-3 text-right">
+            <button data-edit-career="${job.id}" class="h-9 px-3 rounded-lg border border-outline-variant text-sm font-semibold mr-2">Edit</button>
+            <button data-delete-career="${job.id}" class="h-9 px-3 rounded-lg bg-error text-white text-sm font-semibold">Delete</button>
+          </td>
+        </tr>`;
+      }).join('');
+    }
+
+    function renderApplicationJobFilter() {
+      const select = document.getElementById('application-job-filter');
+      const currentValue = select.value;
+      select.innerHTML = '<option value="">All Jobs</option>' +
+        careerJobs.map(job => `<option value="${job.id}">${job.title}</option>`).join('');
+      select.value = currentValue;
+    }
+
+    function renderApplications() {
+      const jobFilter = document.getElementById('application-job-filter').value;
+      const filtered = jobFilter ? applications.filter(a => a.jobId === jobFilter) : applications;
+      const body = document.getElementById('application-table');
+
+      if (!filtered.length) {
+        body.innerHTML = '<tr><td colspan="6" class="px-4 py-6 text-sm text-on-surface-variant text-center">No applications found.</td></tr>';
+        return;
+      }
+
+      body.innerHTML = filtered.map(app => `
+        <tr class="border-t border-outline-variant/40">
+          <td class="px-4 py-3 text-sm font-semibold">${app.fullName}</td>
+          <td class="px-4 py-3 text-sm">${app.jobTitle}</td>
+          <td class="px-4 py-3 text-sm">
+            <div>${app.email}</div>
+            <div class="text-on-surface-variant">${app.phone || ''}</div>
+          </td>
+          <td class="px-4 py-3 text-sm"><a href="${app.resumeUrl}" target="_blank" rel="noopener noreferrer" class="text-primary font-semibold underline">View</a></td>
+          <td class="px-4 py-3 text-sm">${app.appliedDate ? new Date(app.appliedDate).toLocaleDateString('en-GB', {day:'numeric', month:'short', year:'numeric'}) : '-'}</td>
+          <td class="px-4 py-3 text-right">
+            <button data-delete-application="${app.id}" class="h-9 px-3 rounded-lg bg-error text-white text-sm font-semibold">Delete</button>
+          </td>
+        </tr>`).join('');
     }
 
     async function logoutAdmin() {
@@ -497,6 +766,71 @@
       }
     }
 
+    async function submitCareerForm(e) {
+      e.preventDefault();
+      if (!adminToken) {
+        setMessage('Please login first.', true);
+        return;
+      }
+
+      const id = document.getElementById('career-id').value;
+      const title = document.getElementById('career-title').value.trim();
+      const department = document.getElementById('career-department').value.trim();
+      const location = document.getElementById('career-location').value.trim();
+      const employmentType = document.getElementById('career-employment-type').value;
+      const deadline = document.getElementById('career-deadline').value;
+      const description = document.getElementById('career-description').value.trim();
+      const requirements = document.getElementById('career-requirements').value.trim();
+
+      if (!title || !department || !location || !employmentType || !deadline) {
+        setMessage('Job form needs title, department, location, employment type, and deadline.', true);
+        return;
+      }
+
+      if (!/^\d{4}-\d{2}-\d{2}$/.test(deadline) || Number.isNaN(Date.parse(deadline))) {
+        setMessage('Deadline must be a valid date.', true);
+        return;
+      }
+
+      const endpoint = id ? `${API_CAREERS}/${id}` : API_CAREERS;
+      const method = id ? 'PUT' : 'POST';
+
+      const btn = document.getElementById('career-save-btn');
+      const originalText = btn.textContent;
+      btn.disabled = true;
+      btn.textContent = id ? 'Updating...' : 'Publishing...';
+      let saved = false;
+
+      try {
+        const res = await fetch(endpoint, {
+          method,
+          headers: { ...authHeaders(), 'Content-Type': 'application/json' },
+          body: JSON.stringify({ title, department, location, employmentType, deadline, description, requirements })
+        });
+
+        if (res.status === 401) {
+          await logoutAdmin();
+          setMessage('Session expired. Please login again.', true);
+          return;
+        }
+
+        if (!res.ok) {
+          setMessage('Could not save job posting.', true);
+          return;
+        }
+
+        resetCareerForm();
+        await loadData();
+        setMessage(id ? 'Job posting updated.' : 'Job posting published.', false);
+        saved = true;
+      } catch (err) {
+        setMessage('Could not save job posting. Check your connection.', true);
+      } finally {
+        btn.disabled = false;
+        if (!saved) btn.textContent = originalText;
+      }
+    }
+
     async function deleteGallery(id) {
       if (!adminToken || !confirm('Delete this gallery image?')) return;
       const res = await fetch(`${API_GALLERY}/${id}`, {
@@ -557,17 +891,88 @@
       document.getElementById('blog-reset-btn').classList.remove('hidden');
     }
 
+    async function deleteCareer(id) {
+      if (!adminToken || !confirm('Delete this job posting? Its applications will also be removed.')) return;
+      const res = await fetch(`${API_CAREERS}/${id}`, {
+        method: 'DELETE',
+        headers: authHeaders()
+      });
+
+      if (res.status === 401) {
+        await logoutAdmin();
+        setMessage('Session expired. Please login again.', true);
+        return;
+      }
+      if (!res.ok) {
+        setMessage('Could not delete job posting.', true);
+        return;
+      }
+
+      await loadData();
+      setMessage('Job posting deleted.', false);
+    }
+
+    function editCareer(id) {
+      const job = careerJobs.find(j => j.id === id);
+      if (!job) return;
+      switchTab('careers');
+      document.getElementById('career-id').value = job.id || '';
+      document.getElementById('career-title').value = job.title || '';
+      document.getElementById('career-department').value = job.department || '';
+      document.getElementById('career-location').value = job.location || '';
+      document.getElementById('career-employment-type').value = job.employmentType || 'Full-time';
+      document.getElementById('career-deadline').value = job.deadline || '';
+      document.getElementById('career-description').value = job.description || '';
+      document.getElementById('career-requirements').value = job.requirements || '';
+      document.getElementById('career-form-title').textContent = 'Edit Job Posting';
+      document.getElementById('career-save-btn').textContent = 'Update';
+      document.getElementById('career-reset-btn').classList.remove('hidden');
+      renderReqPreview();
+    }
+
+    async function deleteApplication(id) {
+      if (!adminToken || !confirm('Delete this application?')) return;
+      const res = await fetch(`${API_APPLICATIONS}/${id}`, {
+        method: 'DELETE',
+        headers: authHeaders()
+      });
+
+      if (res.status === 401) {
+        await logoutAdmin();
+        setMessage('Session expired. Please login again.', true);
+        return;
+      }
+      if (!res.ok) {
+        setMessage('Could not delete application.', true);
+        return;
+      }
+
+      await loadData();
+      setMessage('Application deleted.', false);
+    }
+
     document.addEventListener('DOMContentLoaded', async () => {
       setSessionUI(Boolean(adminToken));
+
+      const today = new Date();
+      const todayStr = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
+      document.getElementById('career-deadline').min = todayStr;
+
       await loadData();
 
       document.getElementById('tab-gallery').addEventListener('click', () => switchTab('gallery'));
       document.getElementById('tab-blog').addEventListener('click', () => switchTab('blog'));
+      document.getElementById('tab-careers').addEventListener('click', () => switchTab('careers'));
 
       document.getElementById('logout-btn').addEventListener('click', logoutAdmin);
       document.getElementById('gallery-form').addEventListener('submit', submitGalleryForm);
       document.getElementById('blog-form').addEventListener('submit', submitBlogForm);
       document.getElementById('blog-reset-btn').addEventListener('click', resetBlogForm);
+      document.getElementById('career-form').addEventListener('submit', submitCareerForm);
+      document.getElementById('career-reset-btn').addEventListener('click', resetCareerForm);
+      document.getElementById('career-requirements').addEventListener('input', renderReqPreview);
+      renderReqPreview();
+      document.getElementById('application-job-filter').addEventListener('change', renderApplications);
 
       document.getElementById('gallery-table').addEventListener('click', (e) => {
         const btn = e.target.closest('[data-delete-gallery]');
@@ -582,6 +987,21 @@
         }
         const delBtn = e.target.closest('[data-delete-blog]');
         if (delBtn) deleteBlog(delBtn.getAttribute('data-delete-blog'));
+      });
+
+      document.getElementById('career-table').addEventListener('click', (e) => {
+        const editBtn = e.target.closest('[data-edit-career]');
+        if (editBtn) {
+          editCareer(editBtn.getAttribute('data-edit-career'));
+          return;
+        }
+        const delBtn = e.target.closest('[data-delete-career]');
+        if (delBtn) deleteCareer(delBtn.getAttribute('data-delete-career'));
+      });
+
+      document.getElementById('application-table').addEventListener('click', (e) => {
+        const delBtn = e.target.closest('[data-delete-application]');
+        if (delBtn) deleteApplication(delBtn.getAttribute('data-delete-application'));
       });
     });
   </script>

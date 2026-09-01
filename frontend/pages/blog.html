@@ -218,27 +218,24 @@
        ══════════════════════════════════════════════════════ -->
   <div id="blog-desktop-content"></div>
 
-  <div id="site-footer"></div>
-
   <!-- ════════════════════════════════════════════
-       POST DETAIL MODAL
+       POST DETAIL PAGE
   ════════════════════════════════════════════ -->
-  <div id="post-modal" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-start justify-center py-8 px-4 hidden" role="dialog" aria-modal="true" aria-label="Post detail">
-    <div id="post-modal-panel" class="bg-white w-full max-w-3xl rounded-2xl shadow-2xl overflow-y-auto max-h-[90vh] relative">
-      <button id="post-modal-close" onclick="closePost()" aria-label="Close"
-        class="absolute top-4 right-4 z-10 w-10 h-10 rounded-full bg-surface-container flex items-center justify-center hover:bg-surface-container-high transition-colors shadow-sm">
-        <span class="material-symbols-outlined text-on-surface">close</span>
-      </button>
-      <div id="post-modal-content">
-        <!-- Injected by JS -->
-      </div>
+  <main id="post-detail-view" class="hidden pt-[88px] md:pt-36 pb-16 px-4 max-w-3xl mx-auto">
+    <a href="/blog" class="inline-flex items-center gap-xs text-primary font-label-sm text-label-sm mt-md mb-md hover:underline">
+      <span class="material-symbols-outlined text-[18px]">arrow_back</span> Back to Blog
+    </a>
+    <div id="post-detail-content" class="bg-white rounded-2xl shadow-sm border border-outline-variant/20 overflow-hidden">
+      <!-- Injected by JS -->
     </div>
-  </div>
+  </main>
+
+  <div id="site-footer"></div>
 
   <!-- ════════════════════════════════════════════
        ADMIN PANEL — Login Modal
   ════════════════════════════════════════════ -->
-  <div id="admin-login-modal" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center hidden" role="dialog" aria-modal="true">
+  <div id="admin-login-modal" class="fixed inset-0 z-40 bg-black/50 backdrop-blur-sm flex items-center justify-center hidden" role="dialog" aria-modal="true">
     <div class="bg-white rounded-2xl shadow-2xl p-lg w-full max-w-sm mx-4">
       <div class="flex items-center gap-sm mb-lg">
         <span class="material-symbols-outlined text-primary text-3xl">lock</span>
@@ -261,8 +258,8 @@
   <!-- ════════════════════════════════════════════
        ADMIN PANEL — Post Form Modal
   ════════════════════════════════════════════ -->
-  <div id="post-form-modal" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-start justify-center py-8 px-4 hidden" role="dialog" aria-modal="true">
-    <div class="bg-white w-full max-w-2xl rounded-2xl shadow-2xl overflow-y-auto max-h-[90vh]">
+  <div id="post-form-modal" class="fixed inset-0 z-40 bg-black/50 backdrop-blur-sm flex items-start justify-center pt-24 md:pt-36 pb-8 px-4 hidden" role="dialog" aria-modal="true">
+    <div class="bg-white w-full max-w-2xl rounded-2xl shadow-2xl overflow-y-auto max-h-[80vh]">
       <div class="flex items-center justify-between px-lg pt-lg pb-md border-b border-outline-variant/30">
         <h2 id="post-form-title" class="font-h3 text-h3 text-on-surface">New Post</h2>
         <button onclick="closePostForm()" class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center hover:bg-surface-container-high transition-colors">
@@ -358,7 +355,7 @@
   <!-- ════════════════════════════════════════════
        DELETE CONFIRM MODAL
   ════════════════════════════════════════════ -->
-  <div id="delete-confirm-modal" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center hidden">
+  <div id="delete-confirm-modal" class="fixed inset-0 z-40 bg-black/50 backdrop-blur-sm flex items-center justify-center hidden">
     <div class="bg-white rounded-2xl shadow-2xl p-lg w-full max-w-sm mx-4 text-center">
       <span class="material-symbols-outlined text-error text-5xl mb-md block">delete_forever</span>
       <h3 class="font-h3 text-h3 text-on-surface mb-sm">Delete Post?</h3>
@@ -517,7 +514,7 @@
          </div>`;
 
     return `
-      <article class="blog-card bg-white rounded-2xl shadow-sm border border-outline-variant/20 overflow-hidden cursor-pointer group flex flex-col" onclick="openPost('${post.id}')">
+      <article class="blog-card bg-white rounded-2xl shadow-sm border border-outline-variant/20 overflow-hidden cursor-pointer group flex flex-col" onclick="location.href='/blog?post=' + encodeURIComponent('${post.id}')">
         ${cover}
         <div class="p-md flex flex-col flex-1">
           <div class="mb-sm">${catBadgeHtml(post.category)}</div>
@@ -558,7 +555,7 @@
     if (featuredEl && allPosts.length > 0) {
       const fp = allPosts[0];
       featuredEl.innerHTML = `
-        <div class="cursor-pointer group" onclick="openPost('${fp.id}')">
+        <div class="cursor-pointer group" onclick="location.href='/blog?post=' + encodeURIComponent('${fp.id}')">
           <div class="relative aspect-video overflow-hidden">
             <img src="${fp.coverImage}" alt="${fp.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80'"/>
             <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
@@ -590,7 +587,7 @@
     if (recentEl) {
       const sorted = [...allPosts].sort((a,b) => new Date(b.date) - new Date(a.date)).slice(0,4);
       recentEl.innerHTML = sorted.map(p => `
-        <li class="flex gap-sm cursor-pointer group" onclick="openPost('${p.id}')">
+        <li class="flex gap-sm cursor-pointer group" onclick="location.href='/blog?post=' + encodeURIComponent('${p.id}')">
           ${p.coverImage
             ? `<div class="w-16 h-12 flex-shrink-0 rounded-lg overflow-hidden bg-surface-container">
                  <img src="${p.coverImage}" alt="${p.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy"/>
@@ -659,11 +656,27 @@
   }
 
   // ════════════════════════════════════════════
-  // POST DETAIL MODAL
+  // POST DETAIL PAGE
   // ════════════════════════════════════════════
-  function openPost(id) {
+  function showPostDetail(id) {
+    const container = document.getElementById('post-detail-content');
     const post = allPosts.find(p => p.id === id);
-    if (!post) return;
+
+    if (!post) {
+      document.title = 'Post Not Found | Arkan Arabia Logistics';
+      container.innerHTML = `
+        <div class="p-xl text-center">
+          <span class="material-symbols-outlined text-6xl text-on-surface-variant mb-md block">search_off</span>
+          <h1 class="font-h2 text-h2 text-on-surface mb-sm">Post Not Found</h1>
+          <p class="text-on-surface-variant mb-lg">This post may have been removed or the link is incorrect.</p>
+          <a href="/blog" class="inline-flex items-center gap-sm px-lg py-sm bg-primary text-on-primary font-label-sm text-label-sm rounded-xl hover:bg-primary-container transition-colors">
+            <span class="material-symbols-outlined text-[18px]">arrow_back</span> Back to Blog
+          </a>
+        </div>`;
+      return;
+    }
+
+    document.title = `${post.title} | Arkan Arabia Logistics`;
 
     const bodyHtml = post.body
       ? post.body.split('\n').filter(l => l.trim()).map(line =>
@@ -671,15 +684,12 @@
         ).join('')
       : '<p class="text-on-surface-variant italic">No content available.</p>';
 
-    const modal = document.getElementById('post-modal');
-    const content = document.getElementById('post-modal-content');
-
-    content.innerHTML = `
+    container.innerHTML = `
       ${post.coverImage
-        ? `<div class="aspect-video w-full overflow-hidden rounded-t-2xl">
+        ? `<div class="aspect-video w-full overflow-hidden">
              <img src="${post.coverImage}" alt="${post.title}" class="w-full h-full object-cover" onerror="this.parentElement.style.display='none'"/>
            </div>`
-        : `<div class="aspect-video w-full rounded-t-2xl bg-gradient-to-br from-primary to-primary-container flex items-center justify-center">
+        : `<div class="aspect-video w-full bg-gradient-to-br from-primary to-primary-container flex items-center justify-center">
              <span class="material-symbols-outlined text-white/40 text-[80px]">article</span>
            </div>`}
       <div class="p-md md:p-lg">
@@ -705,20 +715,12 @@
             class="flex items-center gap-sm px-md py-sm bg-surface-container text-on-surface font-label-sm text-label-sm rounded-xl hover:bg-surface-container-high transition-colors border border-outline-variant/30">
             <span class="material-symbols-outlined text-[18px]">share</span> Share
           </button>
-          <button onclick="closePost()"
+          <a href="/blog"
             class="flex items-center gap-sm px-md py-sm bg-primary text-on-primary font-label-sm text-label-sm rounded-xl hover:bg-primary-container transition-colors">
             <span class="material-symbols-outlined text-[18px]">arrow_back</span> Back to Blog
-          </button>
+          </a>
         </div>
       </div>`;
-
-    modal.classList.remove('hidden');
-    document.body.classList.add('modal-open');
-  }
-
-  function closePost() {
-    document.getElementById('post-modal').classList.add('hidden');
-    document.body.classList.remove('modal-open');
   }
 
   function sharePost(id) {
@@ -1071,9 +1073,6 @@
   // ════════════════════════════════════════════
   // MODAL BACKDROP CLOSE
   // ════════════════════════════════════════════
-  document.getElementById('post-modal').addEventListener('click', function(e) {
-    if (e.target === this) closePost();
-  });
   document.getElementById('post-form-modal').addEventListener('click', function(e) {
     if (e.target === this) closePostForm();
   });
@@ -1104,6 +1103,23 @@
   // INIT
   // ════════════════════════════════════════════
   document.addEventListener('DOMContentLoaded', async () => {
+    const postId = new URLSearchParams(location.search).get('post');
+
+    if (adminToken) {
+      isAdmin = true;
+      document.getElementById('admin-mode-badge').classList.remove('hidden');
+    }
+
+    // A ?post= param means someone followed a direct link to a single post —
+    // show that as its own page instead of the listing, skipping the listing
+    // partials entirely since nothing in them is needed here.
+    if (postId) {
+      document.getElementById('post-detail-view').classList.remove('hidden');
+      await loadPosts();
+      showPostDetail(postId);
+      return;
+    }
+
     // Load the Blog page's desktop/mobile content partials from the shared
     // desktop/ and mobile/ folders first — everything below (search inputs,
     // post grids, admin button area) lives inside them, so it must resolve
@@ -1120,9 +1136,7 @@
     renderFilterPills();
     renderPosts();
     observeReveal();
-    if (adminToken) {
-      isAdmin = true;
-      document.getElementById('admin-mode-badge').classList.remove('hidden');
+    if (isAdmin) {
       renderPosts();
     }
   });

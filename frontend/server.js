@@ -29,6 +29,7 @@ const routes = {
   '/blog': 'pages/blog.html',
   '/news': 'pages/news.html',
   '/contact': 'pages/contact.html',
+  '/careers': 'pages/careers.html',
   '/track': 'pages/track.html',
   '/customs-clearance': 'pages/customs-clearance.html',
   '/customs-clearance.html': 'pages/customs-clearance.html',

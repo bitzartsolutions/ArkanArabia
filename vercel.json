@@ -13,6 +13,7 @@
     { "source": "/blog", "destination": "/frontend/pages/blog" },
     { "source": "/news", "destination": "/frontend/pages/news" },
     { "source": "/contact", "destination": "/frontend/pages/contact" },
+    { "source": "/careers", "destination": "/frontend/pages/careers" },
     { "source": "/track", "destination": "/frontend/pages/track" },
     { "source": "/customs-clearance", "destination": "/frontend/pages/customs-clearance" },
     { "source": "/air-freight", "destination": "/frontend/pages/service-detail" },
