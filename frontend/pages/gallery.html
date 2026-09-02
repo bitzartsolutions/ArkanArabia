@@ -602,6 +602,15 @@
         gallery = [];
         showToast('Gallery items could not be loaded.', 'error');
       }
+      updatePhotoCountStat();
+    }
+
+    function updatePhotoCountStat() {
+      const count = String(gallery.length);
+      ['gallery-stat-photos-desktop', 'gallery-stat-photos-mobile'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.textContent = count;
+      });
     }
 
     // ── Filter & Render ────────────────────────────────────────────────────────
