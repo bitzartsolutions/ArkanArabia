@@ -550,11 +550,10 @@
   }
 
   function renderSidebar(filtered) {
-    // Featured post (first of full list)
-    const featuredEl = document.getElementById('desk-featured');
-    if (featuredEl && allPosts.length > 0) {
+    // Featured post (first of full list) — same content on desktop and mobile
+    const featuredHtml = allPosts.length > 0 ? (() => {
       const fp = allPosts[0];
-      featuredEl.innerHTML = `
+      return `
         <div class="cursor-pointer group" onclick="location.href='/blog?post=' + encodeURIComponent('${fp.id}')">
           <div class="relative aspect-video overflow-hidden">
             <img src="${fp.coverImage}" alt="${fp.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80'"/>
@@ -565,66 +564,69 @@
             </div>
           </div>
         </div>`;
-    }
+    })() : '';
+    ['desk-featured', 'mob-featured'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.innerHTML = featuredHtml;
+    });
 
-    // Categories count
-    const catEl = document.getElementById('desk-categories');
-    if (catEl) {
-      const counts = {};
-      allPosts.forEach(p => { counts[p.category] = (counts[p.category] || 0) + 1; });
-      catEl.innerHTML = Object.entries(counts).map(([cat, count]) => `
-        <li>
-          <button onclick="filterPosts('${cat}')"
-            class="w-full flex items-center justify-between py-xs hover:text-primary transition-colors group text-left">
-            <span class="font-body-md text-body-md text-on-surface group-hover:text-primary transition-colors">${cat}</span>
-            <span class="text-xs bg-surface-container px-2 py-0.5 rounded-full text-on-surface-variant font-semibold">${count}</span>
-          </button>
-        </li>`).join('');
-    }
+    // Categories count — same content on desktop and mobile
+    const counts = {};
+    allPosts.forEach(p => { counts[p.category] = (counts[p.category] || 0) + 1; });
+    const categoriesHtml = Object.entries(counts).map(([cat, count]) => `
+      <li>
+        <button onclick="filterPosts('${cat}')"
+          class="w-full flex items-center justify-between py-xs hover:text-primary transition-colors group text-left">
+          <span class="font-body-md text-body-md text-on-surface group-hover:text-primary transition-colors">${cat}</span>
+          <span class="text-xs bg-surface-container px-2 py-0.5 rounded-full text-on-surface-variant font-semibold">${count}</span>
+        </button>
+      </li>`).join('');
+    ['desk-categories', 'mob-categories'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.innerHTML = categoriesHtml;
+    });
 
-    // Recent posts (latest 4)
-    const recentEl = document.getElementById('desk-recent-posts');
-    if (recentEl) {
-      const sorted = [...allPosts].sort((a,b) => new Date(b.date) - new Date(a.date)).slice(0,4);
-      recentEl.innerHTML = sorted.map(p => `
-        <li class="flex gap-sm cursor-pointer group" onclick="location.href='/blog?post=' + encodeURIComponent('${p.id}')">
-          ${p.coverImage
-            ? `<div class="w-16 h-12 flex-shrink-0 rounded-lg overflow-hidden bg-surface-container">
-                 <img src="${p.coverImage}" alt="${p.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy"/>
-               </div>`
-            : `<div class="w-16 h-12 flex-shrink-0 rounded-lg bg-gradient-to-br from-primary to-primary-container flex items-center justify-center">
-                 <span class="material-symbols-outlined text-white/60 text-[20px]">article</span>
-               </div>`}
-          <div class="flex-1 min-w-0">
-            <p class="text-sm font-semibold text-on-surface group-hover:text-primary transition-colors line-clamp-2 leading-snug">${p.title}</p>
-            <p class="text-xs text-on-surface-variant mt-0.5">${formatDate(p.date)}</p>
-          </div>
-        </li>`).join('');
-    }
+    // Recent posts (latest 4) — same content on desktop and mobile
+    const sorted = [...allPosts].sort((a,b) => new Date(b.date) - new Date(a.date)).slice(0,4);
+    const recentHtml = sorted.map(p => `
+      <li class="flex gap-sm cursor-pointer group" onclick="location.href='/blog?post=' + encodeURIComponent('${p.id}')">
+        ${p.coverImage
+          ? `<div class="w-16 h-12 flex-shrink-0 rounded-lg overflow-hidden bg-surface-container">
+               <img src="${p.coverImage}" alt="${p.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy"/>
+             </div>`
+          : `<div class="w-16 h-12 flex-shrink-0 rounded-lg bg-gradient-to-br from-primary to-primary-container flex items-center justify-center">
+               <span class="material-symbols-outlined text-white/60 text-[20px]">article</span>
+             </div>`}
+        <div class="flex-1 min-w-0">
+          <p class="text-sm font-semibold text-on-surface group-hover:text-primary transition-colors line-clamp-2 leading-snug">${p.title}</p>
+          <p class="text-xs text-on-surface-variant mt-0.5">${formatDate(p.date)}</p>
+        </div>
+      </li>`).join('');
+    ['desk-recent-posts', 'mob-recent-posts'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.innerHTML = recentHtml;
+    });
   }
 
   function renderPosts() {
     const filtered = getFilteredPosts();
 
-    // Admin button
-    const adminBtnArea = document.getElementById('desk-admin-btn-area');
-    if (adminBtnArea) {
-      if (isAdmin) {
-        adminBtnArea.innerHTML = `
-          <div class="flex items-center justify-between mb-md">
-            <button onclick="openNewPostForm()"
-              class="flex items-center gap-sm px-md py-sm bg-primary text-on-primary font-label-sm text-label-sm rounded-xl hover:bg-primary-container transition-colors shadow-md">
-              <span class="material-symbols-outlined text-[18px]">add</span> New Post
-            </button>
-            <button onclick="logoutAdmin()"
-              class="flex items-center gap-sm px-md py-sm bg-surface-container text-on-surface font-label-sm text-label-sm rounded-xl hover:bg-surface-container-high transition-colors border border-outline-variant/30">
-              <span class="material-symbols-outlined text-[18px]">logout</span> Exit Admin
-            </button>
-          </div>`;
-      } else {
-        adminBtnArea.innerHTML = '';
-      }
-    }
+    // Admin button — same content on desktop and mobile
+    const adminBtnHtml = isAdmin ? `
+      <div class="flex items-center justify-between mb-md">
+        <button onclick="openNewPostForm()"
+          class="flex items-center gap-sm px-md py-sm bg-primary text-on-primary font-label-sm text-label-sm rounded-xl hover:bg-primary-container transition-colors shadow-md">
+          <span class="material-symbols-outlined text-[18px]">add</span> New Post
+        </button>
+        <button onclick="logoutAdmin()"
+          class="flex items-center gap-sm px-md py-sm bg-surface-container text-on-surface font-label-sm text-label-sm rounded-xl hover:bg-surface-container-high transition-colors border border-outline-variant/30">
+          <span class="material-symbols-outlined text-[18px]">logout</span> Exit Admin
+        </button>
+      </div>` : '';
+    ['desk-admin-btn-area', 'mob-admin-btn-area'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.innerHTML = adminBtnHtml;
+    });
 
     // Mobile grid
     const mobGrid = document.getElementById('mob-post-grid');

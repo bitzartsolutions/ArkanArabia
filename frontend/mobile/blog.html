@@ -25,10 +25,38 @@
 
     <!-- Mobile: Post grid -->
     <section class="px-md pt-sm pb-md">
+      <!-- Admin: New Post button injected here by JS -->
+      <div id="mob-admin-btn-area" class="mb-md"></div>
       <div id="mob-post-grid" class="space-y-md">
         <!-- Injected by JS -->
       </div>
       <p id="mob-no-results" class="hidden text-center text-on-surface-variant py-xl font-body-md text-body-md">No posts found.</p>
+    </section>
+
+    <!-- Mobile: Featured post / Categories / Recent posts (same content as desktop sidebar) -->
+    <section class="px-md pb-md space-y-md">
+
+      <!-- Featured post -->
+      <div id="mob-featured" class="bg-surface-container-low rounded-2xl overflow-hidden shadow-sm border border-outline-variant/20">
+        <!-- Injected by JS -->
+      </div>
+
+      <!-- Categories -->
+      <div class="bg-surface-container-low rounded-2xl p-md border border-outline-variant/20 shadow-sm">
+        <h3 class="font-h3 text-[18px] font-semibold text-on-surface mb-md border-b border-outline-variant/30 pb-sm">Categories</h3>
+        <ul id="mob-categories" class="space-y-xs">
+          <!-- Injected by JS -->
+        </ul>
+      </div>
+
+      <!-- Recent posts -->
+      <div class="bg-surface-container-low rounded-2xl p-md border border-outline-variant/20 shadow-sm">
+        <h3 class="font-h3 text-[18px] font-semibold text-on-surface mb-md border-b border-outline-variant/30 pb-sm">Recent Posts</h3>
+        <ul id="mob-recent-posts" class="space-y-md">
+          <!-- Injected by JS -->
+        </ul>
+      </div>
+
     </section>
 
     <!-- Mobile Footer (atomic component) -->
