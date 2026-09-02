@@ -21,7 +21,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     loadComponent('#site-header',  rootPath() + 'components/header.html'),
     loadComponent('#site-footer',  rootPath() + 'components/footer.html'),
     loadComponent('#mob-header',   rootPath() + 'components/mobile-header.html'),
-    loadComponent('#mob-nav',      rootPath() + 'components/mobile-nav.html'),
     loadComponent('#mob-footer',   rootPath() + 'components/mobile-footer.html'),
   ]);
 
