@@ -201,6 +201,10 @@ function isAllowedOrigin(origin) {
     if (hostname.endsWith('.vercel.app')) {
       return true;
     }
+    // Allow the production custom domain (with or without the www subdomain).
+    if (hostname === 'arkanarabialogistics.com' || hostname === 'www.arkanarabialogistics.com') {
+      return true;
+    }
   } catch {
     return false;
   }
