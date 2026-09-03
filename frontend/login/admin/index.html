@@ -120,13 +120,21 @@
             body: JSON.stringify({ username, password })
           });
 
+          if (res.status === 401) {
+            errEl.textContent = 'Invalid credentials. Please try again.';
+            errEl.classList.remove('hidden');
+            return;
+          }
+
           if (!res.ok) {
+            errEl.textContent = `Login request failed (server responded with status ${res.status}). This usually means the request didn't reach the backend correctly — try a hard refresh (Cmd/Ctrl+Shift+R) or a private window.`;
             errEl.classList.remove('hidden');
             return;
           }
 
           const data = await res.json();
           if (!data.token) {
+            errEl.textContent = 'Login succeeded but no session token was returned. Please contact support.';
             errEl.classList.remove('hidden');
             return;
           }
@@ -134,7 +142,7 @@
           sessionStorage.setItem(ADMIN_TOKEN_KEY, data.token);
           window.location.replace('/admin');
         } catch (e) {
-          errEl.textContent = 'Backend is unreachable. Please start backend server.';
+          errEl.textContent = `Could not reach the backend (${API_ADMIN_LOGIN}). Check your connection or try a hard refresh.`;
           errEl.classList.remove('hidden');
         }
       });
