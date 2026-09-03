@@ -15,18 +15,15 @@
   function defaultBaseUrl() {
     const host = window.location.hostname;
     const isLocal = host === 'localhost' || host === '127.0.0.1';
-    const isVercelHost = host.endsWith('.vercel.app');
 
     if (isLocal) {
       return normalizeBaseUrl(`${window.location.protocol}//${host}:4000`);
     }
 
-    if (isVercelHost) {
-      return 'https://arkan-arabia-backend.vercel.app';
-    }
-
-    // In production, default to same-origin so /api can be reverse-proxied.
-    return normalizeBaseUrl(window.location.origin);
+    // No same-origin /api proxy is configured anywhere (Vercel preview
+    // deployments, the vercel.app production alias, and the custom
+    // production domain all talk directly to the deployed backend).
+    return 'https://arkan-arabia-backend.vercel.app';
   }
 
   const apiBaseUrl =
